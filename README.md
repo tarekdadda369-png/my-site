@@ -1,17 +1,23 @@
-# service.co.im — TARIK DADDA
+# service.co.im — Tarik Dadda
 
 Marketing site for a custom AI-automation studio serving businesses in Algeria.
 
 Static HTML, CSS and vanilla JS. No build step, no framework, no runtime
 dependency on any CDN — deploy the `my-site/` folder as-is.
 
+**Read [`DESIGN.md`](DESIGN.md) before changing any UI.** It is the design
+system this site is built on, and the rules in it are enforced by the browser
+test described below.
+
 ---
 
 ## Structure
 
 ```
+DESIGN.md                   The design system — read this first
+DESIGN-reference-linear.md  The upstream Linear analysis it was adapted from
 my-site/
-  index.html          Home — hero, services bento, live demo, process, FAQ, CTA
+  index.html          Home — hero, pipeline panel, services, live demo, process, FAQ
   services.html       Full service breakdown (anchors: #instagram #whatsapp …)
   about.html          Who you work with, principles, delivery
   contact.html        Contact channels + working enquiry form
@@ -19,7 +25,7 @@ my-site/
   terms.html          Terms of service
   data-deletion.html  Meta-compliant data deletion instructions
   404.html            Not-found page
-  styles.css          The whole design system (tokens → components → responsive)
+  styles.css          The whole design system, tokens → components → responsive
   script.js           Interaction & motion layer
   favicon.svg
   robots.txt · sitemap.xml · _headers
@@ -39,26 +45,23 @@ npm run vendor       # re-copy the bundles after upgrading a version
 npm run dev          # serve my-site/ on http://localhost:4173
 ```
 
-| Library                         | Used for                                                            |
-| ------------------------------- | ------------------------------------------------------------------- |
-| **anime.js** (`window.anime`)   | headline word-split reveal, scroll reveals, counters, SVG wire draw + travelling packets, chat replay, accordion height |
-| **motion** (`window.Motion`)    | `inView` triggers, scroll-linked progress bar and timeline rail, spring hovers on cards and magnetic buttons |
+| Library                       | Used for |
+| ----------------------------- | -------- |
+| **anime.js** (`window.anime`) | headline word-split, scroll reveals, counters, SVG wire draw + travelling packets, conversation replay, accordion height |
+| **motion** (`window.Motion`)  | `inView` triggers for every reveal |
 
-Component patterns (bento grid, spotlight cards, gradient hairline borders,
-shimmer button, marquee) are re-implementations of
-[kokonutui](https://github.com/kokonut-labs/kokonutui) ideas in plain CSS —
-kokonutui itself is React + Tailwind and cannot be dropped into a static site.
+Motion is deliberately quiet — see the Motion section of `DESIGN.md`. There is
+no parallax, no cursor-tracked glow and no spring hover anywhere on the site.
 
-## Motion & resilience rules
+## Resilience
 
 Every animated element degrades safely:
 
-- `prefers-reduced-motion: reduce` → all motion is skipped and content renders
-  at its final state.
+- `prefers-reduced-motion: reduce` renders everything at its final state.
 - An inline script in each `<head>` flips `html.reveal-all` after 2.5s **if
   `script.js` never ran**, so a failed asset can never leave the page blank.
 - If the vendor bundles fail to load, `script.js` falls back to
-  `IntersectionObserver` and applies end-states directly.
+  `IntersectionObserver` and applies end states directly.
 - Every module runs inside a `mod()` wrapper — one broken feature cannot take
   the page down.
 
@@ -76,11 +79,11 @@ and delete the `contact-form` module in `script.js`.
 
 Search the HTML for `data-todo` to find each spot:
 
-| Marker                  | What to do                                                   |
-| ----------------------- | ------------------------------------------------------------ |
+| Marker | What to do |
+| ------ | ---------- |
 | `data-todo="instagram-url"` | Replace `href="contact.html"` with your Instagram profile URL |
-| `data-todo="facebook-url"`  | Replace with your Facebook page URL                          |
-| `data-todo="whatsapp-number"` | Replace with `https://wa.me/213XXXXXXXXX`                  |
+| `data-todo="facebook-url"` | Replace with your Facebook page URL |
+| `data-todo="whatsapp-number"` | Replace with `https://wa.me/213XXXXXXXXX` |
 
 Then delete the `data-todo` attribute. Also worth doing:
 
@@ -95,5 +98,4 @@ Then delete the `data-todo` attribute. Also worth doing:
 - **Build command:** none
 - **Output directory:** `my-site`
 - `_headers` sets security headers and caches `vendor/*` for a year.
-- Point `404.html` at Cloudflare's not-found handling (it is picked up
-  automatically for static sites).
+- `404.html` is picked up automatically for static sites.
