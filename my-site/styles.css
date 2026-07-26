@@ -894,6 +894,151 @@ body.is-locked {
 }
 
 /* ==========================================================================
+   7b. Animatic — the scroll-scrubbed sequence
+
+   Default (no JS, or JS failed): the track is a normal-height block and the
+   scene renders in its finished state. The `is-live` class is only added once
+   the timeline has been built successfully, and that is what turns on the
+   tall scroll track and the sticky stage.
+   ========================================================================== */
+
+.animatic-track {
+  position: relative;
+}
+
+.animatic-track.is-live {
+  height: 300vh;
+}
+
+.animatic-stage {
+  padding-top: var(--s-lg);
+}
+
+.animatic-track.is-live .animatic-stage {
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+  height: calc(100svh - var(--header-h) - 32px);
+  display: flex;
+  align-items: center;
+}
+
+.animatic-track.is-live .panel {
+  width: 100%;
+}
+
+.scene {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* SVG groups need an explicit box before scale behaves predictably */
+.scene g,
+.scene rect,
+.scene path {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Until the timeline takes over the scene renders finished, so a failed
+   bundle shows a complete diagram rather than an empty frame. */
+.scene [id^='a-'] {
+  opacity: 1;
+}
+
+.scene #a-packet,
+.scene #a-packet-back,
+.scene #a-ring,
+.scene #a-scan,
+.scene #a-scan-track {
+  opacity: 0;
+}
+
+/* The read-progress bar grows from its left edge, not its centre */
+.scene #a-scan {
+  transform-origin: left center;
+}
+
+.animatic-track.is-live .scene [id^='a-'] {
+  opacity: 0;
+}
+
+/* Scene primitives — the same surface ladder, expressed as SVG fills */
+.scene .s-card { fill: #0f1011; stroke: #23252a; stroke-width: 1; }
+.scene .s-card-2 { fill: #141516; stroke: #23252a; stroke-width: 1; }
+.scene .s-core { fill: #18191a; stroke: #5e6ad2; stroke-width: 1.25; }
+.scene .s-wire { fill: none; stroke: #3e3e44; stroke-width: 1.25; stroke-linecap: round; }
+.scene .s-bar { fill: #141516; }
+.scene .s-in { fill: #18191a; stroke: #23252a; stroke-width: 1; }
+.scene .s-out { fill: #5e6ad2; }
+.scene .s-accent { fill: #5e6ad2; }
+.scene .s-scan { fill: none; stroke: #828fff; stroke-width: 1.25; stroke-linecap: round; }
+.scene .s-ring { fill: none; stroke: #5e6ad2; stroke-width: 1; }
+
+.scene .t { font-family: var(--font-sans); letter-spacing: -0.2px; }
+.scene .t-lg { fill: #f7f8f8; font-size: 15px; font-weight: 600; letter-spacing: -0.4px; }
+.scene .t-md { fill: #f7f8f8; font-size: 12.5px; font-weight: 500; }
+.scene .t-sm { fill: #d0d6e0; font-size: 11.5px; font-weight: 400; }
+.scene .t-out { fill: #ffffff; font-size: 11.5px; font-weight: 400; }
+.scene .t-mono { fill: #62666d; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.4px; }
+.scene .t-mono-lit { fill: #828fff; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.4px; }
+
+/* Beat indicator in the panel bar */
+.beats {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  align-items: center;
+}
+
+.beat-dot {
+  width: 18px;
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--hairline-strong);
+  transition: background-color var(--d-base) var(--e-out);
+}
+
+.beat-dot.is-on {
+  background: var(--accent);
+}
+
+/* The caption line that swaps per beat */
+.beat-caption {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-sm);
+  min-height: 20px;
+}
+
+.beat-caption .n {
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  color: var(--accent-hover);
+  flex: none;
+}
+
+.beat-caption .t {
+  font-size: var(--t-body-sm);
+  color: var(--ink-muted);
+}
+
+/* Only meaningful once the scroll timeline is actually driving the scene */
+.animatic-hint {
+  display: none;
+  margin-top: var(--s-md);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  color: var(--ink-tertiary);
+}
+
+.animatic-track.is-live .animatic-hint {
+  display: block;
+}
+
+/* ==========================================================================
    8. Logo strip
    ========================================================================== */
 

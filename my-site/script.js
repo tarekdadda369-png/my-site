@@ -6,10 +6,17 @@
      window.anime   → anime.js v4   vendor/anime.umd.min.js
      window.Motion  → motion v12    vendor/motion.umd.min.js
 
-   Motion here is deliberately quiet. The design language carries hierarchy
-   through surfaces and hairlines, so animation only ever does two things:
-   bring content in once, and replay the product demo. No parallax, no
-   cursor-tracking glow, no springy hovers.
+   Motion is purposeful rather than decorative. The design language carries
+   hierarchy through surfaces and hairlines, so animation is spent on things
+   that explain the product:
+
+     · the scroll-scrubbed animatic (a five-beat sequence the viewer scrubs
+       in both directions by scrolling)
+     · the conversation replay in the demo panel
+     · the travelling packets in the hero pipeline
+     · entrances: headline, headings word by word, icons drawing themselves
+
+   Still no parallax, no cursor-tracking glow, no springy hovers.
 
    Every module runs inside mod() so one failure cannot take the page down,
    and the reveal watchdog in each <head> guarantees content is visible even
@@ -168,6 +175,72 @@
 
   /* ========================================================== 4. Reveals */
 
+  /* Section headings resolve word by word — the same gesture as the hero,
+     one step quieter. Only plain-text headings are split, so nested markup
+     is never destroyed. */
+  function revealWords(root) {
+    $$('h2', root).forEach(function (h2) {
+      /* NB: the marker must not be `data-split` — that attribute is the hero
+         headline's hook and carries an `opacity: 0` rule. */
+      if (h2.children.length || h2.dataset.wordsDone) return;
+      var words = h2.textContent.trim().split(/\s+/);
+      if (words.length < 2) return;
+
+      h2.dataset.wordsDone = '1';
+      h2.setAttribute('aria-label', h2.textContent.replace(/\s+/g, ' ').trim());
+      h2.textContent = '';
+
+      var spans = words.map(function (w, i) {
+        var span = document.createElement('span');
+        span.style.display = 'inline-block';
+        span.textContent = w;
+        h2.appendChild(span);
+        if (i < words.length - 1) h2.appendChild(document.createTextNode(' '));
+        return span;
+      });
+
+      tween(spans, {
+        opacity: [0, 1],
+        translateY: [14, 0],
+        duration: 620,
+        delay: anime && anime.stagger ? anime.stagger(26) : 0,
+        ease: EASE
+      });
+    });
+  }
+
+  /* Card icons draw themselves on, stroke by stroke. Shapes that cannot
+     report a length just fade — no browser is left with a blank icon. */
+  function drawGlyphs(root) {
+    $$('.glyph', root).forEach(function (glyph) {
+      if (glyph.dataset.drawn) return;
+      glyph.dataset.drawn = '1';
+
+      Array.prototype.slice.call(glyph.children).forEach(function (shape, i) {
+        var len = 0;
+        try {
+          if (typeof shape.getTotalLength === 'function') len = shape.getTotalLength();
+        } catch (e) {
+          len = 0;
+        }
+
+        if (!len) {
+          tween(shape, { opacity: [0, 1], duration: 400, delay: i * 60, ease: EASE });
+          return;
+        }
+
+        shape.style.strokeDasharray = len;
+        shape.style.strokeDashoffset = len;
+        tween(shape, {
+          strokeDashoffset: [len, 0],
+          duration: 620,
+          delay: 120 + i * 90,
+          ease: 'inOutSine'
+        });
+      });
+    });
+  }
+
   /* One gesture, used everywhere: a short rise with a fade. Values are kept
      small on purpose — big travel reads as a template. */
   mod('reveal', function () {
@@ -181,6 +254,8 @@
         el,
         function () {
           el.classList.add('is-in');
+          revealWords(el);
+          drawGlyphs(el);
 
           if (stagger !== null) {
             var kids = Array.prototype.slice.call(el.children);
@@ -359,6 +434,186 @@
       },
       0.25
     );
+  });
+
+  /* ================================================== 6b. Scroll animatic
+
+     A five-beat sequence built as a paused anime timeline and scrubbed by
+     scroll position, so the viewer controls playback in both directions.
+
+     The timeline is built BEFORE `is-live` is added: if anything throws, the
+     class never lands, the track stays a normal-height block, and the CSS
+     fallback renders the scene in its finished state.
+     ------------------------------------------------------------------- */
+
+  var BEATS = [
+    ['01', 'A customer messages you at 23:40, long after everyone has gone home.'],
+    ['02', 'It reaches your automation instantly — nobody has to open an app.'],
+    ['03', 'The agent reads the intent and checks your own stock, prices and orders.'],
+    ['04', 'It answers in your tone, reserves the item, and writes the lead into your CRM.'],
+    ['05', 'You are pulled in only when a decision actually needs a human.']
+  ];
+
+  /* Progress thresholds where each beat begins. */
+  var BEAT_AT = [0, 0.2, 0.42, 0.62, 0.82];
+
+  mod('animatic', function () {
+    var track = $('[data-animatic]');
+    if (!track) return;
+
+    var svg = $('.scene', track);
+    var dots = $$('.beat-dot', track);
+    var beatN = $('[data-beat-n]', track);
+    var beatText = $('[data-beat-text]', track);
+    if (!svg) return;
+
+    function showLastBeat() {
+      if (beatN) beatN.textContent = BEATS[BEATS.length - 1][0];
+      if (beatText) beatText.textContent = BEATS[BEATS.length - 1][1];
+      dots.forEach(function (d) {
+        d.classList.add('is-on');
+      });
+    }
+
+    if (REDUCED || !anime || !anime.createTimeline) {
+      showLastBeat();
+      return;
+    }
+
+    /* Dash-based line drawing using plain SVG geometry — deterministic under
+       seek, and no dependency on a library-specific drawable helper. */
+    function drawable(id) {
+      var el = $('#' + id, svg);
+      if (!el || typeof el.getTotalLength !== 'function') return null;
+      var len = el.getTotalLength();
+      if (!len) return null;
+      el.style.strokeDasharray = len;
+      el.style.strokeDashoffset = len;
+      return { el: el, len: len };
+    }
+
+    var tl;
+    try {
+      var w1 = drawable('w-main');
+      var w2 = drawable('w-crm');
+      var w3 = drawable('w-human');
+      var c1 = drawable('w-chip1');
+      var c2 = drawable('w-chip2');
+      var c3 = drawable('w-chip3');
+
+      tl = anime.createTimeline({ autoplay: false, defaults: { ease: 'inOutQuad' } });
+
+      function line(d, at, dur) {
+        if (d) tl.add(d.el, { strokeDashoffset: [d.len, 0], duration: dur }, at);
+      }
+
+      /* Beat 1 — the message arrives */
+      tl.add('#a-device', { opacity: [0, 1], translateY: [14, 0], duration: 120 }, 0);
+      tl.add('#a-msg-in', { opacity: [0, 1], translateY: [10, 0], duration: 110 }, 90);
+
+      /* Beat 2 — it travels to the automation */
+      line(w1, 200, 140);
+      tl.add('#a-packet', { opacity: [0, 1], duration: 40 }, 250);
+      tl.add('#a-packet', { translateX: [0, 118], duration: 170 }, 250);
+      tl.add('#a-packet', { opacity: [1, 0], duration: 40 }, 400);
+
+      /* Beat 3 — the agent reads it against your data */
+      tl.add('#a-agent', { opacity: [0, 1], scale: [0.96, 1], duration: 120 }, 380);
+      tl.add('#a-ring', { opacity: [0, 0.85], scale: [0.82, 1.05], duration: 210 }, 420);
+      tl.add('#a-ring', { opacity: [0.85, 0], duration: 130 }, 630);
+
+      line(c1, 440, 100);
+      line(c2, 470, 100);
+      line(c3, 500, 100);
+      tl.add('#a-chip1', { opacity: [0, 1], translateY: [-10, 0], duration: 100 }, 450);
+      tl.add('#a-chip2', { opacity: [0, 1], translateY: [-10, 0], duration: 100 }, 480);
+      tl.add('#a-chip3', { opacity: [0, 1], translateY: [-10, 0], duration: 100 }, 510);
+
+      tl.add('#a-scan-track', { opacity: [0, 1], duration: 50 }, 455);
+      tl.add('#a-scan', { opacity: [0, 1], duration: 50 }, 465);
+      tl.add('#a-scan', { scaleX: [0, 1], duration: 200 }, 465);
+      tl.add(['#a-scan', '#a-scan-track'], { opacity: [1, 0], duration: 60 }, 690);
+
+      /* Beat 4 — it answers, and the record is written */
+      line(w2, 600, 120);
+      tl.add('#a-table', { opacity: [0, 1], translateY: [10, 0], duration: 110 }, 620);
+      tl.add('#a-packet-back', { opacity: [0, 1], duration: 40 }, 640);
+      tl.add('#a-packet-back', { translateX: [118, 0], duration: 160 }, 640);
+      tl.add('#a-packet-back', { opacity: [1, 0], duration: 40 }, 790);
+      tl.add('#a-row1', { opacity: [0, 1], translateX: [12, 0], duration: 90 }, 680);
+      tl.add('#a-row2', { opacity: [0, 1], translateX: [12, 0], duration: 90 }, 716);
+      tl.add('#a-row3', { opacity: [0, 1], translateX: [12, 0], duration: 90 }, 752);
+      tl.add('#a-msg-out', { opacity: [0, 1], translateY: [12, 0], duration: 120 }, 780);
+
+      /* Beat 5 — the handover */
+      line(w3, 830, 120);
+      tl.add('#a-human', { opacity: [0, 1], translateY: [10, 0], duration: 110 }, 870);
+      tl.add('#a-badge', { opacity: [0, 1], scale: [0.4, 1], duration: 120 }, 930);
+
+      if (typeof tl.seek !== 'function' || !tl.duration) throw new Error('timeline not seekable');
+      tl.seek(0);
+    } catch (err) {
+      showLastBeat();
+      return;
+    }
+
+    /* Only now is it safe to hand layout over to the scroll track. */
+    track.classList.add('is-live');
+
+    var beat = -1;
+    function setBeat(i) {
+      if (i === beat) return;
+      beat = i;
+      dots.forEach(function (d, n) {
+        d.classList.toggle('is-on', n <= i);
+      });
+      if (!beatN || !beatText) return;
+      beatN.textContent = BEATS[i][0];
+      beatText.textContent = BEATS[i][1];
+      anime.animate([beatN, beatText], { opacity: [0, 1], translateY: [4, 0], duration: 300, ease: EASE });
+    }
+
+    function frame(p) {
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      tl.seek(tl.duration * p);
+      var i = 0;
+      for (var n = BEAT_AT.length - 1; n >= 0; n--) {
+        if (p >= BEAT_AT[n]) {
+          i = n;
+          break;
+        }
+      }
+      setBeat(i);
+    }
+
+    if (Motion && Motion.scroll) {
+      Motion.scroll(
+        function (a, b) {
+          var p = typeof a === 'number' ? a : a && a.y && typeof a.y.progress === 'number' ? a.y.progress : null;
+          if (p === null && b && b.y && typeof b.y.progress === 'number') p = b.y.progress;
+          frame(p == null ? 0 : p);
+        },
+        { target: track, offset: ['start start', 'end end'] }
+      );
+    } else {
+      /* Manual scrub: how far the sticky stage has travelled through the track */
+      var ticking = false;
+      var onScroll = function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var r = track.getBoundingClientRect();
+          var travel = r.height - window.innerHeight;
+          frame(travel > 0 ? -r.top / travel : 0);
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    }
+
+    setBeat(0);
   });
 
   /* ======================================================== 7. Counters */
@@ -823,6 +1078,68 @@
 
       window.location.href =
         'mailto:' + target + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
+  });
+
+  /* =============================================== 12b. Page transitions
+
+     A short dissolve out of the current page. The incoming page runs its own
+     entrance, so navigation between pages reads as one continuous surface
+     rather than a white blink.
+     ------------------------------------------------------------------- */
+
+  mod('page-transition', function () {
+    if (REDUCED) return;
+
+    var main = $('main');
+    if (!main) return;
+
+    /* Restoring from the back/forward cache must never leave a faded page. */
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) {
+        main.style.opacity = '';
+        main.style.transform = '';
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      var link = e.target.closest ? e.target.closest('a') : null;
+      if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+
+      var href = link.getAttribute('href') || '';
+      if (!href || href.charAt(0) === '#' || /^(mailto|tel|https?):/i.test(href) && link.origin !== location.origin) return;
+      if (link.origin && link.origin !== location.origin) return;
+      if (link.pathname === location.pathname && link.hash) return;
+
+      e.preventDefault();
+
+      var go = function () {
+        window.location.href = link.href;
+      };
+
+      if (!anime || !anime.animate) {
+        go();
+        return;
+      }
+
+      /* Navigate regardless, in case the animation never reports completion. */
+      var done = false;
+      var navigate = function () {
+        if (done) return;
+        done = true;
+        go();
+      };
+      setTimeout(navigate, 320);
+
+      anime.animate(main, {
+        opacity: [1, 0],
+        translateY: [0, -8],
+        duration: 190,
+        ease: 'inQuad',
+        onComplete: navigate
+      });
     });
   });
 
