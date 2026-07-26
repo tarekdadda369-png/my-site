@@ -349,8 +349,144 @@
     </div>
   </section>
 
+  <!-- ============================================================ ANIMATIC -->
+  <!-- A five-beat sequence scrubbed by scroll position. Falls back to its
+       finished state if JS or the timeline is unavailable. -->
+  <section class="section section--lift" id="how">
+    <div class="container">
+      <div class="section-head section-head--center" data-reveal>
+        <span class="eyebrow">How it runs</span>
+        <h2>Follow one message from 23:40 to done</h2>
+        <p>The same pipeline, played out step by step. Scroll to move through it.</p>
+      </div>
+    </div>
+
+    <div class="animatic-track" data-animatic>
+      <div class="animatic-stage">
+        <div class="container">
+          <div class="panel">
+            <div class="panel-bar">
+              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="name">message-lifecycle</span>
+              <span class="beats" data-beats aria-hidden="true">
+                <i class="beat-dot is-on"></i><i class="beat-dot"></i><i class="beat-dot"></i><i class="beat-dot"></i><i class="beat-dot"></i>
+              </span>
+            </div>
+
+            <div class="panel-body">
+              <svg class="scene" viewBox="0 45 960 430" role="img" aria-label="Sequence: a customer message arrives on Instagram at 23:40, travels to the AI agent, which checks your stock, prices and orders, replies in your tone, writes the lead into your CRM, and notifies you only when a decision needs a human.">
+
+                <!-- wires (drawn in across beats) -->
+                <path class="s-wire" id="w-main" d="M270,250 C320,250 340,250 390,250"/>
+                <path class="s-wire" id="w-chip1" d="M390,120 C390,155 415,175 440,200"/>
+                <path class="s-wire" id="w-chip2" d="M502,120 L502,200"/>
+                <path class="s-wire" id="w-chip3" d="M614,120 C614,155 580,175 545,200"/>
+                <path class="s-wire" id="w-crm" d="M570,228 C630,228 650,196 700,196"/>
+                <path class="s-wire" id="w-human" d="M570,285 C630,285 650,388 700,388"/>
+
+                <!-- 1. the customer's channel -->
+                <g id="a-device" opacity="0">
+                  <rect class="s-card" x="40" y="70" width="230" height="380" rx="14"/>
+                  <path class="s-wire" d="M40,112 H270" stroke-width="1"/>
+                  <circle class="s-card-2" cx="66" cy="91" r="11"/>
+                  <text class="t t-mono" x="66" y="94" text-anchor="middle" fill="#d0d6e0">IG</text>
+                  <text class="t t-md" x="86" y="88">Instagram inbox</text>
+                  <text class="t t-mono" x="86" y="101">23:40 · @yourbrand</text>
+                </g>
+
+                <g id="a-msg-in" opacity="0">
+                  <rect class="s-in" x="58" y="132" width="176" height="52" rx="11"/>
+                  <text class="t t-sm" x="72" y="152">Is the black one still</text>
+                  <text class="t t-sm" x="72" y="170">available in size L?</text>
+                </g>
+
+                <!-- 2. the message in transit -->
+                <rect id="a-packet" class="s-out" x="243" y="241" width="54" height="18" rx="9" opacity="0"/>
+
+                <!-- 3. the agent + your data -->
+                <g id="a-ring" opacity="0">
+                  <circle class="s-ring" cx="480" cy="255" r="96"/>
+                </g>
+
+                <g id="a-agent" opacity="0">
+                  <rect class="s-core" x="390" y="200" width="180" height="110" rx="14"/>
+                  <text class="t t-lg" x="480" y="240" text-anchor="middle">AI agent</text>
+                  <text class="t t-mono-lit" x="480" y="258" text-anchor="middle">READING INTENT</text>
+                </g>
+                <rect id="a-scan-track" class="s-card-2" x="406" y="274" width="148" height="4" rx="2" opacity="0"/>
+                <rect id="a-scan" class="s-accent" x="406" y="274" width="148" height="4" rx="2" opacity="0"/>
+
+                <g id="a-chip1" opacity="0">
+                  <rect class="s-card-2" x="340" y="80" width="100" height="40" rx="10"/>
+                  <text class="t t-md" x="390" y="98" text-anchor="middle">Stock</text>
+                  <text class="t t-mono" x="390" y="112" text-anchor="middle">LIVE SHEET</text>
+                </g>
+                <g id="a-chip2" opacity="0">
+                  <rect class="s-card-2" x="452" y="80" width="100" height="40" rx="10"/>
+                  <text class="t t-md" x="502" y="98" text-anchor="middle">Prices</text>
+                  <text class="t t-mono" x="502" y="112" text-anchor="middle">YOUR LIST</text>
+                </g>
+                <g id="a-chip3" opacity="0">
+                  <rect class="s-card-2" x="564" y="80" width="100" height="40" rx="10"/>
+                  <text class="t t-md" x="614" y="98" text-anchor="middle">Orders</text>
+                  <text class="t t-mono" x="614" y="112" text-anchor="middle">HISTORY</text>
+                </g>
+
+                <!-- 4. the reply, and the record -->
+                <rect id="a-packet-back" class="s-out" x="243" y="241" width="54" height="18" rx="9" opacity="0"/>
+
+                <g id="a-msg-out" opacity="0">
+                  <rect class="s-out" x="80" y="250" width="154" height="70" rx="11"/>
+                  <text class="t t-out" x="94" y="272">Yes — size L is in</text>
+                  <text class="t t-out" x="94" y="290">stock. Reserve it</text>
+                  <text class="t t-out" x="94" y="308">for you?</text>
+                  <text class="t t-mono" x="234" y="336" text-anchor="end">SENT · 4s</text>
+                </g>
+
+                <g id="a-table" opacity="0">
+                  <rect class="s-card" x="700" y="140" width="220" height="172" rx="12"/>
+                  <path class="s-wire" d="M700,174 H920" stroke-width="1"/>
+                  <text class="t t-mono" x="714" y="162">CRM · LEADS</text>
+                </g>
+                <g id="a-row1" opacity="0">
+                  <rect class="s-card-2" x="712" y="184" width="196" height="34" rx="8"/>
+                  <text class="t t-sm" x="726" y="205">New lead · size L</text>
+                </g>
+                <g id="a-row2" opacity="0">
+                  <rect class="s-card-2" x="712" y="224" width="196" height="34" rx="8"/>
+                  <text class="t t-sm" x="726" y="245">Source · Instagram</text>
+                </g>
+                <g id="a-row3" opacity="0">
+                  <rect class="s-card-2" x="712" y="264" width="196" height="34" rx="8"/>
+                  <text class="t t-sm" x="726" y="285">Status · reserved</text>
+                </g>
+
+                <!-- 5. the human, only when needed -->
+                <g id="a-human" opacity="0">
+                  <rect class="s-card" x="700" y="350" width="220" height="76" rx="12"/>
+                  <text class="t t-md" x="716" y="380">You</text>
+                  <text class="t t-mono" x="716" y="399">ONLY IF A DECISION IS NEEDED</text>
+                  <circle id="a-badge" class="s-accent" cx="898" cy="372" r="7"/>
+                </g>
+              </svg>
+            </div>
+
+            <div class="panel-foot">
+              <span class="beat-caption">
+                <span class="n" data-beat-n>01</span>
+                <span class="t" data-beat-text>A customer messages you at 23:40, long after everyone has gone home.</span>
+              </span>
+            </div>
+          </div>
+
+          <p class="animatic-hint">keep scrolling to play the sequence</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================================================================ DEMO -->
-  <section class="section section--lift" id="demo">
+  <section class="section" id="demo">
     <div class="container">
       <div class="section-head section-head--center" data-reveal>
         <span class="eyebrow">See it working</span>
@@ -458,7 +594,7 @@
   </section>
 
   <!-- ================================================================= WHY -->
-  <section class="section">
+  <section class="section section--lift">
     <div class="container">
       <div class="split">
         <div data-reveal>
@@ -505,7 +641,7 @@
   </section>
 
   <!-- ============================================================= PROCESS -->
-  <section class="section section--lift" id="process">
+  <section class="section" id="process">
     <div class="container">
       <div class="section-head" data-reveal>
         <span class="eyebrow">Process</span>
@@ -539,7 +675,7 @@
   </section>
 
   <!-- =============================================================== ABOUT -->
-  <section class="section" id="about">
+  <section class="section section--lift" id="about">
     <div class="container">
       <div class="split split--reverse">
         <div data-reveal>
@@ -584,7 +720,7 @@
   </section>
 
   <!-- ================================================================= FAQ -->
-  <section class="section section--lift" id="faq">
+  <section class="section" id="faq">
     <div class="container container--narrow">
       <div class="section-head" data-reveal>
         <span class="eyebrow">Questions</span>

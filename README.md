@@ -17,7 +17,7 @@ test described below.
 DESIGN.md                   The design system — read this first
 DESIGN-reference-linear.md  The upstream Linear analysis it was adapted from
 my-site/
-  index.html          Home — hero, pipeline panel, services, live demo, process, FAQ
+  index.html          Home — hero, pipeline panel, services, animatic, demo, process, FAQ
   services.html       Full service breakdown (anchors: #instagram #whatsapp …)
   about.html          Who you work with, principles, delivery
   contact.html        Contact channels + working enquiry form
@@ -47,11 +47,24 @@ npm run dev          # serve my-site/ on http://localhost:4173
 
 | Library                       | Used for |
 | ----------------------------- | -------- |
-| **anime.js** (`window.anime`) | headline word-split, scroll reveals, counters, SVG wire draw + travelling packets, conversation replay, accordion height |
-| **motion** (`window.Motion`)  | `inView` triggers for every reveal |
+| **anime.js** (`window.anime`) | the scroll-scrubbed animatic timeline, headline + heading word splits, self-drawing icons, scroll reveals, counters, SVG wire draw + travelling packets, conversation replay, accordion height, page dissolve |
+| **motion** (`window.Motion`)  | `inView` triggers for every reveal, and `scroll()` to scrub the animatic |
 
-Motion is deliberately quiet — see the Motion section of `DESIGN.md`. There is
-no parallax, no cursor-tracked glow and no spring hover anywhere on the site.
+### The animatic
+
+The homepage centrepiece (`#how`) is a five-beat sequence following one
+customer message from arrival to done. It is an anime timeline built with
+`autoplay: false` and seeked from scroll progress, so the viewer scrubs it in
+both directions and can stop on any beat.
+
+It is written to fail safe: the timeline is constructed **before** `is-live` is
+added to the track, so if anything throws, the section stays a normal-height
+block showing the finished scene. To change the pacing, edit `BEATS` /
+`BEAT_AT` and the timeline positions in the `animatic` module of `script.js`.
+
+Motion is purposeful rather than decorative — see the Motion section of
+`DESIGN.md`. There is no parallax, no cursor-tracked glow and no spring hover
+anywhere on the site.
 
 ## Resilience
 

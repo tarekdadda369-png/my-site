@@ -107,14 +107,38 @@ Card padding 24px. CTA banner padding 48px. Content max width 1280px.
 
 ## Motion
 
-Motion is quiet and does two jobs: bring content in once, and replay the demo.
+Motion is purposeful, not decorative. It is spent on things that explain the
+product, and withheld everywhere else.
 
-- One reveal gesture everywhere: 12px rise + fade, ~560ms, `outExpo`.
-- The hero headline splits to words and rises from a clip.
-- The diagram draws its wires once, then loops travelling packets — the only
-  perpetual animation on the page.
-- No parallax, no cursor-tracked glow, no spring hovers.
-- `prefers-reduced-motion` renders every element at its final state.
+**The animatic** is the centrepiece: a five-beat sequence following one
+customer message from arrival to done. It is an `anime` timeline built with
+`autoplay: false` and scrubbed by scroll position, so the viewer controls
+playback in both directions and can stop on any beat. Beats are captioned and
+tracked by a five-segment indicator in the panel bar.
+
+Everything else:
+
+- One reveal gesture: 12px rise + fade, ~560ms, `outExpo`.
+- The hero headline and every section heading resolve word by word.
+- Card icons draw themselves on, stroke by stroke.
+- The hero diagram draws its wires once, then loops travelling packets.
+- The demo panel replays a real conversation with typing indicators.
+- Navigation dissolves the outgoing page rather than blinking to white.
+
+Still banned: parallax, cursor-tracked glow, spring hovers.
+
+### Motion must never be load-bearing
+
+Every sequence has a static finished state that renders without JS:
+
+- `prefers-reduced-motion` renders everything at its final state and the
+  animatic never engages its scroll track.
+- The animatic's timeline is built **before** `is-live` is added to the track.
+  If construction throws, the class never lands, the track stays a normal
+  block, and CSS shows the completed scene.
+- Elements revealed by drawing (wires, icons) must not also be hidden by
+  opacity, or they never appear. Keep opacity-driven ids under the `a-`
+  prefix and draw-driven ids under `w-`; the CSS reset targets `a-` only.
 
 ## Enforcement
 
