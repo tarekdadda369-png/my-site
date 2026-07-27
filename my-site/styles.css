@@ -183,10 +183,59 @@ ol {
   outline-offset: 2px;
 }
 
+/* Scrollbars follow the system: ink track, navy thumb, raspberry on grip.
+   Firefox via scrollbar-color, WebKit via the pseudo-elements. */
+html {
+  scrollbar-color: var(--surface-4) var(--canvas);
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--canvas);
+  border-left: 1px solid var(--hairline);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-4);
+  border: 2px solid var(--canvas);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--canvas);
+}
+
+/* Inner panels get a slimmer rail */
+.listbox-panel::-webkit-scrollbar,
+.tabs::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.listbox-panel::-webkit-scrollbar-track {
+  background: var(--surface-1);
+  border-left: 0;
+}
+
+.listbox-panel {
+  scrollbar-color: var(--hairline-bright) var(--surface-1);
+}
+
+/* Hidden above the viewport, not off to the side — a horizontal offset
+   counts toward scrollWidth under RTL. */
 .skip-link {
   position: absolute;
-  left: -9999px;
-  top: 0;
+  top: -120px;
+  inset-inline-start: 16px;
   z-index: 10000;
   padding: 10px 16px;
   background: var(--surface-3);
@@ -195,7 +244,6 @@ ol {
 }
 
 .skip-link:focus {
-  left: 16px;
   top: 16px;
 }
 
@@ -828,6 +876,11 @@ strong {
 .header-actions .btn {
   height: 34px;
   padding: 0 14px;
+}
+
+.lang-btn {
+  min-width: 42px;
+  font-family: var(--font-mono);
 }
 
 .burger {
@@ -2483,6 +2536,196 @@ body.is-locked {
 
 .socials a:hover {
   color: var(--accent);
+}
+
+/* ==========================================================================
+   18b. Arabic & RTL
+
+   The Arabic voice gets the same care as the Latin one:
+     display  — Amiri (a Naskh with real calligraphic feeling, the
+                counterpart of Instrument Serif)
+     body/UI  — IBM Plex Sans Arabic (the Arabic cut of the body family)
+   Letter-spacing is zeroed wholesale: tracking breaks Arabic letter
+   joining. dir=rtl flips flex/grid/text automatically; the physical
+   left/right properties that remain are mirrored here.
+   ========================================================================== */
+
+html[lang='ar'] {
+  --font-display: 'Amiri', 'Noto Naskh Arabic', 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  --font-mono: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  --font-brand: 'Syne', 'Avenir Next', sans-serif;
+}
+
+html[lang='ar'] body {
+  line-height: 1.85;
+}
+
+/* Tracking breaks Arabic joining — remove it everywhere */
+html[lang='ar'] *,
+html[lang='ar'] *::before,
+html[lang='ar'] *::after {
+  letter-spacing: 0 !important;
+}
+
+html[lang='ar'] h1,
+html[lang='ar'] h2,
+html[lang='ar'] .headline {
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+html[lang='ar'] .hero h1 {
+  line-height: 1.4;
+}
+
+/* Latin fragments that stay (brand, tech labels, emails) keep their voices */
+html[lang='ar'] .logo-text,
+html[lang='ar'] .panel-bar .name,
+html[lang='ar'] .thread-top .who span,
+html[lang='ar'] .cta .fine,
+html[lang='ar'] .drawer-foot .mono {
+  font-family: 'Space Mono', ui-monospace, monospace;
+}
+
+html[lang='ar'] .logo-text {
+  font-family: var(--font-brand);
+}
+
+/* Physical-side properties mirrored for RTL */
+/* Mixed digit/word values ("<1 يوم", "24/7") keep logical order */
+[dir='rtl'] .metrics dt,
+[dir='rtl'] .stats .v {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+[dir='rtl'] .card .idx {
+  right: auto;
+  left: 24px;
+}
+
+[dir='rtl'] .checks li {
+  padding-left: 0;
+  padding-right: 22px;
+}
+
+[dir='rtl'] .checks li::before {
+  left: auto;
+  right: 0;
+}
+
+[dir='rtl'] .nav {
+  margin-left: 0;
+  margin-right: 32px;
+}
+
+[dir='rtl'] .header-actions {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .beats {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .panel-bar .state {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .thread-top .tag {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .listbox-btn {
+  text-align: right;
+  padding: 10px 13px 10px 38px;
+}
+
+[dir='rtl'] .listbox-btn::after {
+  right: auto;
+  left: 14px;
+}
+
+[dir='rtl'] .listbox-opt {
+  text-align: right;
+}
+
+[dir='rtl'] .listbox-opt[aria-selected='true'] {
+  border-left: 0;
+  border-right: 2px solid var(--accent);
+  padding-left: 13px;
+  padding-right: 11px;
+}
+
+[dir='rtl'] .field select {
+  background-position: left 13px center;
+  padding-right: 13px;
+  padding-left: 38px;
+}
+
+[dir='rtl'] .msg.in {
+  border-left: 1px solid var(--hairline);
+  border-right: 2px solid var(--hairline-bright);
+}
+
+[dir='rtl'] .msg.out {
+  border-right: 0;
+  border-left: 2px solid var(--accent-deep);
+}
+
+[dir='rtl'] .prose ul li::before {
+  left: auto;
+  right: -18px;
+}
+
+[dir='rtl'] .prose ul,
+[dir='rtl'] .prose ol {
+  padding-left: 0;
+  padding-right: 24px;
+}
+
+[dir='rtl'] .steps-list li {
+  padding: 16px 38px 16px 0 !important;
+}
+
+[dir='rtl'] .steps-list li::before {
+  left: auto !important;
+  right: 0 !important;
+}
+
+[dir='rtl'] .toc {
+  border-left: 0;
+  border-right: 1px solid var(--hairline);
+}
+
+[dir='rtl'] .toc a {
+  border-left: 0;
+  border-right: 2px solid transparent;
+  margin-left: 0;
+  margin-right: -1px;
+}
+
+[dir='rtl'] .toc a.is-current {
+  border-right-color: var(--accent);
+}
+
+[dir='rtl'] .form-status {
+  border-left: 1px solid var(--hairline-strong);
+  border-right: 2px solid var(--accent);
+}
+
+[dir='rtl'] .prose .callout {
+  border-left: 1px solid var(--hairline);
+  border-right: 2px solid var(--accent);
+}
+
+[dir='rtl'] ::-webkit-scrollbar-track {
+  border-left: 0;
+  border-right: 1px solid var(--hairline);
 }
 
 /* ==========================================================================

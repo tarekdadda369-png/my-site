@@ -111,6 +111,306 @@
     window.__siteReady = true;
   });
 
+  /* ============================================== 1a. Language (AR/EN)
+
+     The Arabic voice. Direction and fonts are set pre-paint by the inline
+     head script; here the strings are swapped by walking every text node
+     and translating exact (whitespace-collapsed) matches. Strings missing
+     from the dictionary simply stay English — nothing can break.
+     ------------------------------------------------------------------- */
+
+  var IS_AR = document.documentElement.lang === 'ar';
+
+  var AR = {
+    /* chrome */
+    "Skip to content": "تخطَّ إلى المحتوى",
+    "Automation studio": "استوديو الأتمتة",
+    "Home": "الرئيسية",
+    "Services": "الخدمات",
+    "About": "من نحن",
+    "Contact": "تواصل",
+    "Email": "البريد",
+    "Book an audit": "احجز تقييماً",
+    "Pages": "الصفحات",
+    "Legal": "قانوني",
+    "Instagram automation": "أتمتة إنستغرام",
+    "WhatsApp automation": "أتمتة واتساب",
+    "AI agent workflows": "وكلاء ذكاء اصطناعي",
+    "n8n workflows": "مسارات n8n",
+    "Privacy policy": "سياسة الخصوصية",
+    "Terms of service": "شروط الخدمة",
+    "Data deletion": "حذف البيانات",
+    "Custom AI automation systems for businesses in Algeria. Practical solutions, real results, no hype.": "أنظمة أتمتة بالذكاء الاصطناعي مصمّمة خصيصاً للشركات في الجزائر. حلول عملية ونتائج حقيقية، بلا مبالغات.",
+    "Available for new projects": "متاح لمشاريع جديدة",
+    /* hero */
+    "Automation that": "أتمتة تجيب،",
+    "answers, sorts and": "وترتّب، وتتابع",
+    "follows up for you.": "نيابةً عنك.",
+    "I build custom AI systems for businesses in Algeria that handle the repetitive half of the job — replying to customers, qualifying leads, moving data between tools — so your team spends its hours on work that needs a human.": "أبني أنظمة ذكاء اصطناعي مخصّصة للشركات في الجزائر تتكفّل بالنصف المتكرر من العمل — الردّ على العملاء، وفرز الطلبات، ونقل البيانات بين أدواتك — ليقضي فريقك وقته في العمل الذي يحتاج إنساناً فعلاً.",
+    "Book a free audit": "احجز تقييماً مجانياً",
+    "See it working": "شاهده يعمل",
+    "Automation services": "خدمة أتمتة",
+    "Coverage once live": "تغطية بعد التشغيل",
+    "Reply to enquiries": "للرد على الاستفسارات",
+    "Languages handled": "لغات مدعومة",
+    "day": "يوم",
+    "no message missed": "لا رسالة تضيع",
+    "escalates to a human": "يصعّد إلى إنسان",
+    "you stay in control": "القرار يبقى لك",
+    "running": "يعمل",
+    "Connects the tools you already use": "يربط الأدوات التي تستخدمها أصلاً",
+    /* services grid */
+    "Eight systems that take work off your team": "ثمانية أنظمة ترفع العبء عن فريقك",
+    "Each one is built around your workflow, your tools and your language. Nothing here is a template you have to bend your business around.": "كل نظام يُبنى حول طريقة عملك وأدواتك ولغتك. لا شيء هنا قالب جاهز تُجبر عملك على التأقلم معه.",
+    "DMs, comments and story replies answered in seconds, with every serious enquiry captured as a lead.": "الرسائل والتعليقات وردود القصص تُجاب في ثوانٍ، مع تسجيل كل استفسار جاد كعميل محتمل.",
+    "WhatsApp Business": "واتساب أعمال",
+    "Order status, reminders and support triage on the channel your customers actually check.": "حالة الطلبات والتذكيرات وفرز الدعم على القناة التي يتابعها عملاؤك فعلاً.",
+    "Messenger flows": "مسارات ماسنجر",
+    "Guided conversations that answer the common questions and qualify buyers before a human steps in.": "محادثات موجّهة تجيب عن الأسئلة الشائعة وتؤهّل المشترين قبل تدخّل أي موظف.",
+    "Email automation": "أتمتة البريد",
+    "Enquiries classified and logged, with draft replies prepared from your own pricing.": "الاستفسارات تُصنّف وتُسجّل، مع مسودات ردود مُعدّة من أسعارك أنت.",
+    "Agents that read, decide and act inside boundaries you define, with a human checkpoint where it matters.": "وكلاء يقرؤون ويقررون وينفّذون ضمن حدود تضعها أنت، مع نقطة مراجعة بشرية حيث يلزم.",
+    "Document automation": "أتمتة المستندات",
+    "Invoices and forms read automatically — fields extracted, rows written, reports generated.": "الفواتير والنماذج تُقرأ تلقائياً — الحقول تُستخرج، والصفوف تُكتب، والتقارير تُنشأ.",
+    "Lead handling": "إدارة العملاء المحتملين",
+    "Leads from every channel, de-duplicated, scored on your criteria and routed while still warm.": "عملاء محتملون من كل قناة، بلا تكرار، يُقيَّمون وفق معاييرك ويُوجَّهون وهم في ذروة الاهتمام.",
+    "Internal workflows": "مسارات داخلية",
+    "n8n pipelines that move data between your tools on a trigger or a schedule, with no re-typing.": "مسارات n8n تنقل البيانات بين أدواتك عند حدث أو بجدولة، من دون إعادة إدخال.",
+    "Full service breakdown": "تفاصيل الخدمات كاملة",
+    /* animatic */
+    "How it runs": "كيف يعمل",
+    "Follow one message from 23:40 to done": "تابع رسالة واحدة من 23:40 حتى الإنجاز",
+    "The same pipeline, played out step by step. Scroll to move through it.": "المسار نفسه، خطوة بخطوة. مرّر للتنقل فيه.",
+    "keep scrolling to play the sequence": "واصل التمرير لتشغيل المشهد",
+    "A customer messages you at 23:40, long after everyone has gone home.": "عميل يراسلك في 23:40، بعد أن غادر الجميع بوقت طويل.",
+    /* demo */
+    "See it working": "شاهده يعمل",
+    "What an automated conversation looks like": "هكذا تبدو المحادثة المؤتمتة",
+    "Four illustrative scenarios showing how a system handles a real message — and how it knows when to hand the conversation to you.": "أربعة سيناريوهات توضيحية تُظهر كيف يتعامل النظام مع رسالة حقيقية — وكيف يعرف متى يسلّمك المحادثة.",
+    "Instagram DM": "رسالة إنستغرام",
+    "WhatsApp support": "دعم واتساب",
+    "Email triage": "فرز البريد",
+    "Internal workflow": "مسار داخلي",
+    "A buyer asks about stock at midnight": "مشترٍ يسأل عن التوفر في منتصف الليل",
+    "The system checks availability, answers in your tone, reserves the item and records the lead — before anyone on your team wakes up.": "يتحقق النظام من التوفر، ويجيب بأسلوبك، ويحجز المنتج، ويسجّل العميل — قبل أن يستيقظ أي أحد من فريقك.",
+    "Reads intent, not just keywords": "يقرأ القصد، لا الكلمات المفتاحية فقط",
+    "Answers from your live stock or price sheet": "يجيب من مخزونك أو قائمة أسعارك المباشرة",
+    "Saves the contact and what they asked for": "يحفظ جهة الاتصال وما سألت عنه",
+    "Hands over to a person the moment it should": "يسلّم لإنسان في اللحظة المناسبة",
+    "automated": "مؤتمت",
+    "assisted": "بمساعدة",
+    "illustrative example": "مثال توضيحي",
+    "reply in seconds": "رد في ثوانٍ",
+    "\"Where is my order?\" answered instantly": "«أين طلبي؟» يُجاب فوراً",
+    "The most common message in Algerian commerce, handled without a human. Anything unusual is escalated with the full context attached.": "الرسالة الأكثر شيوعاً في التجارة الجزائرية، تُعالج بلا تدخل بشري. وكل ما هو غير معتاد يُصعَّد مع كامل السياق.",
+    "Looks up the order in your sheet or system": "يبحث عن الطلب في جدولك أو نظامك",
+    "Replies with real status and timing": "يجيب بالحالة والتوقيت الحقيقيين",
+    "Escalates address changes to a named agent": "يصعّد تغيير العنوان إلى موظف محدد",
+    "Keeps the whole thread in one place": "يبقي المحادثة كاملة في مكان واحد",
+    "escalation rules on": "قواعد التصعيد مفعّلة",
+    "Quote requests never sit unread": "طلبات عروض الأسعار لا تبقى دون قراءة",
+    "Incoming mail is classified, logged and turned into a draft reply built from your own pricing — waiting for your approval, not sent behind your back.": "البريد الوارد يُصنّف ويُسجّل ويتحول إلى مسودة رد مبنية من أسعارك — تنتظر موافقتك، ولا يُرسل شيء من خلف ظهرك.",
+    "Categorises by intent and value": "يصنّف حسب القصد والقيمة",
+    "Drafts from your real documents": "يصيغ المسودات من مستنداتك الحقيقية",
+    "Nothing goes out without your approval": "لا شيء يخرج دون موافقتك",
+    "Every enquiry logged and searchable": "كل استفسار مسجّل وقابل للبحث",
+    "human approval step": "خطوة موافقة بشرية",
+    "Paperwork that files itself": "أوراق تؤرشف نفسها بنفسها",
+    "A supplier invoice lands in a folder. Fields are extracted, the accounting sheet is updated, and your team gets a short summary. No re-typing.": "فاتورة مورّد تصل إلى مجلد. تُستخرج الحقول، ويُحدَّث جدول المحاسبة، ويصل فريقك ملخص قصير. بلا إعادة إدخال.",
+    "Triggered by a file, form or schedule": "يبدأ بملف أو نموذج أو جدولة",
+    "Extracts supplier, totals, VAT and due dates": "يستخرج المورّد والمجاميع والضريبة وتواريخ الاستحقاق",
+    "Writes to Sheets, Airtable or your database": "يكتب في Sheets أو Airtable أو قاعدة بياناتك",
+    "Posts a digest to your team channel": "ينشر ملخصاً في قناة فريقك",
+    "runs on every file": "يعمل مع كل ملف",
+    /* why + stats */
+    "Why work with me": "لماذا تعمل معي",
+    "Built for your business, measured in hours saved": "مبني لعملك، ويُقاس بالساعات الموفَّرة",
+    "Automation is only worth it if it survives contact with reality — your suppliers, your team, your busiest week. That is the standard everything here is held to.": "الأتمتة لا تستحق إلا إذا صمدت أمام الواقع — مورّدوك، فريقك، وأسبوعك الأكثر ازدحاماً. هذا هو المعيار الذي يُحاسب عليه كل شيء هنا.",
+    "How I work": "كيف أعمل",
+    "Custom-built, never templated.": "مبني خصيصاً، لا قوالب.",
+    "Designed around your workflows, tools and goals.": "مصمَّم حول مساراتك وأدواتك وأهدافك.",
+    "Outcomes, not features.": "نتائج، لا مزايا.",
+    "Success is time saved and messages answered, not a longer feature list.": "النجاح هو وقت يُوفَّر ورسائل تُجاب، لا قائمة مزايا أطول.",
+    "Days, not months.": "أيام، لا أشهر.",
+    "Most systems are live within a week and improved from there.": "معظم الأنظمة تعمل خلال أسبوع ثم تُحسَّن تباعاً.",
+    "Plain language.": "لغة واضحة.",
+    "You will always know what is running, why, and how to change it.": "ستعرف دائماً ما الذي يعمل، ولماذا، وكيف تغيّره.",
+    "You keep control.": "التحكم يبقى لك.",
+    "Human approval wherever a mistake would cost you.": "موافقة بشرية حيثما كان الخطأ مكلفاً.",
+    "You own it.": "النظام ملكك.",
+    "Workflows run in your accounts. No platform holding your automation hostage.": "المسارات تعمل في حساباتك أنت. لا منصة تحتجز أتمتتك رهينة.",
+    "Services offered": "خدمة متاحة",
+    "Built per client": "يُبنى لكل عميل",
+    "Lock-in platforms": "منصات احتكارية",
+    /* process */
+    "Process": "المنهجية",
+    "Three steps from first call to running system": "ثلاث خطوات من أول مكالمة إلى نظام يعمل",
+    "No long discovery phase, no twenty-page proposal. Find the bottleneck, build it, refine it with you.": "لا مرحلة استكشاف طويلة ولا عرض من عشرين صفحة. نجد عنق الزجاجة، نبنيه، ونصقله معك.",
+    "Find the bottleneck": "إيجاد عنق الزجاجة",
+    "A short call to map what your team repeats every day, where messages get lost, and what a good week would look like.": "مكالمة قصيرة لرسم ما يكرره فريقك يومياً، وأين تضيع الرسائل، وكيف يبدو الأسبوع الجيد.",
+    "30–45 minutes · free": "30–45 دقيقة · مجاناً",
+    "Build the system": "بناء النظام",
+    "Built with the right tools for the job, connected to what you already use, with your rules and your tone of voice.": "يُبنى بالأدوات المناسبة للمهمة، موصولاً بما تستخدمه أصلاً، بقواعدك وبأسلوبك.",
+    "Usually days, not months": "عادةً أيام، لا أشهر",
+    "Test, train, improve": "اختبار وتدريب وتحسين",
+    "Tested against real messages, handed over with training, then tuned once the system meets actual customers.": "يُختبر على رسائل حقيقية، ويُسلَّم مع تدريب، ثم يُضبط حين يواجه عملاء فعليين.",
+    "Ongoing support": "دعم مستمر",
+    /* about block */
+    "Who you work with": "مع من تعمل",
+    "A specialist, not a call centre": "متخصص، لا مركز اتصال",
+    "I'm Tarik Dadda. I build AI automation for small and medium businesses across Algeria — distributors, importers, wholesalers, service companies and local shops losing hours to messages, forms and copy-paste.": "أنا طارق دادة. أبني أتمتة بالذكاء الاصطناعي للشركات الصغيرة والمتوسطة في الجزائر — موزّعون ومستوردون وتجار جملة وشركات خدمات ومحلات تخسر ساعات في الرسائل والنماذج والنسخ واللصق.",
+    "You talk to the person who builds the system. No account managers relaying requirements, no surprises about what was actually delivered.": "تتحدث مباشرة مع من يبني النظام. لا مدراء حسابات ينقلون المتطلبات، ولا مفاجآت فيما سُلِّم فعلاً.",
+    "The work is deliberately unglamorous: fewer missed messages, faster quotes, cleaner data, and a team that stops doing the same thing forty times a day.": "العمل بلا بهرجة عن قصد: رسائل ضائعة أقل، عروض أسعار أسرع، بيانات أنظف، وفريق يتوقف عن تكرار الشيء نفسه أربعين مرة في اليوم.",
+    "Start a conversation": "ابدأ محادثة",
+    "More about the approach": "المزيد عن المنهجية",
+    "Tarik Dadda": "طارق دادة",
+    "AI Automation Specialist · Algeria": "متخصص أتمتة بالذكاء الاصطناعي · الجزائر",
+    "Works remotely with clients nationwide": "يعمل عن بُعد مع عملاء في كل الولايات",
+    "Arabic, French and English — including the mix customers write in": "العربية والفرنسية والإنجليزية — بما فيها الخليط الذي يكتب به العملاء",
+    "Systems run in your accounts, documented for your team": "الأنظمة تعمل في حساباتك، موثّقة لفريقك",
+    "Honest about what should not be automated yet": "صراحة فيما لا يجب أتمتته بعد",
+    /* FAQ home */
+    "Questions": "أسئلة",
+    "Before we start": "قبل أن نبدأ",
+    "How much does an automation project cost?": "كم يكلّف مشروع الأتمتة؟",
+    "It depends entirely on scope, so I quote per project rather than publishing a price list. A single channel — Instagram replies, for example — is a small, fast build. A connected system spanning several channels plus your internal tools is a larger one. The first call is free, and you get a fixed number before any work starts.": "يعتمد كلياً على النطاق، لذلك أسعّر لكل مشروع بدل نشر قائمة أسعار. قناة واحدة — ردود إنستغرام مثلاً — بناء صغير وسريع. أما نظام مترابط يشمل عدة قنوات مع أدواتك الداخلية فهو أكبر. المكالمة الأولى مجانية، وتحصل على رقم ثابت قبل بدء أي عمل.",
+    "Do I need to change the tools my team already uses?": "هل عليّ تغيير الأدوات التي يستخدمها فريقي؟",
+    "No — the point is the opposite. I connect what you already have. WhatsApp, Instagram, Gmail, Google Sheets, Drive, Airtable, Telegram, Slack, Notion and anything with an API or webhook can all be part of the same workflow. If a tool genuinely blocks the automation, I will say so and explain the options.": "لا — الفكرة عكس ذلك تماماً. أربط ما لديك أصلاً: واتساب، إنستغرام، Gmail، Google Sheets، Drive، Airtable، تيليغرام، Slack، Notion، وأي أداة لها API أو Webhook يمكن أن تكون جزءاً من المسار نفسه. وإن كانت أداةٌ ما تعيق الأتمتة فعلاً، سأقول ذلك وأشرح الخيارات.",
+    "Will an AI reply to my customers with something wrong?": "هل سيجيب الذكاء الاصطناعي عملائي بمعلومة خاطئة؟",
+    "That risk is designed out rather than hoped away. Answers come from your own data — stock, prices, order status — not from a model's guesswork. Anything outside the rules is escalated to a person instead of improvised. And for high-stakes messages such as quotes, the system prepares a draft and waits for your approval.": "هذا الخطر يُعالج بالتصميم لا بالتمني. الإجابات تأتي من بياناتك أنت — المخزون والأسعار وحالة الطلبات — لا من تخمين النموذج. وكل ما يخرج عن القواعد يُصعَّد إلى إنسان بدل الارتجال. وفي الرسائل الحساسة كعروض الأسعار، يجهّز النظام مسودة وينتظر موافقتك.",
+    "What languages can the automations handle?": "ما اللغات التي تدعمها الأتمتة؟",
+    "Arabic, French and English, including the mix of Algerian Arabic and French that customers actually write in. Tone is tuned on your real message history so replies sound like your business rather than a translated script.": "العربية والفرنسية والإنجليزية، بما في ذلك خليط الدارجة الجزائرية والفرنسية الذي يكتب به العملاء فعلاً. تُضبط النبرة على سجل رسائلك الحقيقي لتبدو الردود بصوت عملك لا كنص مترجم.",
+    "Who owns the system once it is built?": "من يملك النظام بعد بنائه؟",
+    "You do. Workflows run in your accounts wherever possible, and you get the documentation and training to operate them. There is no proprietary platform holding your automation hostage, and leaving does not mean starting over.": "أنت. تعمل المسارات في حساباتك حيثما أمكن، وتحصل على التوثيق والتدريب لتشغيلها. لا منصة مغلقة تحتجز أتمتتك، والمغادرة لا تعني البدء من الصفر.",
+    "How long until something is actually running?": "كم يستغرق تشغيل شيء فعلي؟",
+    "For a focused single-channel automation, usually within days of getting access to the accounts involved. Larger multi-system projects take longer, but I deliver in working pieces so you see value before the whole thing is finished.": "لأتمتة قناة واحدة محددة، عادةً خلال أيام من الحصول على صلاحيات الحسابات المعنية. المشاريع الأكبر متعددة الأنظمة تستغرق أطول، لكنني أسلّم على دفعات عاملة لترى القيمة قبل اكتمال كل شيء.",
+    /* CTA */
+    "Free audit · no obligation": "تقييم مجاني · بلا التزام",
+    "Find out what an hour of your week is worth": "اكتشف كم تساوي ساعة من أسبوعك",
+    "Tell me the task your team repeats most. I will tell you honestly whether automation is worth it — and what it would take.": "أخبرني بالمهمة التي يكررها فريقك أكثر. سأخبرك بصراحة إن كانت الأتمتة تستحق — وما الذي تتطلبه.",
+    "Book the free audit": "احجز التقييم المجاني",
+    "Email directly": "راسلني مباشرة",
+    "contact@service.co.im · reply within one business day": "contact@service.co.im · رد خلال يوم عمل واحد",
+    /* contact page */
+    "Let's find the bottleneck": "لنجد عنق الزجاجة",
+    "Tell me the task your team repeats most often. The first call is free, and if automation is not the answer I will say so.": "أخبرني بالمهمة التي يكررها فريقك أكثر. المكالمة الأولى مجانية، وإن لم تكن الأتمتة هي الحل فسأقول ذلك.",
+    "Replying within one business day": "أرد خلال يوم عمل واحد",
+    "Direct channels": "قنوات مباشرة",
+    "Response time": "زمن الرد",
+    "Within one business day": "خلال يوم عمل واحد",
+    "Based in": "المقر",
+    "Algeria · working remotely nationwide": "الجزائر · أعمل عن بُعد في كل الولايات",
+    "Languages": "اللغات",
+    "Arabic, French, English": "العربية، الفرنسية، الإنجليزية",
+    "What to include": "ماذا تُضمِّن رسالتك",
+    "The task your team repeats most often": "المهمة التي يكررها فريقك أكثر",
+    "Roughly how many messages or documents per day": "تقريباً كم رسالة أو مستنداً في اليوم",
+    "Which tools you already use": "ما الأدوات التي تستخدمها حالياً",
+    "What \"solved\" would look like for you": "كيف يبدو «الحل» بالنسبة لك",
+    "Prefer to talk it through? Say so in the message and I will suggest a time.": "تفضّل مكالمة؟ اذكر ذلك في الرسالة وسأقترح موعداً.",
+    "Send a message": "أرسل رسالة",
+    "Fields marked": "الحقول المعلّمة بـ",
+    "are required.": "إلزامية.",
+    "Full name": "الاسم الكامل",
+    "Email address": "البريد الإلكتروني",
+    "Phone / WhatsApp": "الهاتف / واتساب",
+    "Company": "الشركة",
+    "What are you interested in?": "بمَ أنت مهتم؟",
+    "Not sure yet — help me decide": "لست متأكداً بعد — ساعدني في الاختيار",
+    "WhatsApp Business automation": "أتمتة واتساب أعمال",
+    "Facebook Messenger automation": "أتمتة فيسبوك ماسنجر",
+    "Lead handling automation": "أتمتة إدارة العملاء المحتملين",
+    "Internal workflow automation (n8n)": "أتمتة المسارات الداخلية (n8n)",
+    "Something else": "شيء آخر",
+    "What would you like to automate?": "ما الذي تودّ أتمتته؟",
+    "Send message": "أرسل الرسالة",
+    "This form opens your own email app with the details filled in, so your message goes straight to me with nothing stored on this website. By sending it you agree to the": "هذا النموذج يفتح تطبيق بريدك مع تعبئة التفاصيل، فتصلني رسالتك مباشرة دون تخزين أي شيء على هذا الموقع. بإرسالها فأنت توافق على",
+    "privacy policy": "سياسة الخصوصية",
+    /* form runtime strings */
+    "This field is required.": "هذا الحقل إلزامي.",
+    "Enter a valid email address, e.g. you@company.com": "أدخل بريداً إلكترونياً صحيحاً، مثل you@company.com",
+    "Please add a little more detail (at least 12 characters).": "أضف مزيداً من التفاصيل من فضلك (12 حرفاً على الأقل).",
+    "Opening your mail app…": "جارٍ فتح تطبيق البريد…",
+    "Your email app is opening now.": "تطبيق بريدك يُفتح الآن.",
+    "If nothing happened, send the details to": "إن لم يحدث شيء، أرسل التفاصيل إلى",
+    "copy your message": "انسخ رسالتك",
+    "and paste it into any mail client.": "والصقها في أي تطبيق بريد.",
+    "copied": "نُسخت",
+    /* placeholders */
+    "Your full name": "اسمك الكامل",
+    "you@company.com": "you@company.com",
+    "Optional": "اختياري",
+    "Tell me about your business and the task that eats the most time — the more concrete, the better the first answer.": "حدّثني عن عملك وعن المهمة التي تلتهم أكبر وقت — كلما كانت أدق، كانت الإجابة الأولى أفضل.",
+    /* contact FAQ */
+    "Before you write": "قبل أن تكتب",
+    "Quick answers": "إجابات سريعة",
+    "Is the first call really free?": "هل المكالمة الأولى مجانية فعلاً؟",
+    "Yes. It is 30–45 minutes going through your workflow to find where automation would pay for itself. There is no obligation afterwards, and you get a straight answer even when that answer is \"this is not worth automating yet\".": "نعم. 30–45 دقيقة نمرّ فيها على طريقة عملك لنجد أين تسدّد الأتمتة تكلفتها بنفسها. لا التزام بعدها، وتحصل على إجابة صريحة حتى لو كانت «هذا لا يستحق الأتمتة بعد».",
+    "What happens after I send this form?": "ماذا يحدث بعد إرسال النموذج؟",
+    "You get a reply within one business day, usually with two or three questions about your setup. If it looks like a fit, we book the audit call. If it does not, I will tell you that too rather than keep you in a pipeline.": "يصلك رد خلال يوم عمل واحد، غالباً مع سؤالين أو ثلاثة عن وضعك. إن بدا الأمر مناسباً نحجز مكالمة التقييم، وإن لم يكن كذلك فسأخبرك بذلك أيضاً بدل إبقائك في قائمة انتظار.",
+    "Do you need access to my accounts up front?": "هل تحتاج صلاحيات حساباتي منذ البداية؟",
+    "No. Nothing is needed for the first conversation. Access is only requested once scope and price are agreed, and only for the specific accounts the automation touches. Credentials stay in your accounts wherever the platform allows it.": "لا. لا حاجة لأي شيء في المحادثة الأولى. تُطلب الصلاحيات فقط بعد الاتفاق على النطاق والسعر، ولحسابات محددة تمسّها الأتمتة. وتبقى بيانات الدخول في حساباتك حيثما سمحت المنصة.",
+    "Which languages can we talk in?": "بأي لغة يمكننا التحدث؟",
+    "Arabic, French or English — whichever you are most comfortable with. The automations themselves handle all three, including mixed Algerian Arabic and French.": "العربية أو الفرنسية أو الإنجليزية — أيّها كانت أريح لك. والأتمتة نفسها تتعامل مع الثلاث، بما فيها خليط الدارجة والفرنسية.",
+    /* 404 */
+    "Error 404": "الخطأ 404",
+    "This page": "هذه الصفحة",
+    "went missing.": "غير موجودة.",
+    "The link is broken or the page has moved. Nothing automated about that — sorry. Try one of these instead.": "الرابط معطوب أو الصفحة انتقلت. لا شيء مؤتمت في هذا — عذراً. جرّب أحد هذه بدلاً منها.",
+    "Back to homepage": "عودة إلى الرئيسية",
+    "Browse services": "تصفّح الخدمات",
+    "Report a broken link": "بلّغ عن رابط معطوب",
+    /* legal chrome */
+    "Last updated · 26 July 2026": "آخر تحديث · 26 جويلية 2026",
+    "On this page": "في هذه الصفحة",
+    "How we collect, use and protect your personal information — written to be read, not skimmed past.": "كيف نجمع معلوماتك الشخصية ونستخدمها ونحميها — كُتبت لتُقرأ، لا لتُتجاوز. (نص الوثيقة بالإنجليزية)",
+    "The terms that govern this website and the custom automation systems built for you.": "الشروط التي تحكم هذا الموقع وأنظمة الأتمتة المبنية لك. (نص الوثيقة بالإنجليزية)",
+    "We respect your privacy and your right to control your personal data. Here is exactly how to have it deleted.": "نحترم خصوصيتك وحقك في التحكم ببياناتك. إليك بالضبط كيف تُحذف. (نص الوثيقة بالإنجليزية)",
+    "User data deletion": "حذف بيانات المستخدم"
+  };
+
+  function t(s) {
+    return (IS_AR && AR[s]) || s;
+  }
+
+  mod('i18n', function () {
+    /* Toggle buttons work in both directions */
+    $$('[data-lang-toggle]').forEach(function (btn) {
+      if (IS_AR) {
+        btn.textContent = btn.closest('.drawer-foot') ? 'English · EN' : 'EN';
+        btn.setAttribute('aria-label', 'Switch to English');
+      }
+      btn.addEventListener('click', function () {
+        try {
+          localStorage.setItem('site-lang', IS_AR ? 'en' : 'ar');
+        } catch (e) {}
+        window.location.reload();
+      });
+    });
+
+    if (!IS_AR) return;
+
+    /* Swap every translatable text node in one pass */
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    var node;
+    var batch = [];
+    while ((node = walker.nextNode())) {
+      var parent = node.parentNode;
+      if (!parent || parent.nodeName === 'SCRIPT' || parent.nodeName === 'STYLE') continue;
+      var key = node.nodeValue.replace(/\s+/g, ' ').trim();
+      if (key && AR[key]) batch.push([node, AR[key]]);
+    }
+    batch.forEach(function (pair) {
+      pair[0].nodeValue = pair[1];
+    });
+
+    /* Placeholders */
+    $$('input[placeholder], textarea[placeholder]').forEach(function (el) {
+      var key = el.getAttribute('placeholder').replace(/\s+/g, ' ').trim();
+      if (AR[key]) el.setAttribute('placeholder', AR[key]);
+    });
+  });
+
   /* ================================================= 1b. Reticle cursor
 
      A viewfinder that trails the pointer: a centre dot inside four corner
@@ -313,6 +613,7 @@
 
   mod('scramble', function () {
     if (REDUCED || !anime) return;
+    if (document.documentElement.lang === 'ar') return;
 
     var GLYPHS = '#/<>[]{}|=+*10';
 
@@ -712,7 +1013,13 @@
      fallback renders the scene in its finished state.
      ------------------------------------------------------------------- */
 
-  var BEATS = [
+  var BEATS = document.documentElement.lang === 'ar' ? [
+    ['01', 'عميل يراسلك في 23:40، بعد أن غادر الجميع بوقت طويل.'],
+    ['02', 'تصل الرسالة إلى نظام الأتمتة فوراً — لا أحد يحتاج إلى فتح تطبيق.'],
+    ['03', 'يقرأ الوكيل القصد ويراجع مخزونك وأسعارك وطلباتك.'],
+    ['04', 'يجيب بأسلوبك، يحجز المنتج، ويسجّل العميل المحتمل في نظامك.'],
+    ['05', 'لا يتم إشراكك إلا عندما يحتاج القرار إلى إنسان فعلاً.']
+  ] : [
     ['01', 'A customer messages you at 23:40, long after everyone has gone home.'],
     ['02', 'It reaches your automation instantly — nobody has to open an app.'],
     ['03', 'The agent reads the intent and checks your own stock, prices and orders.'],
@@ -949,7 +1256,30 @@
 
   /* ============================================ 9. Demo tabs + thread */
 
-  var THREADS = {
+  var THREADS = document.documentElement.lang === 'ar' ? {
+    instagram: [
+      { side: 'in', text: 'مرحباً، هل الأسود لا يزال متوفراً بمقاس L؟', meta: 'رسالة إنستغرام' },
+      { side: 'out', text: 'نعم — مقاس L متوفر. هل أحجزه لك؟', meta: 'إجابة من جدول المخزون' },
+      { side: 'in', text: 'نعم من فضلك، وكم سعر التوصيل إلى وهران؟' },
+      { side: 'out', text: 'تم الحجز. التوصيل إلى وهران 600 دج خلال 24–48 ساعة. أؤكد الطلب؟', meta: 'سُجّل العميل في النظام' }
+    ],
+    whatsapp: [
+      { side: 'in', text: 'أين طلبي؟ #4821', meta: 'واتساب أعمال' },
+      { side: 'out', text: 'الطلب #4821 غادر المستودع هذا الصباح وهو في طريقه إليك اليوم.', meta: 'استعلام مباشر عن الطلب' },
+      { side: 'in', text: 'هل يمكن تغيير عنوان التوصيل؟' },
+      { side: 'out', text: 'حوّلت الطلب إلى موظف — سيجيبك أمين هنا خلال دقائق.', meta: 'تصعيد · تطابقت القاعدة' }
+    ],
+    email: [
+      { side: 'in', text: 'طلب عرض سعر: 300 وحدة، التسليم قبل يوم 20.', meta: 'البريد المشترك' },
+      { side: 'out', text: 'صُنّفت الرسالة \u00abعرض سعر — قيمة عالية\u00bb وسُجّلت باسم العميل.', meta: 'فرز · ثانيتان' },
+      { side: 'out', text: 'جُهّزت مسودة العرض من قائمة أسعارك وهي بانتظار موافقتك.', meta: 'بانتظار موافقتك' }
+    ],
+    internal: [
+      { side: 'in', text: 'فاتورة مورّد جديدة أُضيفت إلى مجلد Drive المشترك.', meta: 'مشغّل' },
+      { side: 'out', text: 'استُخرج المورّد والمجموع والضريبة وتاريخ الاستحقاق.', meta: 'قراءة المستند' },
+      { side: 'out', text: 'أُضيف صف إلى جدول المحاسبة ونُشر ملخص في قناة فريقك.', meta: 'اكتمل المسار' }
+    ]
+  } : {
     instagram: [
       { side: 'in', text: 'Hi, is the black one still available in size L?', meta: 'Instagram DM' },
       { side: 'out', text: 'Yes — size L is in stock. Want me to reserve it for you?', meta: 'Answered from your stock sheet' },
@@ -1236,15 +1566,15 @@
       var value = (input.value || '').trim();
 
       if (input.hasAttribute('required') && !value) {
-        showError(input, 'This field is required.');
+        showError(input, t('This field is required.'));
         return false;
       }
       if (input.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
-        showError(input, 'Enter a valid email address, e.g. you@company.com');
+        showError(input, t('Enter a valid email address, e.g. you@company.com'));
         return false;
       }
       if (input.name === 'message' && value && value.length < 12) {
-        showError(input, 'Please add a little more detail (at least 12 characters).');
+        showError(input, t('Please add a little more detail (at least 12 characters).'));
         return false;
       }
       clearError(input);
@@ -1313,11 +1643,11 @@
 
       if (status && statusBody) {
         statusBody.innerHTML =
-          '<strong>Your email app is opening now.</strong>' +
-          'If nothing happened, send the details to ' +
+          '<strong>' + t('Your email app is opening now.') + '</strong>' +
+          t('If nothing happened, send the details to') + ' ' +
           '<a class="link link--accent" href="mailto:' + target + '">' + target + '</a>' +
-          ' — or <button type="button" class="link link--accent" data-copy>copy your message</button> ' +
-          'and paste it into any mail client.';
+          ' — <button type="button" class="link link--accent" data-copy>' + t('copy your message') + '</button> ' +
+          t('and paste it into any mail client.');
         status.classList.add('is-shown');
 
         var copyBtn = $('[data-copy]', status);
@@ -1326,7 +1656,7 @@
             var payload = 'To: ' + target + '\nSubject: ' + subject + '\n\n' + body;
             if (navigator.clipboard && navigator.clipboard.writeText) {
               navigator.clipboard.writeText(payload).then(function () {
-                copyBtn.textContent = 'copied';
+                copyBtn.textContent = t('copied');
               });
             }
           });
@@ -1334,10 +1664,10 @@
       }
 
       if (submit) {
-        submit.textContent = 'Opening your mail app…';
+        submit.textContent = t('Opening your mail app…');
         submit.disabled = true;
         setTimeout(function () {
-          submit.textContent = 'Send message';
+          submit.textContent = t('Send message');
           submit.disabled = false;
         }, 4000);
       }

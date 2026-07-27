@@ -129,6 +129,33 @@ Layering, bottom to top:
   cursorless. Touch and reduced-motion users keep the native cursor.
 - `body::after` (z 90): film grain.
 
+## Arabic (العربية)
+
+The site ships a full Arabic voice, toggled from the header (persisted in
+`localStorage`, applied pre-paint by the inline head script so RTL never
+flashes LTR):
+
+- **Fonts get the same care as the Latin set**: Amiri (a true Naskh, the
+  counterpart of Instrument Serif) for display; IBM Plex Sans Arabic — the
+  Arabic cut of the body family — for UI. Loaded only when Arabic is active.
+- **Letter-spacing is zeroed wholesale** under `[lang=ar]` — tracking breaks
+  Arabic letter joining.
+- **RTL is real**: `dir=rtl` plus mirrored physical properties (accent rails,
+  chevrons, indices, TOC borders, scrollbar track edge). Mixed digit/word
+  values ("<1 يوم", "24/7") keep logical order via LTR isolates.
+- **Everything translates**: chrome, hero, services, animatic beats, demo
+  threads, forms (labels, placeholders, validation, the listbox options,
+  runtime status messages), FAQ, CTA, 404. Strings missing from the
+  dictionary fall back to English silently. Legal body text intentionally
+  stays English, flagged in its Arabic lead line.
+- The scramble effect is disabled in Arabic — Latin glyph noise reads wrong.
+
+## Scrollbars
+
+Scrollbars follow the system: canvas track with a hairline edge, `surface-4`
+thumb, raspberry on hover. Inner panels (listbox, tabs, textareas) get a
+slimmer 7px rail. Firefox via `scrollbar-color`, WebKit via pseudo-elements.
+
 ## Do
 
 - Set headlines in the serif, sentence case.

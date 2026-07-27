@@ -26,13 +26,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap">
-<link rel="stylesheet" href="styles.css?v=pulse-2">
+<link rel="stylesheet" href="styles.css?v=pulse-3">
 
 <script>
   (function () {
     var d = document.documentElement;
     d.classList.add('js');
     d.classList.remove('no-js');
+    /* Language boots before paint: direction + Arabic fonts, so RTL never
+       flashes LTR. The strings themselves are swapped by script.js. */
+    try {
+      if (localStorage.getItem('site-lang') === 'ar') {
+        d.lang = 'ar';
+        d.dir = 'rtl';
+        var f = document.createElement('link');
+        f.rel = 'stylesheet';
+        f.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap';
+        document.head.appendChild(f);
+      }
+    } catch (e) {}
     setTimeout(function () {
       if (!window.__siteReady) d.classList.add('reveal-all');
     }, 2500);
@@ -72,6 +84,7 @@
     </nav>
 
     <div class="header-actions">
+      <button class="btn btn--tertiary lang-btn" type="button" data-lang-toggle aria-label="التبديل إلى العربية">عربي</button>
       <a class="btn btn--secondary" href="mailto:contact@service.co.im">Email</a>
       <a class="btn btn--primary" href="contact.html">Book an audit</a>
       <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
@@ -87,6 +100,7 @@
   <a class="drawer-link is-active" href="about.html">About</a>
   <a class="drawer-link" href="contact.html">Contact</a>
   <div class="drawer-foot">
+    <button class="btn btn--secondary btn--block lang-btn" type="button" data-lang-toggle aria-label="التبديل إلى العربية">عربي · AR</button>
     <p class="mono">contact@service.co.im</p>
     <a class="btn btn--primary btn--lg btn--block" href="contact.html">Book an audit</a>
   </div>
@@ -323,6 +337,6 @@
 
 <script src="vendor/anime.umd.min.js" defer></script>
 <script src="vendor/motion.umd.min.js" defer></script>
-<script src="script.js?v=pulse-2" defer></script>
+<script src="script.js?v=pulse-3" defer></script>
 </body>
 </html>
