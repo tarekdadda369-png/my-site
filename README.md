@@ -5,9 +5,10 @@ Marketing site for a custom AI-automation studio serving businesses in Algeria.
 Static HTML, CSS and vanilla JS. No build step, no framework, no runtime
 dependency on any CDN — deploy the `my-site/` folder as-is.
 
-**Read [`DESIGN.md`](DESIGN.md) before changing any UI.** It is the design
-system this site is built on, and the rules in it are enforced by the browser
-test described below.
+**Read [`DESIGN.md`](DESIGN.md) before changing any UI.** The design system is
+called *Ledger* — warm ink, bone text, antique brass, square corners, a serif
+display voice and a textured backdrop with a light that follows the pointer.
+Its rules are enforced by the browser test described below.
 
 ---
 
@@ -50,6 +51,10 @@ npm run dev          # serve my-site/ on http://localhost:4173
 | **anime.js** (`window.anime`) | the scroll-scrubbed animatic timeline, headline + heading word splits, self-drawing icons, scroll reveals, counters, SVG wire draw + travelling packets, conversation replay, accordion height, page dissolve |
 | **motion** (`window.Motion`)  | `inView` triggers for every reveal, and `scroll()` to scrub the animatic |
 
+The cursor light is deliberately **not** library-driven: it eases with a plain
+rAF lerp that parks itself once it catches the pointer, which is cheaper than
+spawning an animation per pointer event.
+
 ### The animatic
 
 The homepage centrepiece (`#how`) is a five-beat sequence following one
@@ -63,8 +68,7 @@ block showing the finished scene. To change the pacing, edit `BEATS` /
 `BEAT_AT` and the timeline positions in the `animatic` module of `script.js`.
 
 Motion is purposeful rather than decorative — see the Motion section of
-`DESIGN.md`. There is no parallax, no cursor-tracked glow and no spring hover
-anywhere on the site.
+`DESIGN.md`. No parallax and no spring hovers.
 
 ## Resilience
 
@@ -101,7 +105,8 @@ Search the HTML for `data-todo` to find each spot:
 Then delete the `data-todo` attribute. Also worth doing:
 
 - Add a real `og:image` (1200×630) and reference it in each page's `<head>` —
-  link previews on Facebook and WhatsApp currently have no image.
+  link previews on Facebook and WhatsApp currently have no image. Match the
+  brass-on-ink palette so the preview matches the site.
 - Update the "Last updated" dates on the three legal pages when you edit them.
 - Add a phone number to `contact.html` if you want one (it was removed rather
   than left as `+213 XXX XXX XXX`).

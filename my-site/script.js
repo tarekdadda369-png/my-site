@@ -111,6 +111,69 @@
     window.__siteReady = true;
   });
 
+  /* ==================================================== 1b. Cursor light
+
+     A soft brass lamp that trails the pointer. It rides on `screen` blend
+     above the page, so it lifts whatever it passes over. Position is eased
+     with a rAF lerp rather than a per-move animation, and the loop parks
+     itself the moment the light catches up with the pointer.
+     ------------------------------------------------------------------- */
+
+  mod('cursor-light', function () {
+    var light = $('.cursor-light');
+    if (!light || REDUCED) return;
+
+    /* Pointer affordance only — never on touch. */
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var tx = window.innerWidth / 2;
+    var ty = window.innerHeight / 2;
+    var x = tx;
+    var y = ty;
+    var running = false;
+
+    function loop() {
+      x += (tx - x) * 0.13;
+      y += (ty - y) * 0.13;
+      light.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+
+      if (Math.abs(tx - x) < 0.2 && Math.abs(ty - y) < 0.2) {
+        running = false;
+        return;
+      }
+      requestAnimationFrame(loop);
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      requestAnimationFrame(loop);
+    }
+
+    document.addEventListener(
+      'pointermove',
+      function (e) {
+        if (e.pointerType && e.pointerType !== 'mouse') return;
+        tx = e.clientX;
+        ty = e.clientY;
+        light.classList.add('is-on');
+        start();
+      },
+      { passive: true }
+    );
+
+    /* Leaving the window or the tab should put the lamp out. */
+    document.addEventListener('mouseleave', function () {
+      light.classList.remove('is-on');
+    });
+    window.addEventListener('blur', function () {
+      light.classList.remove('is-on');
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) light.classList.remove('is-on');
+    });
+  });
+
   /* =========================================================== 2. Header */
 
   mod('header', function () {
