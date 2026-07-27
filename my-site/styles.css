@@ -1,17 +1,17 @@
 /* ==========================================================================
    TARIK DADDA — AI Automation
-   Design system v4 — "Ledger"
+   Design system v5 — "Pulse"
 
-   A classic, editorial register replacing the v3 tech-startup look:
+   The Ledger structure (sharp edges, serif display, hairline rules) recoloured
+   and recharged around the n8n palette:
 
-     · SHARP EDGES. Every rectangle is 0px. Only genuine circles stay round
-       (avatars, status dots, the logo mark). Nothing is pill-shaped.
-     · Warm ink instead of blue-black, bone instead of grey, and a single
-       antique-brass accent. No indigo, no violet, no gradient ramps.
-     · Instrument Serif carries the display voice; IBM Plex Sans carries the
-       interface; IBM Plex Mono carries labels and technical meta.
-     · The page has a real backdrop: ledger rules, a warm vignette, paper
-       grain, and a brass light that follows the pointer.
+     · SHARP EDGES everywhere. The global reset sets border-radius: 0.
+     · n8n raspberry #ea4b71 as the single accent on ink-navy surfaces
+       (#07080f canvas), off-white #fcfcfd text. White text on raspberry.
+     · Instrument Serif display · IBM Plex Sans body · IBM Plex Mono labels.
+     · A living backdrop: a canvas flow-field (the "motion video"), ruled
+       lines, vignette and grain — plus a reticle cursor that locks onto
+       anything interactive.
 
    --------------------------------------------------------------------------
    0.  Tokens
@@ -44,30 +44,30 @@
 
 :root {
   /* Warm ink ladder — every step carries the same amber cast */
-  --canvas: #100e0b;
-  --surface-1: #17140f;
-  --surface-2: #1d1a14;
-  --surface-3: #24201a;
-  --surface-4: #2b261e;
+  --canvas: #07080f;
+  --surface-1: #0d0f1a;
+  --surface-2: #121525;
+  --surface-3: #181c30;
+  --surface-4: #1f2440;
 
   /* Hairlines */
-  --hairline: #2e2a22;
-  --hairline-strong: #403a2e;
-  --hairline-bright: #554c3b;
+  --hairline: #21263c;
+  --hairline-strong: #2e3552;
+  --hairline-bright: #414a70;
 
   /* Bone */
-  --ink: #f0eadd;
-  --ink-muted: #cfc5b2;
-  --ink-subtle: #9a9080;
-  --ink-tertiary: #6f6656;
+  --ink: #fcfcfd;
+  --ink-muted: #c8ccdc;
+  --ink-subtle: #8b90a6;
+  --ink-tertiary: #5e647d;
 
   /* The single accent: antique brass */
-  --accent: #c2a15b;
-  --accent-hover: #d9be83;
-  --accent-deep: #8e7134;
-  --on-accent: #14110c;
-  --success: #8aa06e;
-  --danger: #cf8b6a;
+  --accent: #ea4b71;
+  --accent-hover: #ff7195;
+  --accent-deep: #b73557;
+  --on-accent: #ffffff;
+  --success: #3dbb85;
+  --danger: #ff9f6e;
 
   /* Type */
   --font-display: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
@@ -110,7 +110,7 @@
   --header-h: 60px;
 
   /* The faint top-edge highlight on lifted surfaces */
-  --edge: inset 0 1px 0 rgba(240, 234, 221, 0.045);
+  --edge: inset 0 1px 0 rgba(252, 252, 253, 0.045);
 }
 
 /* ==========================================================================
@@ -199,12 +199,16 @@ ol {
 }
 
 /* ==========================================================================
-   2. Backdrop & cursor light
+   2. Backdrop, motion canvas & reticle cursor
 
-   Three fixed layers sit behind the page: ruled ledger lines for texture, a
-   warm vignette so the edges fall away, and paper grain over the top. The
-   cursor light rides above the content on `screen` blend, so it lifts
-   whatever it passes over instead of washing it out.
+   Layering, bottom to top:
+     body::before  (z -2)  ruled lines, raspberry bloom, vignette
+     .bg-motion    (z -1)  canvas flow-field — the "motion video", generated
+                           live so it weighs nothing, loops forever and
+                           matches the palette exactly
+     content       (z auto)
+     .cursor       (z 80)  reticle that trails the pointer
+     body::after   (z 90)  film grain
    ========================================================================== */
 
 body::before {
@@ -214,62 +218,131 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    /* warm bloom from the top */
-    radial-gradient(120% 70% at 50% -10%, rgba(194, 161, 91, 0.07), transparent 62%),
-    /* vignette */
-    radial-gradient(115% 105% at 50% 45%, transparent 42%, rgba(0, 0, 0, 0.5) 100%),
-    /* ledger rules */
-    repeating-linear-gradient(180deg, rgba(240, 234, 221, 0.021) 0 1px, transparent 1px 46px),
-    /* faint vertical ruling for a woven feel */
-    repeating-linear-gradient(90deg, rgba(240, 234, 221, 0.012) 0 1px, transparent 1px 46px),
+    radial-gradient(120% 70% at 50% -10%, rgba(234, 75, 113, 0.075), transparent 62%),
+    radial-gradient(115% 105% at 50% 45%, transparent 42%, rgba(0, 0, 0, 0.55) 100%),
+    repeating-linear-gradient(180deg, rgba(252, 252, 253, 0.02) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(252, 252, 253, 0.012) 0 1px, transparent 1px 46px),
     var(--canvas);
 }
 
-/* Paper grain */
+/* Film grain */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 70;
+  z-index: 90;
   pointer-events: none;
   opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.cursor-light {
+/* The generated motion background */
+.bg-motion {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------- reticle --- */
+
+/* Only engaged when JS confirms a fine pointer; until then the native
+   cursor is untouched. */
+html.cursor-live,
+html.cursor-live * {
+  cursor: none !important;
+}
+
+.cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 560px;
-  height: 560px;
-  margin: -280px 0 0 -280px;
-  border-radius: 50%;
+  z-index: 80;
   pointer-events: none;
-  z-index: 60;
   opacity: 0;
-  mix-blend-mode: screen;
   will-change: transform;
-  transition: opacity 0.5s var(--e-out);
-  background:
-    radial-gradient(circle closest-side,
-      rgba(216, 181, 110, 0.17),
-      rgba(194, 161, 91, 0.085) 38%,
-      rgba(194, 161, 91, 0.03) 62%,
-      transparent 76%);
+  transition: opacity 0.35s var(--e-out);
 }
 
-.cursor-light.is-on {
+.cursor.is-on {
   opacity: 1;
 }
 
-/* A broad, soft core so the light reads as a lamp rather than a speck */
-.cursor-light::after {
-  content: '';
+/* Centre dot — the precise point */
+.cursor .c-dot {
   position: absolute;
-  inset: 30%;
+  top: -2px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(234, 75, 113, 0.9);
+  transition: transform var(--d-base) var(--e-out), background-color var(--d-base) var(--e-out);
+}
+
+/* Corner brackets — a viewfinder that idles as a diamond and locks square
+   onto anything interactive */
+.cursor .c-frame {
+  position: absolute;
+  top: -17px;
+  left: -17px;
+  width: 34px;
+  height: 34px;
+  transform: rotate(45deg) scale(1);
+  transition: transform 0.34s var(--e-out);
+}
+
+.cursor .c-frame i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(252, 252, 253, 0.7);
+}
+
+.cursor .c-frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.cursor .c-frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.cursor .c-frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.cursor .c-frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* Soft accent halo so the reticle carries a little light with it */
+.cursor .c-halo {
+  position: absolute;
+  top: -90px;
+  left: -90px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle closest-side, rgba(226, 197, 137, 0.13), transparent 72%);
+  background: radial-gradient(circle closest-side, rgba(234, 75, 113, 0.12), transparent 70%);
+  mix-blend-mode: screen;
+}
+
+/* Locked on: brackets square up, spread, and go raspberry */
+.cursor.is-lock .c-frame {
+  transform: rotate(0deg) scale(1.5);
+}
+
+.cursor.is-lock .c-frame i {
+  border-color: var(--accent);
+}
+
+.cursor.is-lock .c-dot {
+  transform: scale(0.5);
+  background: var(--accent-hover);
+}
+
+/* Pressed: the frame bites down */
+.cursor.is-down .c-frame {
+  transform: rotate(0deg) scale(1.05);
+}
+
+/* Over text fields the frame opens wide and fades so it never fights the caret */
+.cursor.is-text .c-frame {
+  transform: rotate(45deg) scale(2);
+  opacity: 0.25;
 }
 
 /* ==========================================================================
@@ -442,7 +515,7 @@ strong {
 /* Lifted sections are translucent so the backdrop and the cursor light
    still read through them. */
 .section--lift {
-  background: rgba(23, 20, 15, 0.72);
+  background: rgba(13, 15, 26, 0.72);
   border-block: 1px solid var(--hairline);
 }
 
@@ -539,7 +612,7 @@ strong {
 .btn--secondary:hover {
   border-color: var(--accent);
   color: var(--accent-hover);
-  background: rgba(194, 161, 91, 0.07);
+  background: rgba(234, 75, 113, 0.07);
 }
 
 .btn--tertiary {
@@ -591,7 +664,7 @@ strong {
 
 .link--accent {
   color: var(--accent-hover);
-  border-bottom-color: rgba(194, 161, 91, 0.4);
+  border-bottom-color: rgba(234, 75, 113, 0.4);
 }
 
 .link--accent:hover {
@@ -606,7 +679,7 @@ strong {
   height: 26px;
   padding: 0 11px;
   border: 1px solid var(--hairline-strong);
-  background: rgba(36, 32, 26, 0.6);
+  background: rgba(24, 28, 48, 0.6);
   font-family: var(--font-mono);
   font-size: var(--t-caption);
   letter-spacing: 0.06em;
@@ -632,7 +705,7 @@ strong {
   z-index: 100;
   display: flex;
   align-items: center;
-  background: rgba(16, 14, 11, 0.82);
+  background: rgba(7, 8, 15, 0.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
@@ -640,7 +713,7 @@ strong {
 }
 
 .header.is-scrolled {
-  background: rgba(16, 14, 11, 0.94);
+  background: rgba(7, 8, 15, 0.94);
   border-bottom-color: var(--hairline);
 }
 
@@ -826,8 +899,8 @@ body.is-locked {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(240, 234, 221, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 234, 221, 0.026) 1px, transparent 1px);
+    linear-gradient(rgba(252, 252, 253, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 252, 253, 0.026) 1px, transparent 1px);
   background-size: 92px 92px;
   mask-image: linear-gradient(180deg, #000 0%, transparent 68%);
   -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 68%);
@@ -886,7 +959,7 @@ body.is-locked {
    ========================================================================== */
 
 .panel {
-  background: rgba(23, 20, 15, 0.82);
+  background: rgba(13, 15, 26, 0.82);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
   overflow: hidden;
@@ -899,7 +972,7 @@ body.is-locked {
   height: 42px;
   padding-inline: var(--s-md);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: rgba(18, 21, 37, 0.8);
 }
 
 .panel-bar .dots {
@@ -952,7 +1025,7 @@ body.is-locked {
   gap: 6px var(--s-lg);
   padding: var(--s-sm) var(--s-md);
   border-top: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: rgba(18, 21, 37, 0.8);
   font-family: var(--font-mono);
   font-size: var(--t-caption);
   letter-spacing: 0.06em;
@@ -971,44 +1044,44 @@ body.is-locked {
 
 .flow .wire {
   fill: none;
-  stroke: #4a422f;
+  stroke: #39406a;
   stroke-width: 1;
   stroke-linecap: round;
 }
 
 .flow .node-box {
-  fill: #1d1a14;
-  stroke: #3a3428;
+  fill: #121525;
+  stroke: #333b63;
   stroke-width: 1;
 }
 
 .flow .node-box.is-core {
-  fill: #24201a;
-  stroke: #c2a15b;
+  fill: #181c30;
+  stroke: #ea4b71;
 }
 
 .flow .node-label {
-  fill: #f0eadd;
+  fill: #fcfcfd;
   font-family: var(--font-sans);
   font-size: 8.5px;
   font-weight: 500;
 }
 
 .flow .node-sub {
-  fill: #6f6656;
+  fill: #5e647d;
   font-family: var(--font-mono);
   font-size: 5.75px;
   letter-spacing: 0.2px;
 }
 
 .flow .core-label {
-  fill: #f0eadd;
+  fill: #fcfcfd;
   font-family: var(--font-display);
   font-size: 12px;
 }
 
 .flow .packet {
-  fill: #d9be83;
+  fill: #ff7195;
 }
 
 /* ==========================================================================
@@ -1074,21 +1147,21 @@ body.is-locked {
   opacity: 0;
 }
 
-.scene .s-card { fill: #17140f; stroke: #2e2a22; stroke-width: 1; }
-.scene .s-card-2 { fill: #1d1a14; stroke: #2e2a22; stroke-width: 1; }
-.scene .s-core { fill: #24201a; stroke: #c2a15b; stroke-width: 1.25; }
-.scene .s-wire { fill: none; stroke: #4a422f; stroke-width: 1.25; stroke-linecap: round; }
-.scene .s-in { fill: #1d1a14; stroke: #2e2a22; stroke-width: 1; }
-.scene .s-out { fill: #c2a15b; }
-.scene .s-accent { fill: #c2a15b; }
-.scene .s-ring { fill: none; stroke: #c2a15b; stroke-width: 1; }
+.scene .s-card { fill: #0d0f1a; stroke: #21263c; stroke-width: 1; }
+.scene .s-card-2 { fill: #121525; stroke: #21263c; stroke-width: 1; }
+.scene .s-core { fill: #181c30; stroke: #ea4b71; stroke-width: 1.25; }
+.scene .s-wire { fill: none; stroke: #39406a; stroke-width: 1.25; stroke-linecap: round; }
+.scene .s-in { fill: #121525; stroke: #21263c; stroke-width: 1; }
+.scene .s-out { fill: #ea4b71; }
+.scene .s-accent { fill: #ea4b71; }
+.scene .s-ring { fill: none; stroke: #ea4b71; stroke-width: 1; }
 
-.scene .t-lg { fill: #f0eadd; font-family: var(--font-display); font-size: 17px; }
-.scene .t-md { fill: #f0eadd; font-family: var(--font-sans); font-size: 12px; font-weight: 500; }
-.scene .t-sm { fill: #cfc5b2; font-family: var(--font-sans); font-size: 11.5px; }
-.scene .t-out { fill: #14110c; font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; }
-.scene .t-mono { fill: #6f6656; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
-.scene .t-mono-lit { fill: #c2a15b; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
+.scene .t-lg { fill: #fcfcfd; font-family: var(--font-display); font-size: 17px; }
+.scene .t-md { fill: #fcfcfd; font-family: var(--font-sans); font-size: 12px; font-weight: 500; }
+.scene .t-sm { fill: #c8ccdc; font-family: var(--font-sans); font-size: 11.5px; }
+.scene .t-out { fill: #ffffff; font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; }
+.scene .t-mono { fill: #5e647d; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
+.scene .t-mono-lit { fill: #ea4b71; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
 
 .beats {
   display: flex;
@@ -1220,12 +1293,12 @@ body.is-locked {
   display: flex;
   flex-direction: column;
   padding: var(--s-lg);
-  background: rgba(23, 20, 15, 0.78);
+  background: rgba(13, 15, 26, 0.78);
   transition: background-color var(--d-slow) var(--e-out);
 }
 
 .card:hover {
-  background: rgba(36, 32, 26, 0.9);
+  background: rgba(24, 28, 48, 0.9);
 }
 
 .card .glyph,
@@ -1357,7 +1430,7 @@ body.is-locked {
   align-items: center;
   gap: var(--s-md);
   padding: var(--s-lg);
-  background: rgba(23, 20, 15, 0.78);
+  background: rgba(13, 15, 26, 0.78);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
 }
@@ -1451,7 +1524,7 @@ body.is-locked {
 .tabs {
   display: flex;
   border-bottom: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: rgba(18, 21, 37, 0.8);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1494,7 +1567,7 @@ body.is-locked {
 
 .tab[aria-selected='true'] {
   color: var(--ink);
-  background: rgba(43, 38, 30, 0.7);
+  background: rgba(31, 36, 64, 0.7);
 }
 
 .tab[aria-selected='true']::after {
@@ -1526,7 +1599,7 @@ body.is-locked {
 }
 
 .thread {
-  background: rgba(16, 14, 11, 0.8);
+  background: rgba(7, 8, 15, 0.8);
   border: 1px solid var(--hairline);
   overflow: hidden;
   display: flex;
@@ -1540,7 +1613,7 @@ body.is-locked {
   gap: var(--s-sm);
   padding: var(--s-sm) var(--s-md);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: rgba(18, 21, 37, 0.8);
 }
 
 .thread-top .src {
@@ -1657,7 +1730,7 @@ body.is-locked {
   gap: var(--s-sm);
   padding: var(--s-xs) var(--s-md);
   border-top: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: rgba(18, 21, 37, 0.8);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.06em;
@@ -1735,13 +1808,33 @@ body.is-locked {
    15. CTA
    ========================================================================== */
 
+@property --sweep {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .cta {
   position: relative;
-  background: rgba(23, 20, 15, 0.78);
-  border: 1px solid var(--hairline-strong);
+  border: 1px solid transparent;
+  /* A raspberry arc sweeps the hairline border — browsers without @property
+     simply show the static border underneath. */
+  background:
+    linear-gradient(rgba(13, 15, 26, 0.92), rgba(13, 15, 26, 0.92)) padding-box,
+    conic-gradient(from var(--sweep),
+      var(--hairline-strong) 0deg 285deg,
+      rgba(234, 75, 113, 0.9) 320deg,
+      #ff7195 335deg,
+      rgba(234, 75, 113, 0.9) 350deg,
+      var(--hairline-strong) 360deg) border-box;
+  animation: sweep 7s linear infinite;
   box-shadow: var(--edge);
   padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px);
   text-align: center;
+}
+
+@keyframes sweep {
+  to { --sweep: 360deg; }
 }
 
 /* Brass corner marks — a classic framing device */
@@ -1793,7 +1886,7 @@ body.is-locked {
    ========================================================================== */
 
 .form-panel {
-  background: rgba(23, 20, 15, 0.8);
+  background: rgba(13, 15, 26, 0.8);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
   padding: clamp(20px, 3vw, 36px);
@@ -1833,7 +1926,7 @@ body.is-locked {
   width: 100%;
   min-height: 42px;
   padding: 10px 13px;
-  background: rgba(16, 14, 11, 0.75);
+  background: rgba(7, 8, 15, 0.75);
   border: 1px solid var(--hairline-strong);
   font-family: var(--font-sans);
   font-size: var(--t-body-sm);
@@ -1866,20 +1959,20 @@ body.is-locked {
 .field textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: inset 0 0 0 1px rgba(194, 161, 91, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(234, 75, 113, 0.35);
 }
 
 .field .err {
   display: none;
   font-family: var(--font-mono);
   font-size: var(--t-caption);
-  color: #cf8b6a;
+  color: #ff9f6e;
 }
 
 .field.is-invalid input,
 .field.is-invalid select,
 .field.is-invalid textarea {
-  border-color: #cf8b6a;
+  border-color: #ff9f6e;
 }
 
 .field.is-invalid .err {
@@ -1901,7 +1994,7 @@ body.is-locked {
 .form-status {
   display: none;
   padding: var(--s-sm) var(--s-md);
-  background: rgba(36, 32, 26, 0.8);
+  background: rgba(24, 28, 48, 0.8);
   border: 1px solid var(--hairline-strong);
   border-left: 2px solid var(--accent);
   font-size: var(--t-body-sm);
@@ -2102,7 +2195,7 @@ body.is-locked {
 
 .prose a {
   color: var(--accent-hover);
-  border-bottom: 1px solid rgba(194, 161, 91, 0.4);
+  border-bottom: 1px solid rgba(234, 75, 113, 0.4);
 }
 
 .prose a:hover {
@@ -2111,7 +2204,7 @@ body.is-locked {
 
 .prose .callout {
   padding: var(--s-md);
-  background: rgba(36, 32, 26, 0.7);
+  background: rgba(24, 28, 48, 0.7);
   border: 1px solid var(--hairline);
   border-left: 2px solid var(--accent);
 }
@@ -2372,9 +2465,11 @@ body.is-locked {
   }
 }
 
-/* The light is a pointer affordance; touch devices never see it */
+/* Pointer-only chrome: never on touch. The canvas also stays off there to
+   save battery — the static backdrop carries the texture alone. */
 @media (hover: none), (pointer: coarse) {
-  .cursor-light {
+  .cursor,
+  .bg-motion {
     display: none;
   }
 }
@@ -2412,8 +2507,13 @@ body.is-locked {
     opacity: 1;
   }
 
-  .cursor-light {
+  .cursor,
+  .bg-motion {
     display: none;
+  }
+
+  .cta {
+    animation: none;
   }
 }
 
@@ -2422,7 +2522,8 @@ body.is-locked {
   .drawer,
   .footer,
   .hero-grid,
-  .cursor-light,
+  .cursor,
+  .bg-motion,
   body::before,
   body::after {
     display: none !important;

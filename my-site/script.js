@@ -111,33 +111,34 @@
     window.__siteReady = true;
   });
 
-  /* ==================================================== 1b. Cursor light
+  /* ================================================= 1b. Reticle cursor
 
-     A soft brass lamp that trails the pointer. It rides on `screen` blend
-     above the page, so it lifts whatever it passes over. Position is eased
-     with a rAF lerp rather than a per-move animation, and the loop parks
-     itself the moment the light catches up with the pointer.
+     A viewfinder that trails the pointer: a centre dot inside four corner
+     brackets. It idles as a diamond and locks square onto anything
+     interactive — the "targeting" read suits an automation studio. The
+     native cursor is only hidden after the reticle is confirmed running.
      ------------------------------------------------------------------- */
 
-  mod('cursor-light', function () {
-    var light = $('.cursor-light');
-    if (!light || REDUCED) return;
-
-    /* Pointer affordance only — never on touch. */
+  mod('cursor', function () {
+    var cursor = $('.cursor');
+    if (!cursor || REDUCED) return;
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var INTERACTIVE = 'a, button, [role="tab"], .acc-btn, summary, label';
+    var TEXTUAL = 'input, textarea, select';
 
     var tx = window.innerWidth / 2;
     var ty = window.innerHeight / 2;
     var x = tx;
     var y = ty;
     var running = false;
+    var engaged = false;
 
     function loop() {
-      x += (tx - x) * 0.13;
-      y += (ty - y) * 0.13;
-      light.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
-
-      if (Math.abs(tx - x) < 0.2 && Math.abs(ty - y) < 0.2) {
+      x += (tx - x) * 0.22;
+      y += (ty - y) * 0.22;
+      cursor.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      if (Math.abs(tx - x) < 0.15 && Math.abs(ty - y) < 0.15) {
         running = false;
         return;
       }
@@ -145,9 +146,10 @@
     }
 
     function start() {
-      if (running) return;
-      running = true;
-      requestAnimationFrame(loop);
+      if (!running) {
+        running = true;
+        requestAnimationFrame(loop);
+      }
     }
 
     document.addEventListener(
@@ -156,21 +158,222 @@
         if (e.pointerType && e.pointerType !== 'mouse') return;
         tx = e.clientX;
         ty = e.clientY;
-        light.classList.add('is-on');
+
+        if (!engaged) {
+          engaged = true;
+          /* Snap to the pointer before first paint so the reticle never
+             flies in from the viewport centre. */
+          x = tx;
+          y = ty;
+          cursor.classList.add('is-on');
+          document.documentElement.classList.add('cursor-live');
+        }
+
+        var t = e.target;
+        cursor.classList.toggle('is-lock', !!(t.closest && t.closest(INTERACTIVE)));
+        cursor.classList.toggle('is-text', !!(t.closest && t.closest(TEXTUAL)));
         start();
       },
       { passive: true }
     );
 
-    /* Leaving the window or the tab should put the lamp out. */
-    document.addEventListener('mouseleave', function () {
-      light.classList.remove('is-on');
+    document.addEventListener('pointerdown', function () {
+      cursor.classList.add('is-down');
     });
-    window.addEventListener('blur', function () {
-      light.classList.remove('is-on');
+    document.addEventListener('pointerup', function () {
+      cursor.classList.remove('is-down');
+    });
+
+    function off() {
+      cursor.classList.remove('is-on');
+      document.documentElement.classList.remove('cursor-live');
+      engaged = false;
+    }
+    document.documentElement.addEventListener('mouseleave', off);
+    window.addEventListener('blur', off);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) off();
+    });
+  });
+
+  /* ============================================ 1c. Motion background
+
+     The "background video": a flow-field of raspberry and violet particles
+     drifting through curl noise on a full-screen canvas. Generated live, it
+     weighs nothing, loops forever, never buffers, and matches the palette
+     exactly — everything an MP4 background is not.
+     ------------------------------------------------------------------- */
+
+  mod('bg-motion', function () {
+    var canvas = $('.bg-motion');
+    if (!canvas || REDUCED) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var W = 0;
+    var H = 0;
+    var parts = [];
+    var raf = null;
+    var running = true;
+    var t = 0;
+
+    var COLOURS = ['rgba(234, 75, 113, 0.30)', 'rgba(255, 113, 149, 0.22)', 'rgba(122, 91, 234, 0.20)'];
+
+    function spawn(anywhere) {
+      return {
+        x: Math.random() * W,
+        y: anywhere ? Math.random() * H : (Math.random() < 0.5 ? -8 : H + 8),
+        life: 0,
+        max: 400 + Math.random() * 500,
+        speed: 0.22 + Math.random() * 0.5,
+        c: COLOURS[(Math.random() * COLOURS.length) | 0]
+      };
+    }
+
+    function resize() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = 'rgba(7, 8, 15, 1)';
+      ctx.fillRect(0, 0, W, H);
+
+      var count = Math.min(90, Math.max(36, Math.round((W * H) / 26000)));
+      parts = [];
+      for (var i = 0; i < count; i++) parts.push(spawn(true));
+    }
+
+    /* Cheap curl-ish field from summed sines — organic without a noise lib */
+    function angle(x, y, t) {
+      return (
+        Math.sin(x * 0.0016 + t * 0.00022) +
+        Math.cos(y * 0.0019 - t * 0.00017) +
+        Math.sin((x + y) * 0.0008 + t * 0.0001)
+      ) * 1.35;
+    }
+
+    function frame(now) {
+      if (!running) return;
+      t = now || 0;
+
+      /* Translucent wipe leaves short comet trails */
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = 'rgba(7, 8, 15, 0.055)';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.globalCompositeOperation = 'lighter';
+      for (var i = 0; i < parts.length; i++) {
+        var pt = parts[i];
+        var a = angle(pt.x, pt.y, t);
+        pt.x += Math.cos(a) * pt.speed;
+        pt.y += Math.sin(a) * pt.speed;
+        pt.life++;
+
+        if (pt.life > pt.max || pt.x < -12 || pt.x > W + 12 || pt.y < -12 || pt.y > H + 12) {
+          parts[i] = spawn(false);
+          continue;
+        }
+
+        ctx.fillStyle = pt.c;
+        ctx.fillRect(pt.x, pt.y, 1.4, 1.4);
+      }
+
+      raf = requestAnimationFrame(frame);
+    }
+
+    function setRunning(next) {
+      if (next === running) return;
+      running = next;
+      if (running) raf = requestAnimationFrame(frame);
+      else if (raf) cancelAnimationFrame(raf);
+    }
+
+    var rT;
+    window.addEventListener('resize', function () {
+      clearTimeout(rT);
+      rT = setTimeout(resize, 180);
     });
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) light.classList.remove('is-on');
+      setRunning(!document.hidden);
+    });
+
+    resize();
+    raf = requestAnimationFrame(frame);
+  });
+
+  /* ============================================== 1d. Scramble decode
+
+     Mono labels resolve out of automation noise — a terminal-style decode
+     on eyebrows and panel names, run once when they enter the viewport.
+     ------------------------------------------------------------------- */
+
+  mod('scramble', function () {
+    if (REDUCED || !anime) return;
+
+    var GLYPHS = '#/<>[]{}|=+*10';
+
+    function scramble(el) {
+      if (el.dataset.scrambled) return;
+      el.dataset.scrambled = '1';
+
+      var final = el.textContent.replace(/\s+/g, ' ').trim();
+      if (!final || final.length < 3 || final.length > 48) return;
+
+      var frame = 0;
+      var total = Math.min(26, 8 + final.length);
+      el.setAttribute('aria-label', final);
+
+      function tick() {
+        frame++;
+        var resolved = Math.floor((frame / total) * final.length);
+        var out = '';
+        for (var i = 0; i < final.length; i++) {
+          var ch = final[i];
+          if (i < resolved || ch === ' ') out += ch;
+          else out += GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        }
+        el.textContent = out;
+        if (frame < total) setTimeout(tick, 28);
+        else el.textContent = final;
+      }
+      tick();
+    }
+
+    $$('.eyebrow, .panel-bar .name').forEach(function (el) {
+      /* Eyebrows keep their ::before rule; only the text node scrambles. */
+      onceInView(el, function () {
+        scramble(el);
+      }, 0.5);
+    });
+  });
+
+  /* ============================================== 1e. Magnetic pull
+
+     Primary CTAs lean a few pixels toward the reticle when it comes close.
+     Small on purpose: attraction, not elasticity.
+     ------------------------------------------------------------------- */
+
+  mod('magnetic', function () {
+    if (REDUCED) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    $$('.btn--primary').forEach(function (btn) {
+      btn.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+
+      btn.addEventListener('pointermove', function (e) {
+        var r = btn.getBoundingClientRect();
+        var dx = e.clientX - (r.left + r.width / 2);
+        var dy = e.clientY - (r.top + r.height / 2);
+        btn.style.transform = 'translate(' + (dx * 0.12).toFixed(1) + 'px,' + (dy * 0.18).toFixed(1) + 'px)';
+      });
+
+      btn.addEventListener('pointerleave', function () {
+        btn.style.transform = '';
+      });
     });
   });
 

@@ -3,12 +3,14 @@
 The design language for Tarik Dadda's site. **Read this before changing any
 UI.** Most rules here are asserted by the browser test (see Enforcement).
 
-The system is called **Ledger**: warm ink, bone text, antique brass, square
-corners, a serif display voice, and a page that has an actual backdrop.
+The system is called **Pulse**: the Ledger structure (sharp edges, serif
+display, hairline rules) recoloured and recharged around the n8n palette —
+raspberry `#ea4b71` on ink-navy `#07080f` — with a living canvas backdrop and
+a reticle cursor.
 
 It began as an adaptation of the Linear analysis in
 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)
-(kept at `DESIGN-reference-linear.md` for provenance). Ledger keeps Linear's
+(kept at `DESIGN-reference-linear.md` for provenance). Pulse keeps Linear's
 structural discipline — a surface ladder, hairline borders, one scarce accent —
 and deliberately breaks with it on shape, type, colour and atmosphere. Where
 the two disagree, **this file wins**.
@@ -22,56 +24,59 @@ the two disagree, **this file wins**.
    `border-radius: 0` so corners must be opted into, never inherited. Only
    genuine circles stay round — avatars, status dots, the logo mark, and
    pictogram glyphs whose shape depends on it.
-2. **One accent: antique brass `#c2a15b`.** Primary CTA, eyebrow rules,
-   metrics, section numbers, focus rings, active nav, the AI-core node. No
-   blue, no indigo, no second hue, no gradient ramps.
-3. **Warm, not neutral.** The canvas is `#100e0b` — ink with an amber cast,
-   never blue-black and never pure `#000`. Text is bone `#f0eadd`, not white.
+2. **One accent: n8n raspberry `#ea4b71`.** Primary CTA, eyebrow rules,
+   metrics, section numbers, focus rings, active nav, the AI-core node.
+   White text on raspberry, exactly as n8n sets it. The canvas particles may
+   additionally use a violet `rgba(122,91,234,…)` at low alpha — it exists
+   only inside the motion canvas, never on UI.
+3. **Ink-navy, not black.** The canvas is `#07080f` with navy-tinted
+   surfaces stepping up from it. Text is off-white `#fcfcfd`.
 4. **Serif display, sans interface, mono labels.** Instrument Serif carries
    headlines and large numerals. IBM Plex Sans carries body and dense UI.
    IBM Plex Mono carries every label, button, eyebrow, and technical meta.
-5. **The page has a backdrop.** Never a flat fill. Ledger rules, a warm bloom,
-   a vignette, paper grain — plus a brass light that follows the pointer.
+5. **The page has a backdrop.** Never a flat fill. Ruled lines, a raspberry
+   bloom, a vignette, film grain — plus the canvas flow-field and a reticle
+   cursor that locks onto anything interactive.
 6. **Depth is hairlines and surface lift.** No drop shadows. The only "shadow"
    is a 1px inset top-edge highlight (`--edge`) on lifted panels.
 
 ## Tokens
 
-### Surfaces — warm ink ladder
+### Surfaces — ink-navy ladder
 
 | Token | Value | Use |
 |---|---|---|
-| `--canvas` | `#100e0b` | Page background |
-| `--surface-1` | `#17140f` | Cards, panels, lifted sections |
-| `--surface-2` | `#1d1a14` | Panel bars, inputs, incoming messages |
-| `--surface-3` | `#24201a` | Hovered cards, callouts, status chips |
-| `--surface-4` | `#2b261e` | Deepest lift — selected tab |
-| `--hairline` | `#2e2a22` | Default 1px borders |
-| `--hairline-strong` | `#403a2e` | Buttons, inputs, stronger divisions |
-| `--hairline-bright` | `#554c3b` | Link underlines, list rules |
+| `--canvas` | `#07080f` | Page background |
+| `--surface-1` | `#0d0f1a` | Cards, panels, lifted sections |
+| `--surface-2` | `#121525` | Panel bars, inputs, incoming messages |
+| `--surface-3` | `#181c30` | Hovered cards, callouts, status chips |
+| `--surface-4` | `#1f2440` | Deepest lift — selected tab |
+| `--hairline` | `#21263c` | Default 1px borders |
+| `--hairline-strong` | `#2e3552` | Buttons, inputs, stronger divisions |
+| `--hairline-bright` | `#414a70` | Link underlines, list rules |
 
 Lifted sections and panels use **translucent** surface colours
-(`rgba(23,20,15,0.78)` and similar) so the backdrop and the cursor light read
-through them. An opaque panel would black out the light passing behind it.
+(`rgba(13,15,26,0.78)` and similar) so the canvas motion and backdrop read
+through them. An opaque panel would black out the particles passing behind it.
 
 ### Ink — bone
 
 | Token | Value | Use |
 |---|---|---|
-| `--ink` | `#f0eadd` | Headlines, emphasised body |
-| `--ink-muted` | `#cfc5b2` | Lead paragraphs, message text |
-| `--ink-subtle` | `#9a9080` | Body copy, nav |
-| `--ink-tertiary` | `#6f6656` | Captions, mono meta, icon rest state |
+| `--ink` | `#fcfcfd` | Headlines, emphasised body |
+| `--ink-muted` | `#c8ccdc` | Lead paragraphs, message text |
+| `--ink-subtle` | `#8b90a6` | Body copy, nav |
+| `--ink-tertiary` | `#5e647d` | Captions, mono meta, icon rest state |
 
-### Brass
+### Raspberry (n8n Mandy)
 
 | Token | Value | Use |
 |---|---|---|
-| `--accent` | `#c2a15b` | Primary CTA fill, eyebrow rule, metrics, focus |
-| `--accent-hover` | `#d9be83` | Hover states, link emphasis |
-| `--accent-deep` | `#8e7134` | Pressed CTA |
-| `--on-accent` | `#14110c` | Text **on** brass — dark ink, never white |
-| `--success` | `#8aa06e` | Muted sage. Status dots only. |
+| `--accent` | `#ea4b71` | Primary CTA fill, eyebrow rule, metrics, focus |
+| `--accent-hover` | `#ff7195` | Hover states, link emphasis, packets |
+| `--accent-deep` | `#b73557` | Pressed CTA |
+| `--on-accent` | `#ffffff` | Text **on** raspberry |
+| `--success` | `#3dbb85` | Status dots only. |
 
 ### Type
 
@@ -82,7 +87,7 @@ through them. An opaque panel would black out the light passing behind it.
 | h2 | Instrument Serif | `clamp(1.9rem, 3.1vw, 2.75rem)` | -0.014em |
 | h3 / card title | IBM Plex Sans 500 | 17px dense, 20px in `.card--wide` | |
 | body | IBM Plex Sans 400 | 15px / 1.6 | |
-| eyebrow | IBM Plex Mono 500 | 11px | uppercase, +0.18em, brass rule before |
+| eyebrow | IBM Plex Mono 500 | 11px | uppercase, +0.18em, raspberry rule before |
 | button | IBM Plex Mono 500 | 13px | uppercase, +0.09em |
 | caption / meta | IBM Plex Mono 400 | 12px | |
 
@@ -98,29 +103,34 @@ a classic serif rather than collapsing to Arial.
 4px base: 4 · 8 · 12 · 16 · 24 · 32 · 48, section rhythm
 `clamp(64px, 8vw, 104px)`. Content max width 1240px. Header 60px.
 
-## The backdrop
+## The backdrop & cursor
 
-Three fixed layers, all `pointer-events: none`:
+Layering, bottom to top:
 
-- `body::before` (z −2): warm bloom from the top, a vignette that drops the
-  edges away, and ledger rules — horizontal at 2.1% and vertical at 1.2%
-  opacity on a 46px pitch.
-- `body::after` (z 70): SVG-turbulence paper grain at 5%, `overlay` blend.
-- `.cursor-light` (z 60): a 560px brass radial on `screen` blend that trails
-  the pointer, so it **lifts** whatever it passes over rather than washing it
-  out. Eased with a rAF lerp that parks itself once it catches up.
-
-The light is a pointer affordance: it is hidden on touch (`hover: none`) and
-under `prefers-reduced-motion`.
+- `body::before` (z −2): raspberry bloom, vignette, ruled lines.
+- `.bg-motion` (z −1): **the motion background** — a canvas flow-field of
+  raspberry/violet particles drifting through curl noise, leaving comet
+  trails. Generated live: weighs nothing, loops forever, never buffers, and
+  matches the palette exactly. Paused on hidden tabs; absent on touch and
+  under reduced motion, where the static backdrop carries the texture alone.
+- content
+- `.cursor` (z 80): **the reticle** — a centre dot inside four corner
+  brackets that trails the pointer. It idles rotated 45° (a diamond, echoing
+  the sharp-edge system) and locks square + raspberry onto anything
+  interactive; over text fields it opens wide and fades so it never fights
+  the caret. The native cursor is hidden only after JS confirms the reticle
+  is live (`html.cursor-live`), so a script failure can never leave the user
+  cursorless. Touch and reduced-motion users keep the native cursor.
+- `body::after` (z 90): film grain.
 
 ## Do
 
 - Set headlines in the serif, sentence case.
 - Let cards share hairlines with their neighbours — the grid reads as a ruled
   table, not as floating tiles.
-- Use the brass corner marks on the CTA panel as the one framing flourish.
+- Let the conic sweep on the CTA border be the one framing flourish.
 - Keep metrics, contact details and process steps on hairline rules.
-- Put dark ink on brass, never white.
+- Put white text on raspberry, as n8n does.
 
 ## Don't
 
@@ -148,7 +158,12 @@ Everything else:
 - The hero diagram draws its wires once, then loops travelling packets.
 - The demo panel replays a conversation with typing indicators.
 - Navigation dissolves the outgoing page rather than blinking to white.
-- The cursor light trails the pointer.
+- The reticle cursor trails the pointer and locks onto interactive elements.
+- Mono labels (eyebrows, panel names) decode out of glyph noise on entry.
+- A raspberry arc perpetually sweeps the CTA border (conic `@property`
+  animation; browsers without support just show the static border).
+- Primary CTAs lean a few pixels toward the pointer — attraction, not
+  elasticity.
 
 Still banned: parallax, spring hovers, anything that moves on its own without
 explaining something.

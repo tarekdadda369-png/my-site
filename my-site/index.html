@@ -9,7 +9,7 @@
 <meta name="author" content="Tarik Dadda">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://service.co.im/">
-<meta name="theme-color" content="#100e0b">
+<meta name="theme-color" content="#07080f">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://service.co.im/">
@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="styles.css?v=ledger-1">
+<link rel="stylesheet" href="styles.css?v=pulse-1">
 
 <script>
   (function () {
@@ -63,7 +63,12 @@
 </script>
 </head>
 <body>
-<div class="cursor-light" aria-hidden="true"></div>
+<canvas class="bg-motion" aria-hidden="true"></canvas>
+<div class="cursor" aria-hidden="true">
+  <span class="c-halo"></span>
+  <span class="c-frame"><i></i><i></i><i></i><i></i></span>
+  <span class="c-dot"></span>
+</div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ================================================================ HEADER -->
@@ -390,7 +395,7 @@
                   <rect class="s-card" x="40" y="70" width="230" height="380" rx="0"/>
                   <path class="s-wire" d="M40,112 H270" stroke-width="1"/>
                   <circle class="s-card-2" cx="66" cy="91" r="11"/>
-                  <text class="t t-mono" x="66" y="94" text-anchor="middle" fill="#d0d6e0">IG</text>
+                  <text class="t t-mono" x="66" y="94" text-anchor="middle" fill="#c8ccdc">IG</text>
                   <text class="t t-md" x="86" y="88">Instagram inbox</text>
                   <text class="t t-mono" x="86" y="101">23:40 · @yourbrand</text>
                 </g>
@@ -893,6 +898,6 @@
 
 <script src="vendor/anime.umd.min.js" defer></script>
 <script src="vendor/motion.umd.min.js" defer></script>
-<script src="script.js?v=ledger-1" defer></script>
+<script src="script.js?v=pulse-1" defer></script>
 </body>
 </html>
