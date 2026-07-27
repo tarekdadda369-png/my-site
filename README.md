@@ -7,9 +7,10 @@ dependency on any CDN — deploy the `my-site/` folder as-is.
 
 **Read [`DESIGN.md`](DESIGN.md) before changing any UI.** The design system is
 called *Pulse* — the n8n palette (raspberry `#ea4b71` on ink-navy) on sharp
-square edges, a serif display voice, a live canvas motion background, and a
-reticle cursor that locks onto anything interactive. Its rules are enforced by
-the browser test described below.
+square edges, an Instrument Serif display voice with a Syne wordmark and
+Space Mono labels, a live canvas motion background, and a reticle cursor that
+locks onto anything interactive. Its rules are enforced by the browser test
+described below.
 
 ---
 

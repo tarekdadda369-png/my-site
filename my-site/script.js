@@ -1409,6 +1409,144 @@
     });
   });
 
+  /* ============================================= 12c. Custom listbox
+
+     The native <select> popup cannot be styled, so the service picker gets
+     a designed replacement: a button + listbox that follows the ruled-panel
+     look. The real <select> stays in the DOM carrying the form value, which
+     keeps the mailto composition and the no-JS fallback intact.
+     ------------------------------------------------------------------- */
+
+  mod('listbox', function () {
+    $$('.field > select').forEach(function (select) {
+      var field = select.closest('.field');
+      if (!field || select.multiple) return;
+
+      var wrap = document.createElement('div');
+      wrap.className = 'listbox';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'listbox-btn';
+      btn.setAttribute('aria-haspopup', 'listbox');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = select.options[select.selectedIndex] ? select.options[select.selectedIndex].text : '';
+
+      var panel = document.createElement('div');
+      panel.className = 'listbox-panel';
+      panel.setAttribute('role', 'listbox');
+      panel.id = select.id + '-listbox';
+      btn.setAttribute('aria-controls', panel.id);
+
+      var opts = [];
+      Array.prototype.forEach.call(select.options, function (opt, i) {
+        var o = document.createElement('button');
+        o.type = 'button';
+        o.className = 'listbox-opt';
+        o.setAttribute('role', 'option');
+        o.setAttribute('aria-selected', i === select.selectedIndex ? 'true' : 'false');
+
+        var n = document.createElement('span');
+        n.className = 'n';
+        n.textContent = i === 0 ? '—' : (i < 10 ? '0' + i : '' + i);
+        o.appendChild(n);
+        o.appendChild(document.createTextNode(opt.text));
+
+        o.addEventListener('click', function () {
+          choose(i);
+          close();
+          btn.focus();
+        });
+        panel.appendChild(o);
+        opts.push(o);
+      });
+
+      var focusIdx = select.selectedIndex;
+
+      function choose(i) {
+        select.selectedIndex = i;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        btn.textContent = select.options[i].text;
+        opts.forEach(function (o, n) {
+          o.setAttribute('aria-selected', n === i ? 'true' : 'false');
+        });
+        focusIdx = i;
+      }
+
+      function setFocus(i) {
+        focusIdx = Math.max(0, Math.min(opts.length - 1, i));
+        opts.forEach(function (o, n) {
+          o.classList.toggle('is-focus', n === focusIdx);
+        });
+        opts[focusIdx].scrollIntoView({ block: 'nearest' });
+      }
+
+      function open() {
+        panel.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        setFocus(select.selectedIndex);
+        if (!REDUCED && anime && anime.animate) {
+          anime.animate(panel, { opacity: [0, 1], translateY: [-6, 0], duration: 220, ease: EASE });
+          anime.animate(opts, {
+            opacity: [0, 1],
+            translateX: [-8, 0],
+            duration: 260,
+            delay: anime.stagger ? anime.stagger(22) : 0,
+            ease: EASE
+          });
+        }
+      }
+
+      function close() {
+        panel.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+
+      function isOpen() {
+        return panel.classList.contains('is-open');
+      }
+
+      btn.addEventListener('click', function () {
+        if (isOpen()) close();
+        else open();
+      });
+
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (!isOpen()) open();
+          else setFocus(focusIdx + (e.key === 'ArrowDown' ? 1 : -1));
+        } else if ((e.key === 'Enter' || e.key === ' ') && isOpen()) {
+          e.preventDefault();
+          choose(focusIdx);
+          close();
+        } else if (e.key === 'Escape' && isOpen()) {
+          close();
+        } else if (e.key === 'Home' && isOpen()) {
+          e.preventDefault();
+          setFocus(0);
+        } else if (e.key === 'End' && isOpen()) {
+          e.preventDefault();
+          setFocus(opts.length - 1);
+        }
+      });
+
+      document.addEventListener('pointerdown', function (e) {
+        if (isOpen() && !wrap.contains(e.target)) close();
+      });
+
+      wrap.appendChild(btn);
+      wrap.appendChild(panel);
+      select.parentNode.insertBefore(wrap, select.nextSibling);
+      field.classList.add('has-listbox');
+
+      /* External validation may focus the select — forward it to the button */
+      select.addEventListener('focus', function () {
+        btn.focus();
+      });
+    });
+  });
+
   /* ================================================ 13. Anchor scrolling */
 
   mod('anchors', function () {

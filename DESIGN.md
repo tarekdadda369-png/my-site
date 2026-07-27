@@ -31,9 +31,10 @@ the two disagree, **this file wins**.
    only inside the motion canvas, never on UI.
 3. **Ink-navy, not black.** The canvas is `#07080f` with navy-tinted
    surfaces stepping up from it. Text is off-white `#fcfcfd`.
-4. **Serif display, sans interface, mono labels.** Instrument Serif carries
-   headlines and large numerals. IBM Plex Sans carries body and dense UI.
-   IBM Plex Mono carries every label, button, eyebrow, and technical meta.
+4. **Four voices, each with a job.** Instrument Serif carries headlines and
+   large numerals. Syne 800 uppercase carries the wordmark only. IBM Plex
+   Sans carries body and dense UI. Space Mono carries every label, button,
+   eyebrow and piece of technical meta (400/700 only — it ships no 500).
 5. **The page has a backdrop.** Never a flat fill. Ruled lines, a raspberry
    bloom, a vignette, film grain — plus the canvas flow-field and a reticle
    cursor that locks onto anything interactive.
@@ -82,14 +83,15 @@ through them. An opaque panel would black out the particles passing behind it.
 
 | Role | Family | Size | Notes |
 |---|---|---|---|
+| wordmark | Syne 800 | 15px | uppercase, +0.045em, mono sub-line under it |
 | display-xl | Instrument Serif | `clamp(2.9rem, 6.2vw, 5.25rem)` | -0.018em |
 | h1 | Instrument Serif | `clamp(2.3rem, 4.4vw, 3.75rem)` | -0.016em |
 | h2 | Instrument Serif | `clamp(1.9rem, 3.1vw, 2.75rem)` | -0.014em |
 | h3 / card title | IBM Plex Sans 500 | 17px dense, 20px in `.card--wide` | |
 | body | IBM Plex Sans 400 | 15px / 1.6 | |
-| eyebrow | IBM Plex Mono 500 | 11px | uppercase, +0.18em, raspberry rule before |
-| button | IBM Plex Mono 500 | 13px | uppercase, +0.09em |
-| caption / meta | IBM Plex Mono 400 | 12px | |
+| eyebrow | Space Mono 700 | 11px | uppercase, +0.18em, raspberry rule before |
+| button | Space Mono 700 | 12px | uppercase, +0.09em |
+| caption / meta | Space Mono 400 | 12px | |
 
 Serifs need far less negative tracking than a grotesque — the display values
 above are roughly half what a sans would take at the same size.
@@ -113,7 +115,11 @@ Layering, bottom to top:
   trails. Generated live: weighs nothing, loops forever, never buffers, and
   matches the palette exactly. Paused on hidden tabs; absent on touch and
   under reduced motion, where the static backdrop carries the texture alone.
-- content
+- content — including the brand mark: viewfinder corner brackets locking
+  onto a raspberry node, the same language as the reticle cursor. Custom
+  `<select>` fields are progressively enhanced into a ruled listbox panel
+  (numbered options, raspberry focus rail); the native select stays in the
+  DOM carrying the form value, so no-JS users get the browser control.
 - `.cursor` (z 80): **the reticle** — a centre dot inside four corner
   brackets that trails the pointer. It idles rotated 45° (a diamond, echoing
   the sharp-edge system) and locks square + raspberry onto anything

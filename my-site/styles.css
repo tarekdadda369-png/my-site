@@ -72,7 +72,8 @@
   /* Type */
   --font-display: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
   --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-brand: 'Syne', 'Avenir Next', 'Futura', var(--font-sans);
 
   /* Serifs need less negative tracking than a grotesque */
   --t-display-xl: clamp(2.9rem, 6.2vw, 5.25rem);
@@ -451,7 +452,7 @@ strong {
   gap: 10px;
   font-family: var(--font-mono);
   font-size: var(--t-eyebrow);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -560,8 +561,8 @@ strong {
   border: 1px solid var(--hairline-strong);
   background: transparent;
   font-family: var(--font-mono);
-  font-size: var(--t-button);
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
   line-height: 1;
@@ -730,24 +731,46 @@ strong {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-size: 1.1875rem;
-  letter-spacing: -0.005em;
+  gap: 11px;
   color: var(--ink);
   flex: none;
 }
 
+/* The mark: viewfinder brackets locking onto a raspberry node — the same
+   language as the reticle cursor, so the brand and the interaction match. */
 .logo svg {
-  width: 21px;
-  height: 21px;
+  width: 26px;
+  height: 26px;
   flex: none;
   color: var(--accent);
-  transition: color var(--d-base) var(--e-out);
+  transition: transform 0.4s var(--e-out), color var(--d-base) var(--e-out);
 }
 
 .logo:hover svg {
   color: var(--accent-hover);
+  transform: rotate(90deg);
+}
+
+.logo-text {
+  display: block;
+  font-family: var(--font-brand);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.logo-text em {
+  display: block;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-top: 3px;
 }
 
 .nav {
@@ -1940,6 +1963,129 @@ body.is-locked {
   line-height: 1.6;
 }
 
+/* When the custom listbox is live, the native select stays in the DOM for
+   the form value but leaves the visual stage. */
+.field.has-listbox > select {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.listbox {
+  position: relative;
+}
+
+.listbox-btn {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 38px 10px 13px;
+  background: rgba(7, 8, 15, 0.75);
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--d-base) var(--e-out);
+}
+
+.listbox-btn::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--ink-tertiary);
+  border-bottom: 1.5px solid var(--ink-tertiary);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform var(--d-base) var(--e-out), border-color var(--d-base) var(--e-out);
+}
+
+.listbox-btn:hover {
+  border-color: var(--hairline-bright);
+}
+
+.listbox-btn[aria-expanded='true'] {
+  border-color: var(--accent);
+}
+
+.listbox-btn[aria-expanded='true']::after {
+  transform: translateY(-30%) rotate(225deg);
+  border-color: var(--accent);
+}
+
+.listbox-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(13, 15, 26, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--edge), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
+  display: none;
+}
+
+.listbox-panel.is-open {
+  display: block;
+}
+
+.listbox-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 13px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  color: var(--ink-subtle);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--d-fast) linear, color var(--d-fast) linear;
+}
+
+.listbox-opt:last-child {
+  border-bottom: 0;
+}
+
+/* The index number gives the panel the site's ruled-ledger read */
+.listbox-opt .n {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--ink-tertiary);
+  flex: none;
+  width: 18px;
+}
+
+.listbox-opt:hover,
+.listbox-opt.is-focus {
+  background: rgba(234, 75, 113, 0.09);
+  color: var(--ink);
+}
+
+.listbox-opt:hover .n,
+.listbox-opt.is-focus .n {
+  color: var(--accent);
+}
+
+.listbox-opt[aria-selected='true'] {
+  color: var(--ink);
+  background: var(--surface-2);
+  border-left: 2px solid var(--accent);
+  padding-left: 11px;
+}
+
 .field select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236f6656' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -2281,7 +2427,7 @@ body.is-locked {
 .footer-col h4 {
   font-family: var(--font-mono);
   font-size: var(--t-caption);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-subtle);
