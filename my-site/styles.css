@@ -2797,6 +2797,14 @@ html[lang='ar'] .tab-panel h3 {
   unicode-bidi: isolate;
 }
 
+/* SVG scenes are drawn on absolute LTR coordinates. Inherited rtl direction
+   re-anchors every <text> so labels escape their boxes — pin the diagrams to
+   ltr; Arabic runs inside a label still shape and order correctly. */
+[dir='rtl'] .flow,
+[dir='rtl'] .scene {
+  direction: ltr;
+}
+
 [dir='rtl'] .card .idx {
   right: auto;
   left: 24px;
