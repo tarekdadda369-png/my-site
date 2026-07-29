@@ -73,7 +73,6 @@
   --font-display: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
   --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  --font-brand: 'Syne', 'Avenir Next', 'Futura', var(--font-sans);
 
   /* Serifs need less negative tracking than a grotesque */
   --t-display-xl: clamp(2.9rem, 6.2vw, 5.25rem);
@@ -217,19 +216,19 @@ html[data-theme='light'] .cursor .c-dot {
 }
 
 /* Scene + flow diagram surfaces */
-html[data-theme='light'] .scene .s-card { fill: #ffffff; stroke: #dcd7ca; }
-html[data-theme='light'] .scene .s-card-2 { fill: #f1efe9; stroke: #dcd7ca; }
-html[data-theme='light'] .scene .s-core { fill: #ffffff; stroke: #ea4b71; }
+html[data-theme='light'] .scene .s-card { fill: url(#glass-s-light) #ffffff; stroke: #d6d0c1; }
+html[data-theme='light'] .scene .s-card-2 { fill: url(#glass-s-light) #f1efe9; stroke: #d6d0c1; }
+html[data-theme='light'] .scene .s-core { fill: url(#glass-s-core-light) #ffffff; stroke: #ea4b71; }
 html[data-theme='light'] .scene .s-wire { stroke: #c4bda9; }
-html[data-theme='light'] .scene .s-in { fill: #f1efe9; stroke: #dcd7ca; }
+html[data-theme='light'] .scene .s-in { fill: url(#glass-s-light) #f1efe9; stroke: #d6d0c1; }
 html[data-theme='light'] .scene .s-ring { stroke: #ea4b71; }
 html[data-theme='light'] .scene .t-lg,
 html[data-theme='light'] .scene .t-md { fill: #16182d; }
 html[data-theme='light'] .scene .t-sm { fill: #383b54; }
 html[data-theme='light'] .scene .t-mono { fill: #797d92; }
 html[data-theme='light'] .scene .t-mono-lit { fill: #c93158; }
-html[data-theme='light'] .flow .node-box { fill: #ffffff; stroke: #dcd7ca; }
-html[data-theme='light'] .flow .node-box.is-core { fill: #fff5f7; stroke: #ea4b71; }
+html[data-theme='light'] .flow .node-box { fill: url(#glass-f-light) #ffffff; stroke: #d6d0c1; }
+html[data-theme='light'] .flow .node-box.is-core { fill: url(#glass-f-core-light) #fff5f7; stroke: #ea4b71; }
 html[data-theme='light'] .flow .node-label { fill: #16182d; }
 html[data-theme='light'] .flow .node-sub { fill: #797d92; }
 html[data-theme='light'] .flow .core-label { fill: #16182d; }
@@ -637,8 +636,8 @@ strong {
   color: var(--ink-tertiary);
 }
 
-/* Eyebrow — mono, uppercase, widely tracked, with a brass rule before it.
-   The classic editorial label. */
+/* Eyebrow — mono, uppercase, widely tracked, marked by a small diamond:
+   the reticle cursor's idle shape, standing in for the generic dash. */
 .eyebrow {
   display: flex;
   align-items: center;
@@ -654,9 +653,10 @@ strong {
 
 .eyebrow::before {
   content: '';
-  width: 22px;
-  height: 1px;
+  width: 6px;
+  height: 6px;
   background: var(--accent);
+  transform: rotate(45deg);
   flex: none;
 }
 
@@ -944,14 +944,16 @@ strong {
   transform: rotate(90deg);
 }
 
+/* The wordmark speaks in the site's own display voice — Instrument Serif in
+   Latin, Amiri in Arabic — so the name matches the headlines it sits above
+   and carries the same optical size in both languages. */
 .logo-text {
   display: block;
-  font-family: var(--font-brand);
-  font-size: 0.9375rem;
-  font-weight: 800;
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
 }
 
 .logo-text em {
@@ -960,10 +962,10 @@ strong {
   font-style: normal;
   font-size: 0.5625rem;
   font-weight: 400;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--ink-tertiary);
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .nav {
@@ -1270,14 +1272,17 @@ body.is-locked {
   stroke-linecap: round;
 }
 
+/* Glass panels: a specular gradient over a translucent base, corners cut at
+   45° — the chamfer is drawn into the path data, not a CSS radius. The hex
+   after each url() is the fallback if the gradient defs ever fail. */
 .flow .node-box {
-  fill: #121525;
-  stroke: #333b63;
+  fill: url(#glass-f) #121525;
+  stroke: #3b436f;
   stroke-width: 1;
 }
 
 .flow .node-box.is-core {
-  fill: #181c30;
+  fill: url(#glass-f-core) #181c30;
   stroke: #ea4b71;
 }
 
@@ -1368,11 +1373,11 @@ body.is-locked {
   opacity: 0;
 }
 
-.scene .s-card { fill: #0d0f1a; stroke: #21263c; stroke-width: 1; }
-.scene .s-card-2 { fill: #121525; stroke: #21263c; stroke-width: 1; }
-.scene .s-core { fill: #181c30; stroke: #ea4b71; stroke-width: 1.25; }
+.scene .s-card { fill: url(#glass-s) #0d0f1a; stroke: #2b3150; stroke-width: 1; }
+.scene .s-card-2 { fill: url(#glass-s) #121525; stroke: #2b3150; stroke-width: 1; }
+.scene .s-core { fill: url(#glass-s-core) #181c30; stroke: #ea4b71; stroke-width: 1.25; }
 .scene .s-wire { fill: none; stroke: #39406a; stroke-width: 1.25; stroke-linecap: round; }
-.scene .s-in { fill: #121525; stroke: #21263c; stroke-width: 1; }
+.scene .s-in { fill: url(#glass-s) #121525; stroke: #2b3150; stroke-width: 1; }
 .scene .s-out { fill: #ea4b71; }
 .scene .s-accent { fill: #ea4b71; }
 .scene .s-ring { fill: none; stroke: #ea4b71; stroke-width: 1; }
@@ -1656,18 +1661,20 @@ body.is-locked {
   box-shadow: var(--edge);
 }
 
+/* The brand mark stands in for the person — viewfinder brackets locking
+   onto the node, same as the header and the cursor. */
 .identity .avatar {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   flex: none;
-  border-radius: 50%;
   display: grid;
   place-items: center;
-  background: transparent;
-  border: 1px solid var(--accent);
-  font-family: var(--font-display);
-  font-size: 1.125rem;
   color: var(--accent);
+}
+
+.identity .avatar svg {
+  width: 38px;
+  height: 38px;
 }
 
 .identity .who {
@@ -1695,13 +1702,32 @@ body.is-locked {
 }
 
 .step {
+  position: relative;
   padding-top: var(--s-md);
   border-top: 1px solid var(--hairline);
-  transition: border-color var(--d-slow) var(--e-out);
 }
 
-.step.is-lit {
-  border-top-color: var(--accent);
+/* A short accent tick grows in from the reading edge instead of the whole
+   rule flooding raspberry — an editorial section marker, not a divider. */
+.step::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  inset-inline-start: 0;
+  width: 44px;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.7s var(--e-out);
+}
+
+[dir='rtl'] .step::after {
+  transform-origin: 100% 50%;
+}
+
+.step.is-lit::after {
+  transform: scaleX(1);
 }
 
 .step .n {
@@ -2699,7 +2725,6 @@ html[lang='ar'] {
   --font-display: 'Amiri', 'Noto Naskh Arabic', 'Times New Roman', serif;
   --font-sans: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
   --font-mono: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
-  --font-brand: 'Syne', 'Avenir Next', sans-serif;
 }
 
 html[lang='ar'] body {
@@ -2724,8 +2749,7 @@ html[lang='ar'] .hero h1 {
   line-height: 1.4;
 }
 
-/* Latin fragments that stay (brand, tech labels, emails) keep their voices */
-html[lang='ar'] .logo-text,
+/* Latin fragments that stay (tech labels, emails) keep their voices */
 html[lang='ar'] .panel-bar .name,
 html[lang='ar'] .thread-top .who span,
 html[lang='ar'] .cta .fine,
@@ -2733,8 +2757,19 @@ html[lang='ar'] .drawer-foot .mono {
   font-family: 'Space Mono', ui-monospace, monospace;
 }
 
+/* The Arabic wordmark inherits --font-display (Amiri) from .logo-text.
+   Amiri renders optically smaller than Instrument Serif, so it gets a
+   nudge up and the weight the Naskh needs at this size. */
 html[lang='ar'] .logo-text {
-  font-family: var(--font-brand);
+  font-size: 1.4375rem;
+  font-weight: 700;
+}
+
+html[lang='ar'] .logo-text em {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  margin-top: 2px;
 }
 
 /* Long Arabic labels must never leave the frame: fixed-height nowrap

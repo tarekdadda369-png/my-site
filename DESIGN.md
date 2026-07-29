@@ -33,15 +33,28 @@ the two disagree, **this file wins**.
    surfaces stepping up from it. Text is off-white `#fcfcfd`. The light
    theme ("Pulse Paper", below) inverts to warm paper `#f6f5f1` with the
    same navy as ink — never pure white on pure black in either direction.
-4. **Four voices, each with a job.** Instrument Serif carries headlines and
-   large numerals. Syne 800 uppercase carries the wordmark only. IBM Plex
-   Sans carries body and dense UI. Space Mono carries every label, button,
-   eyebrow and piece of technical meta (400/700 only — it ships no 500).
+4. **Three voices, each with a job.** Instrument Serif carries headlines,
+   large numerals and the wordmark — the brand speaks in the same voice as
+   the headlines it sits above, and Amiri takes over both jobs in Arabic so
+   the wordmark stays consistent across languages. IBM Plex Sans carries
+   body and dense UI. Space Mono carries every label, button, eyebrow and
+   piece of technical meta (400/700 only — it ships no 500).
 5. **The page has a backdrop.** Never a flat fill. Ruled lines, a raspberry
    bloom, a vignette, film grain — plus the canvas flow-field and a reticle
    cursor that locks onto anything interactive.
 6. **Depth is hairlines and surface lift.** No drop shadows. The only "shadow"
    is a 1px inset top-edge highlight (`--edge`) on lifted panels.
+
+Two motifs carry the accent where a plain rule would be generic:
+
+- **The diamond** (the reticle cursor's idle shape) marks eyebrows and
+  stands in wherever a short accent dash would have gone.
+- **The chamfer**: boxes inside the SVG diagrams are glass panels — a
+  specular gradient over a translucent base — with the top-right corner
+  cut at 45°. The cut is drawn into the path data (not a CSS radius), and
+  each `url(#…)` fill carries a hex fallback so a missing gradient can
+  never make a box invisible. Full-width accent rules are banned; the
+  lit state of a process step is a short 44px tick, not a flooded border.
 
 ## Tokens
 
@@ -89,13 +102,13 @@ is to move it **up** a rung, never to invent a darker grey.
 
 | Role | Family | Size | Notes |
 |---|---|---|---|
-| wordmark | Syne 800 | 15px | uppercase, +0.045em, mono sub-line under it |
+| wordmark | Instrument Serif (Amiri in AR) | 22px | title case, mono sub-line under it |
 | display-xl | Instrument Serif | `clamp(2.9rem, 6.2vw, 5.25rem)` | -0.018em |
 | h1 | Instrument Serif | `clamp(2.3rem, 4.4vw, 3.75rem)` | -0.016em |
 | h2 | Instrument Serif | `clamp(1.9rem, 3.1vw, 2.75rem)` | -0.014em |
 | h3 / card title | IBM Plex Sans 500 | 17px dense, 20px in `.card--wide` | |
 | body | IBM Plex Sans 400 | 15px / 1.6 | |
-| eyebrow | Space Mono 700 | 11px | uppercase, +0.18em, raspberry rule before |
+| eyebrow | Space Mono 700 | 11px | uppercase, +0.18em, raspberry diamond before |
 | button | Space Mono 700 | 12px | uppercase, +0.09em |
 | caption / meta | Space Mono 400 | 12px | |
 

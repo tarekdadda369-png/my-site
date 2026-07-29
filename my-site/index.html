@@ -25,8 +25,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap">
-<link rel="stylesheet" href="styles.css?v=pulse-5">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=pulse-6">
 
 <script>
   (function () {
@@ -197,6 +197,25 @@
 
         <div class="panel-body">
           <svg class="flow" viewBox="0 0 360 200" role="img" aria-label="Diagram: messages from Instagram, WhatsApp, Messenger and email flow into an AI agent, which sends replies, updates your CRM and notifies your team when a human is needed.">
+            <defs>
+              <linearGradient id="glass-f" x1="0" y1="0" x2="0.3" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.11"/>
+                <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.04"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0.015"/>
+              </linearGradient>
+              <linearGradient id="glass-f-core" x1="0" y1="0" x2="0.3" y2="1">
+                <stop offset="0" stop-color="#ea4b71" stop-opacity="0.24"/>
+                <stop offset="1" stop-color="#ea4b71" stop-opacity="0.06"/>
+              </linearGradient>
+              <linearGradient id="glass-f-light" x1="0" y1="0" x2="0.3" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0.58"/>
+              </linearGradient>
+              <linearGradient id="glass-f-core-light" x1="0" y1="0" x2="0.3" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.97"/>
+                <stop offset="1" stop-color="#f9dce5" stop-opacity="0.88"/>
+              </linearGradient>
+            </defs>
             <!-- wires in -->
             <path class="wire" id="w1" d="M92,25 C114,25 118,100 137,100"/>
             <path class="wire" id="w2" d="M92,75 C114,75 120,100 137,100"/>
@@ -208,45 +227,45 @@
             <path class="wire" id="o3" d="M223,100 C245,100 248,146 268,146"/>
 
             <g data-node opacity="0">
-              <rect class="node-box" x="6" y="6" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M6,6 H87 L92,11 V44 H6 Z"/>
               <text class="node-label" x="17" y="24">Instagram</text>
               <text class="node-sub" x="17" y="35">DM · COMMENTS</text>
             </g>
             <g data-node opacity="0">
-              <rect class="node-box" x="6" y="56" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M6,56 H87 L92,61 V94 H6 Z"/>
               <text class="node-label" x="17" y="74">WhatsApp</text>
               <text class="node-sub" x="17" y="85">BUSINESS API</text>
             </g>
             <g data-node opacity="0">
-              <rect class="node-box" x="6" y="106" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M6,106 H87 L92,111 V144 H6 Z"/>
               <text class="node-label" x="17" y="124">Messenger</text>
               <text class="node-sub" x="17" y="135">CHAT FLOWS</text>
             </g>
             <g data-node opacity="0">
-              <rect class="node-box" x="6" y="156" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M6,156 H87 L92,161 V194 H6 Z"/>
               <text class="node-label" x="17" y="174">Email</text>
               <text class="node-sub" x="17" y="185">INBOX · FORMS</text>
             </g>
 
             <g data-node opacity="0">
-              <rect class="node-box is-core" x="137" y="67" width="86" height="66" rx="0"/>
+              <path class="node-box is-core" d="M137,67 H218 L223,72 V133 H137 Z"/>
               <text class="core-label" x="180" y="94" text-anchor="middle">AI agent</text>
               <text class="node-sub" x="180" y="107" text-anchor="middle">YOUR RULES</text>
               <text class="node-sub" x="180" y="119" text-anchor="middle">n8n · LLM · DATA</text>
             </g>
 
             <g data-node opacity="0">
-              <rect class="node-box" x="268" y="35" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M268,35 H349 L354,40 V73 H268 Z"/>
               <text class="node-label" x="279" y="53">Reply sent</text>
               <text class="node-sub" x="279" y="64">IN SECONDS</text>
             </g>
             <g data-node opacity="0">
-              <rect class="node-box" x="268" y="81" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M268,81 H349 L354,86 V119 H268 Z"/>
               <text class="node-label" x="279" y="99">CRM updated</text>
               <text class="node-sub" x="279" y="110">LEAD SCORED</text>
             </g>
             <g data-node opacity="0">
-              <rect class="node-box" x="268" y="127" width="86" height="38" rx="0"/>
+              <path class="node-box" d="M268,127 H349 L354,132 V165 H268 Z"/>
               <text class="node-label" x="279" y="145">Team notified</text>
               <text class="node-sub" x="279" y="156">IF HUMAN NEEDED</text>
             </g>
@@ -405,6 +424,25 @@
 
             <div class="panel-body">
               <svg class="scene" viewBox="0 45 960 430" role="img" aria-label="Sequence: a customer message arrives on Instagram at 23:40, travels to the AI agent, which checks your stock, prices and orders, replies in your tone, writes the lead into your CRM, and notifies you only when a decision needs a human.">
+                <defs>
+                  <linearGradient id="glass-s" x1="0" y1="0" x2="0.3" y2="1">
+                    <stop offset="0" stop-color="#ffffff" stop-opacity="0.11"/>
+                    <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.04"/>
+                    <stop offset="1" stop-color="#ffffff" stop-opacity="0.015"/>
+                  </linearGradient>
+                  <linearGradient id="glass-s-core" x1="0" y1="0" x2="0.3" y2="1">
+                    <stop offset="0" stop-color="#ea4b71" stop-opacity="0.24"/>
+                    <stop offset="1" stop-color="#ea4b71" stop-opacity="0.06"/>
+                  </linearGradient>
+                  <linearGradient id="glass-s-light" x1="0" y1="0" x2="0.3" y2="1">
+                    <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
+                    <stop offset="1" stop-color="#ffffff" stop-opacity="0.58"/>
+                  </linearGradient>
+                  <linearGradient id="glass-s-core-light" x1="0" y1="0" x2="0.3" y2="1">
+                    <stop offset="0" stop-color="#ffffff" stop-opacity="0.97"/>
+                    <stop offset="1" stop-color="#f9dce5" stop-opacity="0.88"/>
+                  </linearGradient>
+                </defs>
 
                 <!-- wires (drawn in across beats) -->
                 <path class="s-wire" id="w-main" d="M270,250 C320,250 340,250 390,250"/>
@@ -416,7 +454,7 @@
 
                 <!-- 1. the customer's channel -->
                 <g id="a-device" opacity="0">
-                  <rect class="s-card" x="40" y="70" width="230" height="380" rx="0"/>
+                  <path class="s-card" d="M40,70 H261 L270,79 V450 H40 Z"/>
                   <path class="s-wire" d="M40,112 H270" stroke-width="1"/>
                   <circle class="s-card-2" cx="66" cy="91" r="11"/>
                   <text class="t t-mono" x="66" y="94" text-anchor="middle" fill="#c8ccdc">IG</text>
@@ -425,7 +463,7 @@
                 </g>
 
                 <g id="a-msg-in" opacity="0">
-                  <rect class="s-in" x="58" y="132" width="176" height="52" rx="0"/>
+                  <path class="s-in" d="M58,132 H228 L234,138 V184 H58 Z"/>
                   <text class="t t-sm" x="72" y="152">Is the black one still</text>
                   <text class="t t-sm" x="72" y="170">available in size L?</text>
                 </g>
@@ -439,7 +477,7 @@
                 </g>
 
                 <g id="a-agent" opacity="0">
-                  <rect class="s-core" x="390" y="200" width="180" height="110" rx="0"/>
+                  <path class="s-core" d="M390,200 H561 L570,209 V310 H390 Z"/>
                   <text class="t t-lg" x="480" y="240" text-anchor="middle">AI agent</text>
                   <text class="t t-mono-lit" x="480" y="258" text-anchor="middle">READING INTENT</text>
                 </g>
@@ -447,17 +485,17 @@
                 <rect id="a-scan" class="s-accent" x="406" y="274" width="148" height="4" rx="0" opacity="0"/>
 
                 <g id="a-chip1" opacity="0">
-                  <rect class="s-card-2" x="340" y="80" width="100" height="40" rx="0"/>
+                  <path class="s-card-2" d="M340,80 H434 L440,86 V120 H340 Z"/>
                   <text class="t t-md" x="390" y="98" text-anchor="middle">Stock</text>
                   <text class="t t-mono" x="390" y="112" text-anchor="middle">LIVE SHEET</text>
                 </g>
                 <g id="a-chip2" opacity="0">
-                  <rect class="s-card-2" x="452" y="80" width="100" height="40" rx="0"/>
+                  <path class="s-card-2" d="M452,80 H546 L552,86 V120 H452 Z"/>
                   <text class="t t-md" x="502" y="98" text-anchor="middle">Prices</text>
                   <text class="t t-mono" x="502" y="112" text-anchor="middle">YOUR LIST</text>
                 </g>
                 <g id="a-chip3" opacity="0">
-                  <rect class="s-card-2" x="564" y="80" width="100" height="40" rx="0"/>
+                  <path class="s-card-2" d="M564,80 H658 L664,86 V120 H564 Z"/>
                   <text class="t t-md" x="614" y="98" text-anchor="middle">Orders</text>
                   <text class="t t-mono" x="614" y="112" text-anchor="middle">HISTORY</text>
                 </g>
@@ -466,7 +504,7 @@
                 <rect id="a-packet-back" class="s-out" x="243" y="241" width="54" height="18" rx="0" opacity="0"/>
 
                 <g id="a-msg-out" opacity="0">
-                  <rect class="s-out" x="80" y="250" width="154" height="70" rx="0"/>
+                  <path class="s-out" d="M80,250 H225 L234,259 V320 H80 Z"/>
                   <text class="t t-out" x="94" y="272">Yes — size L is in</text>
                   <text class="t t-out" x="94" y="290">stock. Reserve it</text>
                   <text class="t t-out" x="94" y="308">for you?</text>
@@ -474,26 +512,26 @@
                 </g>
 
                 <g id="a-table" opacity="0">
-                  <rect class="s-card" x="700" y="140" width="220" height="172" rx="0"/>
+                  <path class="s-card" d="M700,140 H911 L920,149 V312 H700 Z"/>
                   <path class="s-wire" d="M700,174 H920" stroke-width="1"/>
                   <text class="t t-mono" x="714" y="162">CRM · LEADS</text>
                 </g>
                 <g id="a-row1" opacity="0">
-                  <rect class="s-card-2" x="712" y="184" width="196" height="34" rx="0"/>
+                  <path class="s-card-2" d="M712,184 H902 L908,190 V218 H712 Z"/>
                   <text class="t t-sm" x="726" y="205">New lead · size L</text>
                 </g>
                 <g id="a-row2" opacity="0">
-                  <rect class="s-card-2" x="712" y="224" width="196" height="34" rx="0"/>
+                  <path class="s-card-2" d="M712,224 H902 L908,230 V258 H712 Z"/>
                   <text class="t t-sm" x="726" y="245">Source · Instagram</text>
                 </g>
                 <g id="a-row3" opacity="0">
-                  <rect class="s-card-2" x="712" y="264" width="196" height="34" rx="0"/>
+                  <path class="s-card-2" d="M712,264 H902 L908,270 V298 H712 Z"/>
                   <text class="t t-sm" x="726" y="285">Status · reserved</text>
                 </g>
 
                 <!-- 5. the human, only when needed -->
                 <g id="a-human" opacity="0">
-                  <rect class="s-card" x="700" y="350" width="220" height="76" rx="0"/>
+                  <path class="s-card" d="M700,350 H911 L920,359 V426 H700 Z"/>
                   <text class="t t-md" x="716" y="380">You</text>
                   <text class="t t-mono" x="716" y="399">ONLY IF A DECISION IS NEEDED</text>
                   <circle id="a-badge" class="s-accent" cx="898" cy="372" r="7"/>
@@ -732,7 +770,7 @@
 
         <div data-reveal data-reveal-delay="80">
           <div class="identity">
-            <span class="avatar" aria-hidden="true">TD</span>
+            <span class="avatar" aria-hidden="true"><svg viewBox="0 0 32 32"><g stroke="currentColor" stroke-width="2" fill="none"><path d="M3 10 V5 a2 2 0 0 1 2-2 h5"/><path d="M22 3 h5 a2 2 0 0 1 2 2 v5"/><path d="M29 22 v5 a2 2 0 0 1-2 2 h-5"/><path d="M10 29 H5 a2 2 0 0 1-2-2 v-5"/></g><rect x="12" y="12" width="8" height="8" fill="currentColor"/></svg></span>
             <span>
               <span class="who">Tarik Dadda</span>
               <span class="role">AI Automation Specialist · Algeria</span>
@@ -927,6 +965,6 @@
 
 <script src="vendor/anime.umd.min.js" defer></script>
 <script src="vendor/motion.umd.min.js" defer></script>
-<script src="script.js?v=pulse-5" defer></script>
+<script src="script.js?v=pulse-6" defer></script>
 </body>
 </html>
