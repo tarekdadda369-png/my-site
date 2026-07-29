@@ -30,7 +30,9 @@ the two disagree, **this file wins**.
    additionally use a violet `rgba(122,91,234,…)` at low alpha — it exists
    only inside the motion canvas, never on UI.
 3. **Ink-navy, not black.** The canvas is `#07080f` with navy-tinted
-   surfaces stepping up from it. Text is off-white `#fcfcfd`.
+   surfaces stepping up from it. Text is off-white `#fcfcfd`. The light
+   theme ("Pulse Paper", below) inverts to warm paper `#f6f5f1` with the
+   same navy as ink — never pure white on pure black in either direction.
 4. **Four voices, each with a job.** Instrument Serif carries headlines and
    large numerals. Syne 800 uppercase carries the wordmark only. IBM Plex
    Sans carries body and dense UI. Space Mono carries every label, button,
@@ -66,8 +68,12 @@ through them. An opaque panel would black out the particles passing behind it.
 |---|---|---|
 | `--ink` | `#fcfcfd` | Headlines, emphasised body |
 | `--ink-muted` | `#c8ccdc` | Lead paragraphs, message text |
-| `--ink-subtle` | `#8b90a6` | Body copy, nav |
-| `--ink-tertiary` | `#5e647d` | Captions, mono meta, icon rest state |
+| `--ink-subtle` | `#a6abc0` | Body copy, nav |
+| `--ink-tertiary` | `#808699` | Captions, mono meta, icon rest state |
+
+Every rung clears WCAG AA against the canvas — `--ink-tertiary` is the
+floor and must stay at or above ~4.5:1. If small text looks murky, the fix
+is to move it **up** a rung, never to invent a darker grey.
 
 ### Raspberry (n8n Mandy)
 
@@ -99,6 +105,34 @@ above are roughly half what a sans would take at the same size.
 The fallback stack matters: `'Iowan Old Style', 'Palatino Linotype', Georgia,
 'Times New Roman', serif`. If Google Fonts is blocked the page still renders in
 a classic serif rather than collapsing to Arial.
+
+### Light theme — Pulse Paper
+
+The site ships both moods, toggled from the header sun/moon button
+(persisted as `site-theme` in `localStorage`, applied pre-paint by the
+inline head script — the same contract as the language toggle, and the two
+compose freely). Dark is the default; light is a full re-skin under
+`html[data-theme='light']` that keeps every structural rule.
+
+| Token | Dark | Light |
+|---|---|---|
+| `--canvas` | `#07080f` | `#f6f5f1` (warm paper, not white) |
+| surfaces | navy ladder up | `#ffffff → #dfdbd0` ladder down |
+| `--ink` | `#fcfcfd` | `#16182d` (the navy becomes the ink) |
+| `--accent-hover` | `#ff7195` (lightens) | `#c93158` (darkens) |
+| `--edge` | white inset hairline | `rgba(255,255,255,0.85)` inset |
+
+Rules for touching it:
+
+- Glass surfaces are tokenised as `--g-*` variables (card, panel, bar,
+  input, chip, …). **Never hard-code an rgba surface** — define it once
+  per theme so a new component picks up both moods for free.
+- The canvas flow-field flips its compositing: `lighter` glow on dark,
+  `source-over` + `mix-blend-mode: multiply` on paper — same particles,
+  read as ink strokes instead of light trails.
+- The reticle stays; its halo blends `multiply` on paper.
+- Raspberry survives unchanged (`#ea4b71` holds AA on both grounds); only
+  its hover direction flips.
 
 ### Spacing & frame
 
@@ -145,9 +179,15 @@ flashes LTR):
   values ("<1 يوم", "24/7") keep logical order via LTR isolates.
 - **Everything translates**: chrome, hero, services, animatic beats, demo
   threads, forms (labels, placeholders, validation, the listbox options,
-  runtime status messages), FAQ, CTA, 404. Strings missing from the
-  dictionary fall back to English silently. Legal body text intentionally
-  stays English, flagged in its Arabic lead line.
+  runtime status messages), FAQ, CTA, 404 — and the legal pages (privacy,
+  terms, data deletion) in full. Only true identifiers stay Latin: email
+  addresses, the domain, and the exact subject line `User Data Deletion
+  Request` that the deletion workflow matches on. Strings missing from the
+  dictionary fall back to English silently.
+- **Nothing may clip**: Amiri's tall ascenders and longer Arabic strings
+  get room — buttons wrap (`white-space: normal`, min-height instead of
+  fixed height), hero lines keep `overflow: visible`, and line-height
+  rises to ~1.55 on display type.
 - The scramble effect is disabled in Arabic — Latin glyph noise reads wrong.
 
 ## Scrollbars
@@ -171,7 +211,8 @@ slimmer 7px rail. Firefox via `scrollbar-color`, WebKit via pseudo-elements.
 - Don't add a second accent hue, a gradient text fill, or a drop shadow.
 - Don't make panels fully opaque — it kills the backdrop and the light.
 - Don't set body copy in the serif, or headlines in the mono.
-- Don't ship a light theme.
+- Don't add a third theme, and don't style a component for one theme only —
+  every new surface needs its `--g-*` token defined for both.
 
 ## Motion
 

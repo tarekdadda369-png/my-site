@@ -363,15 +363,205 @@
     /* legal chrome */
     "Last updated · 26 July 2026": "آخر تحديث · 26 جويلية 2026",
     "On this page": "في هذه الصفحة",
-    "How we collect, use and protect your personal information — written to be read, not skimmed past.": "كيف نجمع معلوماتك الشخصية ونستخدمها ونحميها — كُتبت لتُقرأ، لا لتُتجاوز. (نص الوثيقة بالإنجليزية)",
-    "The terms that govern this website and the custom automation systems built for you.": "الشروط التي تحكم هذا الموقع وأنظمة الأتمتة المبنية لك. (نص الوثيقة بالإنجليزية)",
-    "We respect your privacy and your right to control your personal data. Here is exactly how to have it deleted.": "نحترم خصوصيتك وحقك في التحكم ببياناتك. إليك بالضبط كيف تُحذف. (نص الوثيقة بالإنجليزية)",
     "User data deletion": "حذف بيانات المستخدم"
   };
+
+  var AR_LEGAL = {
+    "How we collect, use and protect your personal information — written to be read, not skimmed past.": "كيف نجمع معلوماتك الشخصية ونستخدمها ونحميها — كُتبت لتُقرأ، لا لتُتجاوز.",
+    "1. Information we collect": "1. المعلومات التي نجمعها",
+    "2. How we use it": "2. كيف نستخدمها",
+    "3. Meta platform integrations": "3. تكاملات منصات ميتا",
+    "4. Data security": "4. أمن البيانات",
+    "5. Data retention": "5. الاحتفاظ بالبيانات",
+    "6. Sharing your information": "6. مشاركة معلوماتك",
+    "7. Your rights": "7. حقوقك",
+    "8. Cookies": "8. ملفات تعريف الارتباط",
+    "9. Third-party links": "9. روابط الأطراف الثالثة",
+    "10. Changes to this policy": "10. تعديلات هذه السياسة",
+    "11. Contact us": "11. تواصل معنا",
+    "This Privacy Policy describes how TARIK DADDA (\"we\", \"us\", or \"our\") collects, uses and protects your personal information when you visit our website at service.co.im or use our services.": "توضح سياسة الخصوصية هذه كيف يجمع طارق دادة («نحن») معلوماتك الشخصية ويستخدمها ويحميها عند زيارتك موقعنا service.co.im أو استخدامك خدماتنا.",
+    "The short version.": "الخلاصة.",
+    "We collect what you send us so we can reply and do the work. We do not sell your data. We only touch your social or business accounts after you explicitly connect them, and only for the automation you asked for.": "نجمع ما ترسله إلينا لنتمكن من الرد وإنجاز العمل. لا نبيع بياناتك. ولا نلمس حساباتك الاجتماعية أو التجارية إلا بعد أن تربطها بنفسك صراحةً، ولأجل الأتمتة التي طلبتها فقط.",
+    "We collect information that you provide directly to us, as well as information collected automatically when you use our website or services.": "نجمع المعلومات التي تقدمها لنا مباشرة، إضافة إلى معلومات تُجمع تلقائياً عند استخدامك موقعنا أو خدماتنا.",
+    "1.1 Information you provide": "1.1 المعلومات التي تقدمها",
+    "When you contact us through our website or otherwise engage with our services, we may collect:": "عند تواصلك معنا عبر موقعنا أو تعاملك مع خدماتنا، قد نجمع:",
+    "Your name and contact information (email address, phone number)": "اسمك ومعلومات الاتصال (البريد الإلكتروني، رقم الهاتف)",
+    "Your company name and business details": "اسم شركتك وتفاصيل نشاطك",
+    "Information about your automation needs and project requirements": "معلومات عن احتياجات الأتمتة لديك ومتطلبات مشروعك",
+    "Any other information you choose to provide in your messages": "أي معلومات أخرى تختار تقديمها في رسائلك",
+    "The contact form on this website does not store anything on our servers — it opens your own email application with the details filled in, so your message travels directly from you to us.": "نموذج التواصل في هذا الموقع لا يخزّن شيئاً على خوادمنا — بل يفتح تطبيق بريدك مع تعبئة التفاصيل، فتنتقل رسالتك مباشرة منك إلينا.",
+    "1.2 Information collected automatically": "1.2 المعلومات المُجمَّعة تلقائياً",
+    "When you visit our website, we may automatically collect:": "عند زيارتك موقعنا، قد نجمع تلقائياً:",
+    "Your IP address and browser type": "عنوان IP الخاص بك ونوع المتصفح",
+    "Pages you visit and time spent on our website": "الصفحات التي تزورها والوقت الذي تقضيه في موقعنا",
+    "Referring website or search terms": "الموقع المُحيل أو عبارات البحث",
+    "Device information and operating system": "معلومات الجهاز ونظام التشغيل",
+    "2. How we use your information": "2. كيف نستخدم معلوماتك",
+    "We use the information we collect for the following purposes:": "نستخدم المعلومات التي نجمعها للأغراض التالية:",
+    "To respond to your enquiries:": "للرد على استفساراتك:",
+    "contact data you provide through our contact form or email is used solely to respond to your questions, provide quotes and discuss potential projects.": "بيانات الاتصال التي تقدمها عبر نموذج التواصل أو البريد تُستخدم حصراً للرد على أسئلتك وتقديم عروض الأسعار ومناقشة المشاريع المحتملة.",
+    "To provide our services:": "لتقديم خدماتنا:",
+    "we use project-related information to design, build and maintain your custom automation systems.": "نستخدم معلومات المشروع لتصميم أنظمة الأتمتة المخصّصة لك وبنائها وصيانتها.",
+    "To improve our website:": "لتحسين موقعنا:",
+    "analytics data helps us understand how visitors use our site and improve the experience.": "بيانات التحليلات تساعدنا على فهم كيفية استخدام الزوار للموقع وتحسين التجربة.",
+    "To communicate with you:": "للتواصل معك:",
+    "we may send you updates about your project or respond to follow-up questions.": "قد نرسل إليك مستجدات مشروعك أو نرد على أسئلتك اللاحقة.",
+    "Our automation services may interact with Meta platforms (Instagram, Facebook Messenger, WhatsApp)": "قد تتفاعل خدمات الأتمتة لدينا مع منصات ميتا (إنستغرام، فيسبوك ماسنجر، واتساب)",
+    "only when you, the business owner, explicitly connect your accounts": "فقط عندما تربط أنت، صاحب النشاط، حساباتك صراحةً",
+    "and authorise the integration. We do not:": "وتأذن بالتكامل. نحن لا:",
+    "Access your Meta accounts without your explicit permission": "ندخل إلى حساباتك على ميتا دون إذنك الصريح",
+    "Collect or store data from your social media followers without authorisation": "نجمع أو نخزّن بيانات متابعيك دون تفويض",
+    "Use your social media data for any purpose other than the automation services you have requested": "نستخدم بيانات حساباتك الاجتماعية لأي غرض غير خدمات الأتمتة التي طلبتها",
+    "All Meta platform integrations are configured according to Meta's Platform Terms and Data Processing Terms. You retain full control over what data is shared and can disconnect integrations at any time.": "كل تكاملات منصات ميتا مُهيّأة وفق شروط منصة ميتا وشروط معالجة البيانات لديها. وتحتفظ بالتحكم الكامل في ما يُشارك من بيانات ويمكنك فصل التكاملات في أي وقت.",
+    "If you want data collected through one of these integrations deleted, see our": "إن أردت حذف بيانات جُمعت عبر أحد هذه التكاملات، راجع",
+    "data deletion instructions": "تعليمات حذف البيانات",
+    "We take reasonable measures to protect your information from unauthorised access, disclosure or destruction. However, no method of transmission over the internet or electronic storage is completely secure. We handle your data responsibly and limit access to only those who need it to provide our services.": "نتخذ تدابير معقولة لحماية معلوماتك من الوصول أو الإفشاء أو الإتلاف غير المصرّح به. ومع ذلك، لا توجد وسيلة نقل عبر الإنترنت أو تخزين إلكتروني آمنة تماماً. نتعامل مع بياناتك بمسؤولية ونحصر الوصول فيمن يحتاجه لتقديم خدماتنا.",
+    "We retain your personal information only for as long as necessary to fulfil the purposes for which it was collected, including:": "نحتفظ بمعلوماتك الشخصية للمدة اللازمة فقط لتحقيق الأغراض التي جُمعت لأجلها، بما في ذلك:",
+    "Providing the services you have requested": "تقديم الخدمات التي طلبتها",
+    "Complying with legal obligations": "الالتزام بالواجبات القانونية",
+    "Resolving disputes and enforcing our agreements": "حل النزاعات وإنفاذ اتفاقياتنا",
+    "When your information is no longer needed, we will securely delete or anonymise it.": "عندما لا تعود معلوماتك لازمة، نحذفها أو نجعلها مجهولة الهوية بشكل آمن.",
+    "We do not sell, trade or rent your personal information to third parties. We may share your information only in the following circumstances:": "لا نبيع معلوماتك الشخصية ولا نتاجر بها ولا نؤجّرها لأطراف ثالثة. وقد نشاركها فقط في الحالات التالية:",
+    "Service providers:": "مزوّدو الخدمات:",
+    "we may share information with trusted third-party service providers who assist us in operating our website or delivering our services, subject to confidentiality obligations.": "قد نشارك المعلومات مع مزوّدي خدمات موثوقين يساعدوننا في تشغيل موقعنا أو تقديم خدماتنا، مع التزامهم بالسرية.",
+    "Legal requirements:": "المتطلبات القانونية:",
+    "we may disclose information if required by law, court order or governmental regulation.": "قد نفصح عن المعلومات إذا اقتضى ذلك قانونٌ أو أمر قضائي أو لائحة حكومية.",
+    "Business transfers:": "انتقال النشاط:",
+    "in the event of a merger, acquisition or sale of assets, your information may be transferred as part of that transaction.": "في حال اندماج أو استحواذ أو بيع أصول، قد تُنقل معلوماتك ضمن تلك الصفقة.",
+    "Depending on your location, you may have the right to:": "بحسب مكان إقامتك، قد يكون لك الحق في:",
+    "Access the personal information we hold about you": "الاطلاع على المعلومات الشخصية التي نحتفظ بها عنك",
+    "Request correction of inaccurate information": "طلب تصحيح المعلومات غير الدقيقة",
+    "Request deletion of your personal information": "طلب حذف معلوماتك الشخصية",
+    "Object to or restrict certain processing of your data": "الاعتراض على معالجات معينة لبياناتك أو تقييدها",
+    "Withdraw consent where processing is based on consent": "سحب الموافقة حيث تستند المعالجة إليها",
+    "To exercise any of these rights, contact us using the details below.": "لممارسة أي من هذه الحقوق، تواصل معنا عبر البيانات أدناه.",
+    "Our website may use cookies and similar technologies to enhance your browsing experience. You can set your browser to refuse cookies or alert you when cookies are being sent. Note that some parts of our website may not function properly without cookies.": "قد يستخدم موقعنا ملفات تعريف الارتباط وتقنيات مشابهة لتحسين تجربتك. يمكنك ضبط متصفحك لرفضها أو تنبيهك عند إرسالها، علماً أن بعض أجزاء الموقع قد لا تعمل جيداً من دونها.",
+    "Our website may contain links to third-party websites, and loads a web font from Google Fonts. We are not responsible for the privacy practices or content of those services. We encourage you to review the privacy policies of any third-party sites you visit.": "قد يحتوي موقعنا على روابط لمواقع خارجية، ويحمّل خطاً من Google Fonts. لسنا مسؤولين عن ممارسات الخصوصية أو محتوى تلك الخدمات، وننصحك بمراجعة سياسات الخصوصية لأي موقع خارجي تزوره.",
+    "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated \"Last updated\" date. We encourage you to review this policy periodically.": "قد نحدّث سياسة الخصوصية هذه من وقت لآخر، وتُنشر أي تعديلات في هذه الصفحة مع تحديث تاريخ «آخر تحديث». ننصحك بمراجعتها دورياً.",
+    "If you have any questions or concerns about this Privacy Policy or our data practices, contact us:": "إن كانت لديك أي أسئلة أو مخاوف بشأن هذه السياسة أو ممارساتنا مع البيانات، تواصل معنا:",
+    "Email:": "البريد:",
+    "Website:": "الموقع:",
+    "Location:": "العنوان:",
+    "Algeria": "الجزائر",
+    "The terms that govern this website and the custom automation systems built for you.": "الشروط التي تحكم هذا الموقع وأنظمة الأتمتة المخصّصة المبنية لك.",
+    "1. Service description": "1. وصف الخدمة",
+    "2. Acceptable use": "2. الاستخدام المقبول",
+    "3. Customer responsibilities": "3. مسؤوليات العميل",
+    "4. Intellectual property": "4. الملكية الفكرية",
+    "5. Payment terms": "5. شروط الدفع",
+    "6. Changes & maintenance": "6. التغييرات والصيانة",
+    "7. Limitations of liability": "7. حدود المسؤولية",
+    "8. Support": "8. الدعم",
+    "9. Termination": "9. الإنهاء",
+    "10. Governing law": "10. القانون المطبَّق",
+    "11. Changes to these terms": "11. تعديلات هذه الشروط",
+    "12. Contact": "12. التواصل",
+    "These Terms of Service (\"Terms\") govern your access to and use of the services provided by TARIK DADDA (\"we\", \"us\", or \"our\"), including our website at service.co.im and any custom AI automation systems we build for you. By using our services, you agree to be bound by these Terms.": "تحكم شروط الخدمة هذه («الشروط») وصولك إلى الخدمات التي يقدمها طارق دادة («نحن») واستخدامك لها، بما في ذلك موقعنا service.co.im وأي أنظمة أتمتة مخصّصة نبنيها لك. باستخدامك خدماتنا فأنت توافق على الالتزام بهذه الشروط.",
+    "TARIK DADDA provides custom AI automation services for businesses, including but not limited to:": "يقدم طارق دادة خدمات أتمتة مخصّصة بالذكاء الاصطناعي للشركات، ومنها على سبيل المثال لا الحصر:",
+    "Social media automation (Instagram, Facebook Messenger, WhatsApp)": "أتمتة وسائل التواصل (إنستغرام، فيسبوك ماسنجر، واتساب)",
+    "Email automation and workflow design": "أتمتة البريد الإلكتروني وتصميم المسارات",
+    "AI agent development and deployment": "تطوير وكلاء الذكاء الاصطناعي ونشرهم",
+    "Document automation and data processing": "أتمتة المستندات ومعالجة البيانات",
+    "Lead handling and internal workflow automation": "إدارة العملاء المحتملين وأتمتة المسارات الداخلية",
+    "n8n workflow design and implementation": "تصميم مسارات n8n وتنفيذها",
+    "All services are custom-built based on individual client requirements. We do not provide off-the-shelf software or subscription-based platforms. Each engagement is scoped and priced individually based on the complexity and requirements of the project.": "كل الخدمات تُبنى خصيصاً وفق متطلبات كل عميل. لا نقدم برمجيات جاهزة ولا منصات اشتراك، ويُحدَّد نطاق كل تعاقد وسعره على حدة بحسب تعقيد المشروع ومتطلباته.",
+    "You agree to use our services only for lawful purposes and in accordance with these Terms. You may not:": "توافق على استخدام خدماتنا للأغراض المشروعة فقط ووفقاً لهذه الشروط. ولا يجوز لك:",
+    "Use our services to violate any applicable local, national or international law or regulation": "استخدام خدماتنا لانتهاك أي قانون أو لائحة محلية أو وطنية أو دولية",
+    "Use our automation systems to send spam, unsolicited messages or harassing content": "استخدام أنظمتنا لإرسال رسائل مزعجة أو غير مرغوبة أو محتوى مضايق",
+    "Attempt to gain unauthorised access to any part of our systems or third-party platforms integrated with our services": "محاولة الوصول غير المصرّح به إلى أي جزء من أنظمتنا أو المنصات الخارجية المتكاملة مع خدماتنا",
+    "Use our services to infringe upon the intellectual property rights of others": "استخدام خدماتنا للتعدي على حقوق الملكية الفكرية للآخرين",
+    "Interfere with or disrupt the integrity or performance of our services or connected third-party services": "التدخل في سلامة أو أداء خدماتنا أو الخدمات الخارجية المتصلة أو تعطيلها",
+    "Use our automation for deceptive, fraudulent or malicious purposes": "استخدام الأتمتة لأغراض خادعة أو احتيالية أو خبيثة",
+    "We reserve the right to suspend or terminate services if we determine, in our sole discretion, that you are violating these acceptable use provisions.": "نحتفظ بحق تعليق الخدمات أو إنهائها إذا رأينا، وفق تقديرنا، أنك تخالف أحكام الاستخدام المقبول هذه.",
+    "To ensure successful delivery of our services, you agree to:": "لضمان نجاح تسليم خدماتنا، توافق على أن:",
+    "Provide accurate and complete information about your business needs and existing systems": "تقدم معلومات دقيقة وكاملة عن احتياجات نشاطك وأنظمتك الحالية",
+    "Grant necessary access to tools, accounts and APIs required for automation implementation": "تمنح الصلاحيات اللازمة للأدوات والحسابات وواجهات API المطلوبة لتنفيذ الأتمتة",
+    "Respond to requests for feedback, approval and testing in a timely manner": "تستجيب لطلبات الملاحظات والموافقة والاختبار في وقت مناسب",
+    "Maintain valid credentials and permissions for all third-party platforms integrated with our automations": "تحافظ على صلاحية بيانات الدخول والأذونات لكل المنصات الخارجية المتكاملة مع الأتمتة",
+    "Ensure that your use of automated messaging and communication complies with applicable laws, including anti-spam regulations": "تتأكد من أن استخدامك للمراسلة المؤتمتة يلتزم بالقوانين السارية، بما فيها لوائح مكافحة الرسائل المزعجة",
+    "Review and test automations before full deployment and report any issues promptly": "تراجع الأتمتة وتختبرها قبل التشغيل الكامل وتبلّغ عن أي مشكلات فوراً",
+    "Delays caused by failure to meet these responsibilities may affect project timelines and are not our responsibility.": "التأخيرات الناتجة عن الإخلال بهذه المسؤوليات قد تؤثر على مواعيد المشروع ولا نتحمل مسؤوليتها.",
+    "Upon full payment for our services, you receive a licence to use the custom automation workflows and configurations we build for your business. You may not resell, redistribute or use these automations to provide similar services to third parties without our written consent.": "بعد سداد كامل قيمة خدماتنا، تحصل على ترخيص باستخدام مسارات الأتمتة والإعدادات المبنية لنشاطك. ولا يجوز لك إعادة بيعها أو توزيعها أو استخدامها لتقديم خدمات مماثلة للغير دون موافقتنا الكتابية.",
+    "We retain ownership of any proprietary tools, templates or methodologies developed during the course of our work. General industry knowledge and skills gained while working on your project are not considered your intellectual property.": "نحتفظ بملكية أي أدوات أو قوالب أو منهجيات خاصة طُوّرت أثناء عملنا. والمعرفة والمهارات العامة المكتسبة خلال مشروعك لا تُعد ملكية فكرية لك.",
+    "Payment terms are agreed upon on a per-project basis and documented in our project proposal or agreement. Unless otherwise specified:": "تُتفق شروط الدفع لكل مشروع على حدة وتُوثَّق في عرضنا أو اتفاقيتنا. وما لم يُنص على خلاف ذلك:",
+    "A deposit may be required before work begins": "قد تُطلب دفعة مقدمة قبل بدء العمل",
+    "Final payment is due upon project completion or according to the agreed milestone schedule": "تُستحق الدفعة الأخيرة عند اكتمال المشروع أو وفق جدول المراحل المتفق عليه",
+    "Late payments may result in suspension of services or support": "قد يؤدي التأخر في السداد إلى تعليق الخدمات أو الدعم",
+    "6. Service changes and maintenance": "6. تغييرات الخدمة والصيانة",
+    "We reserve the right to modify, suspend or discontinue any aspect of our services at any time. For ongoing automation maintenance:": "نحتفظ بحق تعديل أي جانب من خدماتنا أو تعليقه أو إيقافه في أي وقت. وبخصوص صيانة الأتمتة المستمرة:",
+    "Changes to third-party APIs or platforms (such as Meta, WhatsApp or email providers) may require updates to your automations": "قد تستلزم تغييرات المنصات أو واجهات API الخارجية (مثل ميتا أو واتساب أو مزوّدي البريد) تحديثات على أتمتتك",
+    "We will notify you of any changes that may affect your automations when commercially reasonable to do so": "سنخطرك بأي تغييرات قد تؤثر على أتمتتك متى كان ذلك معقولاً تجارياً",
+    "Additional fees may apply for significant rework caused by third-party platform changes": "قد تُطبَّق رسوم إضافية على إعادة العمل الجوهرية الناتجة عن تغييرات المنصات الخارجية",
+    "We are not responsible for service interruptions caused by third-party platform outages or policy changes": "لسنا مسؤولين عن انقطاع الخدمة الناتج عن أعطال المنصات الخارجية أو تغيّر سياساتها",
+    "To the maximum extent permitted by applicable law:": "إلى أقصى حد يسمح به القانون المطبَّق:",
+    "Our services are provided \"as is\" without warranties of any kind, either express or implied": "تُقدَّم خدماتنا «كما هي» دون ضمانات من أي نوع، صريحة كانت أو ضمنية",
+    "We do not guarantee that our automations will be error-free, uninterrupted or meet all of your specific requirements": "لا نضمن أن تكون الأتمتة خالية من الأخطاء أو غير منقطعة أو ملبية لكل متطلباتك",
+    "We are not liable for any indirect, incidental, special, consequential or punitive damages arising from your use of our services": "لسنا مسؤولين عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو عقابية تنشأ عن استخدامك خدماتنا",
+    "Our total liability for any claim arising from our services shall not exceed the total amount you paid us for the specific project giving rise to the claim": "لا يتجاوز إجمالي مسؤوليتنا عن أي مطالبة ناشئة عن خدماتنا إجمالي ما دفعته لنا عن المشروع محل المطالبة",
+    "We are not responsible for data loss, business interruption or reputational damage resulting from the use or failure of automation systems": "لسنا مسؤولين عن فقدان البيانات أو توقف الأعمال أو الضرر بالسمعة الناتج عن استخدام أنظمة الأتمتة أو تعطلها",
+    "You acknowledge that AI and automation technologies have inherent limitations and that human oversight may be required for critical business decisions.": "تقرّ بأن لتقنيات الذكاء الاصطناعي والأتمتة حدوداً متأصلة، وأن القرارات التجارية الحرجة قد تتطلب إشرافاً بشرياً.",
+    "Support terms are defined in our project agreement. Unless otherwise specified:": "تُحدَّد شروط الدعم في اتفاقية المشروع. وما لم يُنص على خلاف ذلك:",
+    "We provide reasonable support to address bugs or issues with automations we have built during an agreed support period": "نقدم دعماً معقولاً لمعالجة الأخطاء أو المشكلات في الأتمتة التي بنيناها خلال فترة الدعم المتفق عليها",
+    "Support does not cover issues caused by changes you make to the automation, third-party platform changes or misuse of the system": "لا يشمل الدعم المشكلات الناتجة عن تعديلاتك على الأتمتة أو تغييرات المنصات الخارجية أو سوء استخدام النظام",
+    "Response times will be communicated at the start of each engagement": "تُبلَّغ أزمنة الاستجابة في بداية كل تعاقد",
+    "Support requests should be sent to the contact email provided during onboarding": "تُرسل طلبات الدعم إلى بريد التواصل المقدم عند بدء التعامل",
+    "Either party may terminate the service engagement with written notice:": "يجوز لأي من الطرفين إنهاء التعاقد بإشعار كتابي:",
+    "You may terminate at any time by providing written notice": "يمكنك الإنهاء في أي وقت بإشعار كتابي",
+    "We may terminate if you violate these Terms, fail to make payments or engage in unlawful activities using our services": "يجوز لنا الإنهاء إذا خالفت هذه الشروط أو تخلفت عن السداد أو مارست أنشطة غير مشروعة عبر خدماتنا",
+    "Upon termination, you remain responsible for any outstanding payments for work completed": "عند الإنهاء، تظل مسؤولاً عن أي مستحقات عن العمل المُنجز",
+    "We will provide reasonable assistance to transition or export your automation configurations upon request": "سنقدم مساعدة معقولة لنقل إعدادات الأتمتة أو تصديرها عند الطلب",
+    "These Terms shall be governed by and construed in accordance with the laws of Algeria. Any disputes arising from these Terms or our services shall be subject to the exclusive jurisdiction of the courts of Algeria.": "تخضع هذه الشروط لقوانين الجزائر وتُفسَّر وفقها، وتختص محاكم الجزائر حصرياً بأي نزاع ينشأ عنها أو عن خدماتنا.",
+    "We may update these Terms from time to time. Any changes will be posted on this page with an updated \"Last updated\" date. Your continued use of our services after any changes constitutes acceptance of the revised Terms.": "قد نحدّث هذه الشروط من وقت لآخر، وتُنشر أي تعديلات في هذه الصفحة مع تحديث تاريخ «آخر تحديث». واستمرارك في استخدام خدماتنا بعد أي تعديل يُعد قبولاً بالشروط المعدَّلة.",
+    "12. Contact information": "12. بيانات التواصل",
+    "If you have any questions about these Terms, contact us:": "إن كانت لديك أي أسئلة عن هذه الشروط، تواصل معنا:",
+    "We respect your privacy and your right to control your personal data. Here is exactly how to have it deleted.": "نحترم خصوصيتك وحقك في التحكم ببياناتك الشخصية. إليك بالضبط كيفية حذفها.",
+    "In one line:": "باختصار:",
+    "email": "أرسل بريداً إلى",
+    "with the subject": "بالموضوع",
+    ", and your data is removed within 30 days.": "، وتُحذف بياناتك خلال 30 يوماً.",
+    "How to request deletion": "كيفية طلب الحذف",
+    "If you have connected your Facebook, Instagram, Messenger or WhatsApp account to our services and wish to delete your personal data, send us an email:": "إذا ربطت حسابك على فيسبوك أو إنستغرام أو ماسنجر أو واتساب بخدماتنا وأردت حذف بياناتك الشخصية، أرسل إلينا بريداً:",
+    "Subject:": "الموضوع:",
+    "Please include": "يُرجى تضمين",
+    "Your full name.": "اسمك الكامل.",
+    "The Facebook, Instagram or WhatsApp account associated with the request.": "حساب فيسبوك أو إنستغرام أو واتساب المرتبط بالطلب.",
+    "Your email address, if it differs from the one you are writing from.": "بريدك الإلكتروني، إن كان مختلفاً عن الذي تراسلنا منه.",
+    "A brief description of the data you want deleted.": "وصف موجز للبيانات التي تريد حذفها.",
+    "We ask for these details only to confirm the request comes from you and to locate the right records. They are not used for anything else.": "نطلب هذه التفاصيل فقط للتأكد من أن الطلب صادر منك ولتحديد السجلات الصحيحة، ولا تُستخدم لأي غرض آخر.",
+    "What happens next": "ماذا يحدث بعد ذلك",
+    "We acknowledge your request, usually within one business day.": "نؤكد استلام طلبك، عادةً خلال يوم عمل واحد.",
+    "We verify the request so that nobody can delete someone else's data.": "نتحقق من الطلب حتى لا يتمكن أحد من حذف بيانات غيره.",
+    "We remove your personal data from our systems within 30 days, unless we are legally required to retain certain records.": "نحذف بياناتك الشخصية من أنظمتنا خلال 30 يوماً، ما لم يُلزمنا القانون بالاحتفاظ بسجلات معينة.",
+    "You receive written confirmation by email once the deletion is complete.": "يصلك تأكيد كتابي بالبريد فور اكتمال الحذف.",
+    "What this covers": "ما الذي يشمله هذا",
+    "A deletion request covers the personal data held in our own systems as part of an automation we operate or have built. It does not delete data held by Meta, Google or any other platform under their own terms — for those, use the platform's own privacy settings and deletion tools.": "يشمل طلب الحذف البيانات الشخصية المحفوظة في أنظمتنا ضمن أتمتة نشغّلها أو بنيناها. ولا يحذف البيانات المحفوظة لدى ميتا أو غوغل أو أي منصة أخرى وفق شروطها — لتلك، استخدم إعدادات الخصوصية وأدوات الحذف في المنصة نفسها.",
+    "If you are a business client and want an entire automation and its stored data removed, say so in the message and we will confirm the scope with you before deleting anything irreversible.": "إن كنت عميلاً تجارياً وأردت إزالة أتمتة كاملة مع بياناتها المخزنة، اذكر ذلك في الرسالة وسنؤكد معك النطاق قبل حذف أي شيء لا رجعة فيه.",
+    "Privacy contact": "بيانات التواصل للخصوصية",
+    "For any privacy question, including this process:": "لأي سؤال عن الخصوصية، بما في ذلك هذه العملية:",
+    "See also our": "راجع أيضاً",
+    "for what we collect and why.": "لمعرفة ما نجمعه ولماذا.",
+    "Open a pre-filled request": "افتح طلباً مُعبَّأً مسبقاً",
+    "Read the privacy policy": "اقرأ سياسة الخصوصية"
+  };
+  for (var _k in AR_LEGAL) AR[_k] = AR_LEGAL[_k];
 
   function t(s) {
     return (IS_AR && AR[s]) || s;
   }
+
+  mod('theme', function () {
+    $$('[data-theme-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        try {
+          var light = document.documentElement.dataset.theme === 'light';
+          localStorage.setItem('site-theme', light ? 'dark' : 'light');
+        } catch (e) {}
+        /* Reload so the canvas, fonts and every literal pick the theme up
+           cleanly — same contract as the language toggle. */
+        window.location.reload();
+      });
+    });
+  });
 
   mod('i18n', function () {
     /* Toggle buttons work in both directions */
@@ -520,7 +710,12 @@
     var running = true;
     var t = 0;
 
-    var COLOURS = ['rgba(234, 75, 113, 0.30)', 'rgba(255, 113, 149, 0.22)', 'rgba(122, 91, 234, 0.20)'];
+    var LIGHT = document.documentElement.dataset.theme === 'light';
+    var WIPE = LIGHT ? 'rgba(246, 245, 241, 0.07)' : 'rgba(7, 8, 15, 0.055)';
+    var COMPOSITE = LIGHT ? 'source-over' : 'lighter';
+    var COLOURS = LIGHT
+      ? ['rgba(234, 75, 113, 0.4)', 'rgba(183, 53, 87, 0.32)', 'rgba(122, 91, 234, 0.3)']
+      : ['rgba(234, 75, 113, 0.30)', 'rgba(255, 113, 149, 0.22)', 'rgba(122, 91, 234, 0.20)'];
 
     function spawn(anywhere) {
       return {
@@ -539,7 +734,7 @@
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = 'rgba(7, 8, 15, 1)';
+      ctx.fillStyle = LIGHT ? 'rgba(246, 245, 241, 1)' : 'rgba(7, 8, 15, 1)';
       ctx.fillRect(0, 0, W, H);
 
       var count = Math.min(90, Math.max(36, Math.round((W * H) / 26000)));
@@ -562,10 +757,10 @@
 
       /* Translucent wipe leaves short comet trails */
       ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = 'rgba(7, 8, 15, 0.055)';
+      ctx.fillStyle = WIPE;
       ctx.fillRect(0, 0, W, H);
 
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalCompositeOperation = COMPOSITE;
       for (var i = 0; i < parts.length; i++) {
         var pt = parts[i];
         var a = angle(pt.x, pt.y, t);

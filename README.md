@@ -81,6 +81,23 @@ block showing the finished scene. To change the pacing, edit `BEATS` /
 Motion is purposeful rather than decorative — see the Motion section of
 `DESIGN.md`. No parallax and no spring hovers.
 
+## Language & theme
+
+The header carries two persistent switches, both stored in `localStorage`
+and applied pre-paint by an inline head script so nothing flashes:
+
+- **العربية / EN** (`site-lang`) — a full Arabic voice: RTL layout, Amiri +
+  IBM Plex Sans Arabic (loaded only when active), and a dictionary in
+  `script.js` covering every page **including the legal pages**. Email
+  addresses, the domain, and the `User Data Deletion Request` subject line
+  stay Latin on purpose — they are identifiers, not copy.
+- **Sun / moon** (`site-theme`) — dark "Pulse" (default) and light
+  "Pulse Paper". The light mode is a full token-level re-skin (warm paper
+  canvas, navy ink, same raspberry); see the Pulse Paper section of
+  `DESIGN.md` before adding any surface colour.
+
+The two compose — Arabic + light works like any other combination.
+
 ## Resilience
 
 Every animated element degrades safely:

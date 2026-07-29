@@ -58,8 +58,8 @@
   /* Bone */
   --ink: #fcfcfd;
   --ink-muted: #c8ccdc;
-  --ink-subtle: #8b90a6;
-  --ink-tertiary: #5e647d;
+  --ink-subtle: #a6abc0;
+  --ink-tertiary: #808699;
 
   /* The single accent: antique brass */
   --accent: #ea4b71;
@@ -110,9 +110,154 @@
   --wide: 1240px;
   --header-h: 60px;
 
+  /* Translucent glass surfaces — the backdrop reads through these */
+  --g-card: rgba(13, 15, 26, 0.78);
+  --g-lift: rgba(13, 15, 26, 0.72);
+  --g-panel: rgba(13, 15, 26, 0.82);
+  --g-form: rgba(13, 15, 26, 0.8);
+  --g-cta: rgba(13, 15, 26, 0.92);
+  --g-pop: rgba(13, 15, 26, 0.97);
+  --g-bar: rgba(18, 21, 37, 0.8);
+  --g-input: rgba(7, 8, 15, 0.75);
+  --g-thread: rgba(7, 8, 15, 0.8);
+  --g-head: rgba(7, 8, 15, 0.82);
+  --g-head-s: rgba(7, 8, 15, 0.94);
+  --g-chip: rgba(24, 28, 48, 0.6);
+  --g-callout: rgba(24, 28, 48, 0.7);
+  --g-status: rgba(24, 28, 48, 0.8);
+  --g-hover: rgba(24, 28, 48, 0.9);
+  --g-tabsel: rgba(31, 36, 64, 0.7);
+
   /* The faint top-edge highlight on lifted surfaces */
   --edge: inset 0 1px 0 rgba(252, 252, 253, 0.045);
 }
+
+/* ==========================================================================
+   0b. Light theme — "Pulse Paper"
+
+   Same structure, same accent, inverted surfaces: warm paper white with the
+   n8n ink-navy as text. The accent's hover darkens instead of lightening,
+   since light backgrounds need contrast to go the other way.
+   ========================================================================== */
+
+html[data-theme='light'] {
+  --canvas: #f6f5f1;
+  --surface-1: #ffffff;
+  --surface-2: #f1efe9;
+  --surface-3: #e9e6de;
+  --surface-4: #dfdbd0;
+
+  --hairline: #e3dfd5;
+  --hairline-strong: #cfc9bb;
+  --hairline-bright: #b3ac99;
+
+  --ink: #16182d;
+  --ink-muted: #383b54;
+  --ink-subtle: #575b76;
+  --ink-tertiary: #797d92;
+
+  --accent: #ea4b71;
+  --accent-hover: #c93158;
+  --accent-deep: #a52747;
+  --on-accent: #ffffff;
+
+  --g-card: rgba(255, 255, 255, 0.82);
+  --g-lift: rgba(246, 245, 241, 0.8);
+  --g-panel: rgba(255, 255, 255, 0.88);
+  --g-form: rgba(255, 255, 255, 0.86);
+  --g-cta: rgba(255, 255, 255, 0.94);
+  --g-pop: rgba(255, 255, 255, 0.98);
+  --g-bar: rgba(241, 239, 233, 0.9);
+  --g-input: rgba(255, 255, 255, 0.85);
+  --g-thread: rgba(250, 249, 246, 0.9);
+  --g-head: rgba(246, 245, 241, 0.85);
+  --g-head-s: rgba(246, 245, 241, 0.96);
+  --g-chip: rgba(233, 230, 222, 0.6);
+  --g-callout: rgba(238, 235, 228, 0.8);
+  --g-status: rgba(238, 235, 228, 0.85);
+  --g-hover: rgba(233, 230, 222, 0.9);
+  --g-tabsel: rgba(223, 219, 208, 0.85);
+
+  --edge: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+html[data-theme='light'] body::before {
+  background:
+    radial-gradient(120% 70% at 50% -10%, rgba(234, 75, 113, 0.05), transparent 62%),
+    radial-gradient(115% 105% at 50% 45%, transparent 55%, rgba(22, 24, 45, 0.07) 100%),
+    repeating-linear-gradient(180deg, rgba(22, 24, 45, 0.04) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(22, 24, 45, 0.024) 0 1px, transparent 1px 46px),
+    var(--canvas);
+}
+
+html[data-theme='light'] body::after {
+  opacity: 0.035;
+}
+
+html[data-theme='light'] .hero-grid {
+  background-image:
+    linear-gradient(rgba(22, 24, 45, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 24, 45, 0.05) 1px, transparent 1px);
+}
+
+/* Additive light would wash out on paper — multiply the particles instead */
+html[data-theme='light'] .bg-motion {
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+
+/* The halo lifts on dark; on paper it must tint */
+html[data-theme='light'] .cursor .c-halo {
+  mix-blend-mode: multiply;
+  background: radial-gradient(circle closest-side, rgba(234, 75, 113, 0.1), transparent 70%);
+}
+
+html[data-theme='light'] .cursor .c-dot {
+  box-shadow: 0 0 8px rgba(234, 75, 113, 0.6);
+}
+
+/* Scene + flow diagram surfaces */
+html[data-theme='light'] .scene .s-card { fill: #ffffff; stroke: #dcd7ca; }
+html[data-theme='light'] .scene .s-card-2 { fill: #f1efe9; stroke: #dcd7ca; }
+html[data-theme='light'] .scene .s-core { fill: #ffffff; stroke: #ea4b71; }
+html[data-theme='light'] .scene .s-wire { stroke: #c4bda9; }
+html[data-theme='light'] .scene .s-in { fill: #f1efe9; stroke: #dcd7ca; }
+html[data-theme='light'] .scene .s-ring { stroke: #ea4b71; }
+html[data-theme='light'] .scene .t-lg,
+html[data-theme='light'] .scene .t-md { fill: #16182d; }
+html[data-theme='light'] .scene .t-sm { fill: #383b54; }
+html[data-theme='light'] .scene .t-mono { fill: #797d92; }
+html[data-theme='light'] .scene .t-mono-lit { fill: #c93158; }
+html[data-theme='light'] .flow .node-box { fill: #ffffff; stroke: #dcd7ca; }
+html[data-theme='light'] .flow .node-box.is-core { fill: #fff5f7; stroke: #ea4b71; }
+html[data-theme='light'] .flow .node-label { fill: #16182d; }
+html[data-theme='light'] .flow .node-sub { fill: #797d92; }
+html[data-theme='light'] .flow .core-label { fill: #16182d; }
+html[data-theme='light'] .flow .wire { stroke: #c4bda9; }
+html[data-theme='light'] .flow .packet { fill: #ea4b71; }
+
+/* Message bubbles keep contrast on paper */
+html[data-theme='light'] .msg.in {
+  background: #f1efe9;
+  color: #383b54;
+}
+
+/* Theme button icons: show the opposite of the current theme */
+.theme-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-btn .i-sun { display: block; }
+.theme-btn .i-moon { display: none; }
+
+html[data-theme='light'] .theme-btn .i-sun { display: none; }
+html[data-theme='light'] .theme-btn .i-moon { display: block; }
 
 /* ==========================================================================
    1. Reset & base
@@ -349,7 +494,7 @@ html.cursor-live * {
   position: absolute;
   width: 9px;
   height: 9px;
-  border: 1px solid rgba(252, 252, 253, 0.7);
+  border: 1px solid var(--ink-muted);
 }
 
 .cursor .c-frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
@@ -564,7 +709,7 @@ strong {
 /* Lifted sections are translucent so the backdrop and the cursor light
    still read through them. */
 .section--lift {
-  background: rgba(13, 15, 26, 0.72);
+  background: var(--g-lift);
   border-block: 1px solid var(--hairline);
 }
 
@@ -728,7 +873,7 @@ strong {
   height: 26px;
   padding: 0 11px;
   border: 1px solid var(--hairline-strong);
-  background: rgba(24, 28, 48, 0.6);
+  background: var(--g-chip);
   font-family: var(--font-mono);
   font-size: var(--t-caption);
   letter-spacing: 0.06em;
@@ -754,7 +899,7 @@ strong {
   z-index: 100;
   display: flex;
   align-items: center;
-  background: rgba(7, 8, 15, 0.82);
+  background: var(--g-head);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
@@ -762,7 +907,7 @@ strong {
 }
 
 .header.is-scrolled {
-  background: rgba(7, 8, 15, 0.94);
+  background: var(--g-head-s);
   border-bottom-color: var(--hairline);
 }
 
@@ -1035,7 +1180,7 @@ body.is-locked {
    ========================================================================== */
 
 .panel {
-  background: rgba(13, 15, 26, 0.82);
+  background: var(--g-panel);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
   overflow: hidden;
@@ -1048,7 +1193,7 @@ body.is-locked {
   height: 42px;
   padding-inline: var(--s-md);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(18, 21, 37, 0.8);
+  background: var(--g-bar);
 }
 
 .panel-bar .dots {
@@ -1101,7 +1246,7 @@ body.is-locked {
   gap: 6px var(--s-lg);
   padding: var(--s-sm) var(--s-md);
   border-top: 1px solid var(--hairline);
-  background: rgba(18, 21, 37, 0.8);
+  background: var(--g-bar);
   font-family: var(--font-mono);
   font-size: var(--t-caption);
   letter-spacing: 0.06em;
@@ -1144,7 +1289,7 @@ body.is-locked {
 }
 
 .flow .node-sub {
-  fill: #5e647d;
+  fill: #808699;
   font-family: var(--font-mono);
   font-size: 5.75px;
   letter-spacing: 0.2px;
@@ -1236,7 +1381,7 @@ body.is-locked {
 .scene .t-md { fill: #fcfcfd; font-family: var(--font-sans); font-size: 12px; font-weight: 500; }
 .scene .t-sm { fill: #c8ccdc; font-family: var(--font-sans); font-size: 11.5px; }
 .scene .t-out { fill: #ffffff; font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; }
-.scene .t-mono { fill: #5e647d; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
+.scene .t-mono { fill: #808699; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
 .scene .t-mono-lit { fill: #ea4b71; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
 
 .beats {
@@ -1369,12 +1514,12 @@ body.is-locked {
   display: flex;
   flex-direction: column;
   padding: var(--s-lg);
-  background: rgba(13, 15, 26, 0.78);
+  background: var(--g-card);
   transition: background-color var(--d-slow) var(--e-out);
 }
 
 .card:hover {
-  background: rgba(24, 28, 48, 0.9);
+  background: var(--g-hover);
 }
 
 .card .glyph,
@@ -1506,7 +1651,7 @@ body.is-locked {
   align-items: center;
   gap: var(--s-md);
   padding: var(--s-lg);
-  background: rgba(13, 15, 26, 0.78);
+  background: var(--g-card);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
 }
@@ -1600,7 +1745,7 @@ body.is-locked {
 .tabs {
   display: flex;
   border-bottom: 1px solid var(--hairline);
-  background: rgba(18, 21, 37, 0.8);
+  background: var(--g-bar);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1643,7 +1788,7 @@ body.is-locked {
 
 .tab[aria-selected='true'] {
   color: var(--ink);
-  background: rgba(31, 36, 64, 0.7);
+  background: var(--g-tabsel);
 }
 
 .tab[aria-selected='true']::after {
@@ -1675,7 +1820,7 @@ body.is-locked {
 }
 
 .thread {
-  background: rgba(7, 8, 15, 0.8);
+  background: var(--g-thread);
   border: 1px solid var(--hairline);
   overflow: hidden;
   display: flex;
@@ -1689,7 +1834,7 @@ body.is-locked {
   gap: var(--s-sm);
   padding: var(--s-sm) var(--s-md);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(18, 21, 37, 0.8);
+  background: var(--g-bar);
 }
 
 .thread-top .src {
@@ -1806,7 +1951,7 @@ body.is-locked {
   gap: var(--s-sm);
   padding: var(--s-xs) var(--s-md);
   border-top: 1px solid var(--hairline);
-  background: rgba(18, 21, 37, 0.8);
+  background: var(--g-bar);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.06em;
@@ -1896,7 +2041,7 @@ body.is-locked {
   /* A raspberry arc sweeps the hairline border — browsers without @property
      simply show the static border underneath. */
   background:
-    linear-gradient(rgba(13, 15, 26, 0.92), rgba(13, 15, 26, 0.92)) padding-box,
+    linear-gradient(var(--g-cta), var(--g-cta)) padding-box,
     conic-gradient(from var(--sweep),
       var(--hairline-strong) 0deg 285deg,
       rgba(234, 75, 113, 0.9) 320deg,
@@ -1962,7 +2107,7 @@ body.is-locked {
    ========================================================================== */
 
 .form-panel {
-  background: rgba(13, 15, 26, 0.8);
+  background: var(--g-form);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
   padding: clamp(20px, 3vw, 36px);
@@ -2002,7 +2147,7 @@ body.is-locked {
   width: 100%;
   min-height: 42px;
   padding: 10px 13px;
-  background: rgba(7, 8, 15, 0.75);
+  background: var(--g-input);
   border: 1px solid var(--hairline-strong);
   font-family: var(--font-sans);
   font-size: var(--t-body-sm);
@@ -2034,7 +2179,7 @@ body.is-locked {
   width: 100%;
   min-height: 42px;
   padding: 10px 38px 10px 13px;
-  background: rgba(7, 8, 15, 0.75);
+  background: var(--g-input);
   border: 1px solid var(--hairline-strong);
   font-family: var(--font-sans);
   font-size: var(--t-body-sm);
@@ -2079,7 +2224,7 @@ body.is-locked {
   z-index: 40;
   max-height: 300px;
   overflow-y: auto;
-  background: rgba(13, 15, 26, 0.97);
+  background: var(--g-pop);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--hairline-strong);
@@ -2193,7 +2338,7 @@ body.is-locked {
 .form-status {
   display: none;
   padding: var(--s-sm) var(--s-md);
-  background: rgba(24, 28, 48, 0.8);
+  background: var(--g-status);
   border: 1px solid var(--hairline-strong);
   border-left: 2px solid var(--accent);
   font-size: var(--t-body-sm);
@@ -2403,7 +2548,7 @@ body.is-locked {
 
 .prose .callout {
   padding: var(--s-md);
-  background: rgba(24, 28, 48, 0.7);
+  background: var(--g-callout);
   border: 1px solid var(--hairline);
   border-left: 2px solid var(--accent);
 }
@@ -2590,6 +2735,58 @@ html[lang='ar'] .drawer-foot .mono {
 
 html[lang='ar'] .logo-text {
   font-family: var(--font-brand);
+}
+
+/* Long Arabic labels must never leave the frame: fixed-height nowrap
+   components switch to wrapping with a minimum height instead. */
+html[lang='ar'] .btn {
+  white-space: normal;
+  height: auto;
+  min-height: 42px;
+  padding-block: 9px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+html[lang='ar'] .btn--lg {
+  height: auto;
+  min-height: 48px;
+}
+
+html[lang='ar'] .header-actions .btn {
+  height: auto;
+  min-height: 34px;
+  padding-block: 5px;
+}
+
+html[lang='ar'] .status {
+  height: auto;
+  min-height: 26px;
+  padding-block: 3px;
+  white-space: normal;
+}
+
+html[lang='ar'] .thread-top .tag {
+  height: auto;
+  min-height: 21px;
+  white-space: normal;
+}
+
+/* Amiri's tall ascenders and marks must not be clipped by the reveal
+   containers or tight display line-heights. */
+html[lang='ar'] .hero h1 {
+  line-height: 1.55;
+}
+
+html[lang='ar'] .hero h1 .line {
+  overflow: visible;
+}
+
+html[lang='ar'] h2,
+html[lang='ar'] .acc-btn,
+html[lang='ar'] .step h3,
+html[lang='ar'] .tab-panel h3 {
+  line-height: 1.5;
 }
 
 /* Physical-side properties mirrored for RTL */
