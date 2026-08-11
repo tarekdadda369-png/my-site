@@ -6,9 +6,11 @@ Static HTML, CSS and vanilla JS. No build step, no framework, no runtime
 dependency on any CDN — deploy the `my-site/` folder as-is.
 
 **Read [`DESIGN.md`](DESIGN.md) before changing any UI.** The design system is
-called *Ledger* — warm ink, bone text, antique brass, square corners, a serif
-display voice and a textured backdrop with a light that follows the pointer.
-Its rules are enforced by the browser test described below.
+called *Pulse* — the n8n palette (raspberry `#ea4b71` on ink-navy) on sharp
+square edges, an Instrument Serif display voice that also carries the
+wordmark, Space Mono labels, chamfered glass panels in the diagrams, a live
+canvas motion background, and a reticle cursor that locks onto anything
+interactive. Its rules are enforced by the browser test described below.
 
 ---
 
@@ -51,9 +53,18 @@ npm run dev          # serve my-site/ on http://localhost:4173
 | **anime.js** (`window.anime`) | the scroll-scrubbed animatic timeline, headline + heading word splits, self-drawing icons, scroll reveals, counters, SVG wire draw + travelling packets, conversation replay, accordion height, page dissolve |
 | **motion** (`window.Motion`)  | `inView` triggers for every reveal, and `scroll()` to scrub the animatic |
 
-The cursor light is deliberately **not** library-driven: it eases with a plain
-rAF lerp that parks itself once it catches the pointer, which is cheaper than
-spawning an animation per pointer event.
+The reticle cursor and the motion background are deliberately **not**
+library-driven: both run on plain rAF loops that park themselves when idle or
+hidden, which is cheaper than spawning animations per pointer event.
+
+### The motion background
+
+The "background video" is a generated canvas flow-field, not an MP4: raspberry
+and violet particles drifting through curl noise with comet trails. Generated
+live, it weighs zero bytes, loops forever, never buffers and matches the
+palette exactly. To swap in a real video instead, replace the `bg-motion`
+module with a `<video autoplay muted loop playsinline>` and keep the same
+fixed-position CSS.
 
 ### The animatic
 
@@ -69,6 +80,23 @@ block showing the finished scene. To change the pacing, edit `BEATS` /
 
 Motion is purposeful rather than decorative — see the Motion section of
 `DESIGN.md`. No parallax and no spring hovers.
+
+## Language & theme
+
+The header carries two persistent switches, both stored in `localStorage`
+and applied pre-paint by an inline head script so nothing flashes:
+
+- **العربية / EN** (`site-lang`) — a full Arabic voice: RTL layout, Amiri +
+  IBM Plex Sans Arabic (loaded only when active), and a dictionary in
+  `script.js` covering every page **including the legal pages**. Email
+  addresses, the domain, and the `User Data Deletion Request` subject line
+  stay Latin on purpose — they are identifiers, not copy.
+- **Sun / moon** (`site-theme`) — dark "Pulse" (default) and light
+  "Pulse Paper". The light mode is a full token-level re-skin (warm paper
+  canvas, navy ink, same raspberry); see the Pulse Paper section of
+  `DESIGN.md` before adding any surface colour.
+
+The two compose — Arabic + light works like any other combination.
 
 ## Resilience
 
@@ -106,7 +134,7 @@ Then delete the `data-todo` attribute. Also worth doing:
 
 - Add a real `og:image` (1200×630) and reference it in each page's `<head>` —
   link previews on Facebook and WhatsApp currently have no image. Match the
-  brass-on-ink palette so the preview matches the site.
+  raspberry-on-navy palette so the preview matches the site.
 - Update the "Last updated" dates on the three legal pages when you edit them.
 - Add a phone number to `contact.html` if you want one (it was removed rather
   than left as `+213 XXX XXX XXX`).

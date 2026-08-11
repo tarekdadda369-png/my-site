@@ -1,17 +1,17 @@
 /* ==========================================================================
    TARIK DADDA — AI Automation
-   Design system v4 — "Ledger"
+   Design system v5 — "Pulse"
 
-   A classic, editorial register replacing the v3 tech-startup look:
+   The Ledger structure (sharp edges, serif display, hairline rules) recoloured
+   and recharged around the n8n palette:
 
-     · SHARP EDGES. Every rectangle is 0px. Only genuine circles stay round
-       (avatars, status dots, the logo mark). Nothing is pill-shaped.
-     · Warm ink instead of blue-black, bone instead of grey, and a single
-       antique-brass accent. No indigo, no violet, no gradient ramps.
-     · Instrument Serif carries the display voice; IBM Plex Sans carries the
-       interface; IBM Plex Mono carries labels and technical meta.
-     · The page has a real backdrop: ledger rules, a warm vignette, paper
-       grain, and a brass light that follows the pointer.
+     · SHARP EDGES everywhere. The global reset sets border-radius: 0.
+     · n8n raspberry #ea4b71 as the single accent on ink-navy surfaces
+       (#07080f canvas), off-white #fcfcfd text. White text on raspberry.
+     · Instrument Serif display · IBM Plex Sans body · IBM Plex Mono labels.
+     · A living backdrop: a canvas flow-field (the "motion video"), ruled
+       lines, vignette and grain — plus a reticle cursor that locks onto
+       anything interactive.
 
    --------------------------------------------------------------------------
    0.  Tokens
@@ -44,35 +44,35 @@
 
 :root {
   /* Warm ink ladder — every step carries the same amber cast */
-  --canvas: #100e0b;
-  --surface-1: #17140f;
-  --surface-2: #1d1a14;
-  --surface-3: #24201a;
-  --surface-4: #2b261e;
+  --canvas: #07080f;
+  --surface-1: #0d0f1a;
+  --surface-2: #121525;
+  --surface-3: #181c30;
+  --surface-4: #1f2440;
 
   /* Hairlines */
-  --hairline: #2e2a22;
-  --hairline-strong: #403a2e;
-  --hairline-bright: #554c3b;
+  --hairline: #21263c;
+  --hairline-strong: #2e3552;
+  --hairline-bright: #414a70;
 
   /* Bone */
-  --ink: #f0eadd;
-  --ink-muted: #cfc5b2;
-  --ink-subtle: #9a9080;
-  --ink-tertiary: #6f6656;
+  --ink: #fcfcfd;
+  --ink-muted: #c8ccdc;
+  --ink-subtle: #a6abc0;
+  --ink-tertiary: #808699;
 
   /* The single accent: antique brass */
-  --accent: #c2a15b;
-  --accent-hover: #d9be83;
-  --accent-deep: #8e7134;
-  --on-accent: #14110c;
-  --success: #8aa06e;
-  --danger: #cf8b6a;
+  --accent: #ea4b71;
+  --accent-hover: #ff7195;
+  --accent-deep: #b73557;
+  --on-accent: #ffffff;
+  --success: #3dbb85;
+  --danger: #ff9f6e;
 
   /* Type */
   --font-display: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
   --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Serifs need less negative tracking than a grotesque */
   --t-display-xl: clamp(2.9rem, 6.2vw, 5.25rem);
@@ -109,9 +109,154 @@
   --wide: 1240px;
   --header-h: 60px;
 
+  /* Translucent glass surfaces — the backdrop reads through these */
+  --g-card: rgba(13, 15, 26, 0.78);
+  --g-lift: rgba(13, 15, 26, 0.72);
+  --g-panel: rgba(13, 15, 26, 0.82);
+  --g-form: rgba(13, 15, 26, 0.8);
+  --g-cta: rgba(13, 15, 26, 0.92);
+  --g-pop: rgba(13, 15, 26, 0.97);
+  --g-bar: rgba(18, 21, 37, 0.8);
+  --g-input: rgba(7, 8, 15, 0.75);
+  --g-thread: rgba(7, 8, 15, 0.8);
+  --g-head: rgba(7, 8, 15, 0.82);
+  --g-head-s: rgba(7, 8, 15, 0.94);
+  --g-chip: rgba(24, 28, 48, 0.6);
+  --g-callout: rgba(24, 28, 48, 0.7);
+  --g-status: rgba(24, 28, 48, 0.8);
+  --g-hover: rgba(24, 28, 48, 0.9);
+  --g-tabsel: rgba(31, 36, 64, 0.7);
+
   /* The faint top-edge highlight on lifted surfaces */
-  --edge: inset 0 1px 0 rgba(240, 234, 221, 0.045);
+  --edge: inset 0 1px 0 rgba(252, 252, 253, 0.045);
 }
+
+/* ==========================================================================
+   0b. Light theme — "Pulse Paper"
+
+   Same structure, same accent, inverted surfaces: warm paper white with the
+   n8n ink-navy as text. The accent's hover darkens instead of lightening,
+   since light backgrounds need contrast to go the other way.
+   ========================================================================== */
+
+html[data-theme='light'] {
+  --canvas: #f6f5f1;
+  --surface-1: #ffffff;
+  --surface-2: #f1efe9;
+  --surface-3: #e9e6de;
+  --surface-4: #dfdbd0;
+
+  --hairline: #e3dfd5;
+  --hairline-strong: #cfc9bb;
+  --hairline-bright: #b3ac99;
+
+  --ink: #16182d;
+  --ink-muted: #383b54;
+  --ink-subtle: #575b76;
+  --ink-tertiary: #797d92;
+
+  --accent: #ea4b71;
+  --accent-hover: #c93158;
+  --accent-deep: #a52747;
+  --on-accent: #ffffff;
+
+  --g-card: rgba(255, 255, 255, 0.82);
+  --g-lift: rgba(246, 245, 241, 0.8);
+  --g-panel: rgba(255, 255, 255, 0.88);
+  --g-form: rgba(255, 255, 255, 0.86);
+  --g-cta: rgba(255, 255, 255, 0.94);
+  --g-pop: rgba(255, 255, 255, 0.98);
+  --g-bar: rgba(241, 239, 233, 0.9);
+  --g-input: rgba(255, 255, 255, 0.85);
+  --g-thread: rgba(250, 249, 246, 0.9);
+  --g-head: rgba(246, 245, 241, 0.85);
+  --g-head-s: rgba(246, 245, 241, 0.96);
+  --g-chip: rgba(233, 230, 222, 0.6);
+  --g-callout: rgba(238, 235, 228, 0.8);
+  --g-status: rgba(238, 235, 228, 0.85);
+  --g-hover: rgba(233, 230, 222, 0.9);
+  --g-tabsel: rgba(223, 219, 208, 0.85);
+
+  --edge: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+html[data-theme='light'] body::before {
+  background:
+    radial-gradient(120% 70% at 50% -10%, rgba(234, 75, 113, 0.05), transparent 62%),
+    radial-gradient(115% 105% at 50% 45%, transparent 55%, rgba(22, 24, 45, 0.07) 100%),
+    repeating-linear-gradient(180deg, rgba(22, 24, 45, 0.04) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(22, 24, 45, 0.024) 0 1px, transparent 1px 46px),
+    var(--canvas);
+}
+
+html[data-theme='light'] body::after {
+  opacity: 0.035;
+}
+
+html[data-theme='light'] .hero-grid {
+  background-image:
+    linear-gradient(rgba(22, 24, 45, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 24, 45, 0.05) 1px, transparent 1px);
+}
+
+/* Additive light would wash out on paper — multiply the particles instead */
+html[data-theme='light'] .bg-motion {
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+
+/* The halo lifts on dark; on paper it must tint */
+html[data-theme='light'] .cursor .c-halo {
+  mix-blend-mode: multiply;
+  background: radial-gradient(circle closest-side, rgba(234, 75, 113, 0.1), transparent 70%);
+}
+
+html[data-theme='light'] .cursor .c-dot {
+  box-shadow: 0 0 8px rgba(234, 75, 113, 0.6);
+}
+
+/* Scene + flow diagram surfaces */
+html[data-theme='light'] .scene .s-card { fill: url(#glass-s-light) #ffffff; stroke: #d6d0c1; }
+html[data-theme='light'] .scene .s-card-2 { fill: url(#glass-s-light) #f1efe9; stroke: #d6d0c1; }
+html[data-theme='light'] .scene .s-core { fill: url(#glass-s-core-light) #ffffff; stroke: #ea4b71; }
+html[data-theme='light'] .scene .s-wire { stroke: #c4bda9; }
+html[data-theme='light'] .scene .s-in { fill: url(#glass-s-light) #f1efe9; stroke: #d6d0c1; }
+html[data-theme='light'] .scene .s-ring { stroke: #ea4b71; }
+html[data-theme='light'] .scene .t-lg,
+html[data-theme='light'] .scene .t-md { fill: #16182d; }
+html[data-theme='light'] .scene .t-sm { fill: #383b54; }
+html[data-theme='light'] .scene .t-mono { fill: #797d92; }
+html[data-theme='light'] .scene .t-mono-lit { fill: #c93158; }
+html[data-theme='light'] .flow .node-box { fill: url(#glass-f-light) #ffffff; stroke: #d6d0c1; }
+html[data-theme='light'] .flow .node-box.is-core { fill: url(#glass-f-core-light) #fff5f7; stroke: #ea4b71; }
+html[data-theme='light'] .flow .node-label { fill: #16182d; }
+html[data-theme='light'] .flow .node-sub { fill: #797d92; }
+html[data-theme='light'] .flow .core-label { fill: #16182d; }
+html[data-theme='light'] .flow .wire { stroke: #c4bda9; }
+html[data-theme='light'] .flow .packet { fill: #ea4b71; }
+
+/* Message bubbles keep contrast on paper */
+html[data-theme='light'] .msg.in {
+  background: #f1efe9;
+  color: #383b54;
+}
+
+/* Theme button icons: show the opposite of the current theme */
+.theme-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-btn .i-sun { display: block; }
+.theme-btn .i-moon { display: none; }
+
+html[data-theme='light'] .theme-btn .i-sun { display: none; }
+html[data-theme='light'] .theme-btn .i-moon { display: block; }
 
 /* ==========================================================================
    1. Reset & base
@@ -182,10 +327,59 @@ ol {
   outline-offset: 2px;
 }
 
+/* Scrollbars follow the system: ink track, navy thumb, raspberry on grip.
+   Firefox via scrollbar-color, WebKit via the pseudo-elements. */
+html {
+  scrollbar-color: var(--surface-4) var(--canvas);
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--canvas);
+  border-left: 1px solid var(--hairline);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-4);
+  border: 2px solid var(--canvas);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--canvas);
+}
+
+/* Inner panels get a slimmer rail */
+.listbox-panel::-webkit-scrollbar,
+.tabs::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.listbox-panel::-webkit-scrollbar-track {
+  background: var(--surface-1);
+  border-left: 0;
+}
+
+.listbox-panel {
+  scrollbar-color: var(--hairline-bright) var(--surface-1);
+}
+
+/* Hidden above the viewport, not off to the side — a horizontal offset
+   counts toward scrollWidth under RTL. */
 .skip-link {
   position: absolute;
-  left: -9999px;
-  top: 0;
+  top: -120px;
+  inset-inline-start: 16px;
   z-index: 10000;
   padding: 10px 16px;
   background: var(--surface-3);
@@ -194,17 +388,20 @@ ol {
 }
 
 .skip-link:focus {
-  left: 16px;
   top: 16px;
 }
 
 /* ==========================================================================
-   2. Backdrop & cursor light
+   2. Backdrop, motion canvas & reticle cursor
 
-   Three fixed layers sit behind the page: ruled ledger lines for texture, a
-   warm vignette so the edges fall away, and paper grain over the top. The
-   cursor light rides above the content on `screen` blend, so it lifts
-   whatever it passes over instead of washing it out.
+   Layering, bottom to top:
+     body::before  (z -2)  ruled lines, raspberry bloom, vignette
+     .bg-motion    (z -1)  canvas flow-field — the "motion video", generated
+                           live so it weighs nothing, loops forever and
+                           matches the palette exactly
+     content       (z auto)
+     .cursor       (z 80)  reticle that trails the pointer
+     body::after   (z 90)  film grain
    ========================================================================== */
 
 body::before {
@@ -214,62 +411,131 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    /* warm bloom from the top */
-    radial-gradient(120% 70% at 50% -10%, rgba(194, 161, 91, 0.07), transparent 62%),
-    /* vignette */
-    radial-gradient(115% 105% at 50% 45%, transparent 42%, rgba(0, 0, 0, 0.5) 100%),
-    /* ledger rules */
-    repeating-linear-gradient(180deg, rgba(240, 234, 221, 0.021) 0 1px, transparent 1px 46px),
-    /* faint vertical ruling for a woven feel */
-    repeating-linear-gradient(90deg, rgba(240, 234, 221, 0.012) 0 1px, transparent 1px 46px),
+    radial-gradient(120% 70% at 50% -10%, rgba(234, 75, 113, 0.075), transparent 62%),
+    radial-gradient(115% 105% at 50% 45%, transparent 42%, rgba(0, 0, 0, 0.55) 100%),
+    repeating-linear-gradient(180deg, rgba(252, 252, 253, 0.02) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(252, 252, 253, 0.012) 0 1px, transparent 1px 46px),
     var(--canvas);
 }
 
-/* Paper grain */
+/* Film grain */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 70;
+  z-index: 90;
   pointer-events: none;
   opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.cursor-light {
+/* The generated motion background */
+.bg-motion {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------- reticle --- */
+
+/* Only engaged when JS confirms a fine pointer; until then the native
+   cursor is untouched. */
+html.cursor-live,
+html.cursor-live * {
+  cursor: none !important;
+}
+
+.cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 560px;
-  height: 560px;
-  margin: -280px 0 0 -280px;
-  border-radius: 50%;
+  z-index: 80;
   pointer-events: none;
-  z-index: 60;
   opacity: 0;
-  mix-blend-mode: screen;
   will-change: transform;
-  transition: opacity 0.5s var(--e-out);
-  background:
-    radial-gradient(circle closest-side,
-      rgba(216, 181, 110, 0.17),
-      rgba(194, 161, 91, 0.085) 38%,
-      rgba(194, 161, 91, 0.03) 62%,
-      transparent 76%);
+  transition: opacity 0.35s var(--e-out);
 }
 
-.cursor-light.is-on {
+.cursor.is-on {
   opacity: 1;
 }
 
-/* A broad, soft core so the light reads as a lamp rather than a speck */
-.cursor-light::after {
-  content: '';
+/* Centre dot — the precise point */
+.cursor .c-dot {
   position: absolute;
-  inset: 30%;
+  top: -2px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(234, 75, 113, 0.9);
+  transition: transform var(--d-base) var(--e-out), background-color var(--d-base) var(--e-out);
+}
+
+/* Corner brackets — a viewfinder that idles as a diamond and locks square
+   onto anything interactive */
+.cursor .c-frame {
+  position: absolute;
+  top: -17px;
+  left: -17px;
+  width: 34px;
+  height: 34px;
+  transform: rotate(45deg) scale(1);
+  transition: transform 0.34s var(--e-out);
+}
+
+.cursor .c-frame i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--ink-muted);
+}
+
+.cursor .c-frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.cursor .c-frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.cursor .c-frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.cursor .c-frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* Soft accent halo so the reticle carries a little light with it */
+.cursor .c-halo {
+  position: absolute;
+  top: -90px;
+  left: -90px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle closest-side, rgba(226, 197, 137, 0.13), transparent 72%);
+  background: radial-gradient(circle closest-side, rgba(234, 75, 113, 0.12), transparent 70%);
+  mix-blend-mode: screen;
+}
+
+/* Locked on: brackets square up, spread, and go raspberry */
+.cursor.is-lock .c-frame {
+  transform: rotate(0deg) scale(1.5);
+}
+
+.cursor.is-lock .c-frame i {
+  border-color: var(--accent);
+}
+
+.cursor.is-lock .c-dot {
+  transform: scale(0.5);
+  background: var(--accent-hover);
+}
+
+/* Pressed: the frame bites down */
+.cursor.is-down .c-frame {
+  transform: rotate(0deg) scale(1.05);
+}
+
+/* Over text fields the frame opens wide and fades so it never fights the caret */
+.cursor.is-text .c-frame {
+  transform: rotate(45deg) scale(2);
+  opacity: 0.25;
 }
 
 /* ==========================================================================
@@ -370,15 +636,15 @@ strong {
   color: var(--ink-tertiary);
 }
 
-/* Eyebrow — mono, uppercase, widely tracked, with a brass rule before it.
-   The classic editorial label. */
+/* Eyebrow — mono, uppercase, widely tracked, marked by a small diamond:
+   the reticle cursor's idle shape, standing in for the generic dash. */
 .eyebrow {
   display: flex;
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
   font-size: var(--t-eyebrow);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -387,9 +653,10 @@ strong {
 
 .eyebrow::before {
   content: '';
-  width: 22px;
-  height: 1px;
+  width: 6px;
+  height: 6px;
   background: var(--accent);
+  transform: rotate(45deg);
   flex: none;
 }
 
@@ -442,7 +709,7 @@ strong {
 /* Lifted sections are translucent so the backdrop and the cursor light
    still read through them. */
 .section--lift {
-  background: rgba(23, 20, 15, 0.72);
+  background: var(--g-lift);
   border-block: 1px solid var(--hairline);
 }
 
@@ -487,8 +754,8 @@ strong {
   border: 1px solid var(--hairline-strong);
   background: transparent;
   font-family: var(--font-mono);
-  font-size: var(--t-button);
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
   line-height: 1;
@@ -539,7 +806,7 @@ strong {
 .btn--secondary:hover {
   border-color: var(--accent);
   color: var(--accent-hover);
-  background: rgba(194, 161, 91, 0.07);
+  background: rgba(234, 75, 113, 0.07);
 }
 
 .btn--tertiary {
@@ -591,7 +858,7 @@ strong {
 
 .link--accent {
   color: var(--accent-hover);
-  border-bottom-color: rgba(194, 161, 91, 0.4);
+  border-bottom-color: rgba(234, 75, 113, 0.4);
 }
 
 .link--accent:hover {
@@ -606,7 +873,7 @@ strong {
   height: 26px;
   padding: 0 11px;
   border: 1px solid var(--hairline-strong);
-  background: rgba(36, 32, 26, 0.6);
+  background: var(--g-chip);
   font-family: var(--font-mono);
   font-size: var(--t-caption);
   letter-spacing: 0.06em;
@@ -632,7 +899,7 @@ strong {
   z-index: 100;
   display: flex;
   align-items: center;
-  background: rgba(16, 14, 11, 0.82);
+  background: var(--g-head);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
@@ -640,7 +907,7 @@ strong {
 }
 
 .header.is-scrolled {
-  background: rgba(16, 14, 11, 0.94);
+  background: var(--g-head-s);
   border-bottom-color: var(--hairline);
 }
 
@@ -657,24 +924,48 @@ strong {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-size: 1.1875rem;
-  letter-spacing: -0.005em;
+  gap: 11px;
   color: var(--ink);
   flex: none;
 }
 
+/* The mark: viewfinder brackets locking onto a raspberry node — the same
+   language as the reticle cursor, so the brand and the interaction match. */
 .logo svg {
-  width: 21px;
-  height: 21px;
+  width: 26px;
+  height: 26px;
   flex: none;
   color: var(--accent);
-  transition: color var(--d-base) var(--e-out);
+  transition: transform 0.4s var(--e-out), color var(--d-base) var(--e-out);
 }
 
 .logo:hover svg {
   color: var(--accent-hover);
+  transform: rotate(90deg);
+}
+
+/* The wordmark speaks in the site's own display voice — Instrument Serif in
+   Latin, Amiri in Arabic — so the name matches the headlines it sits above
+   and carries the same optical size in both languages. */
+.logo-text {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.logo-text em {
+  display: block;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-top: 4px;
 }
 
 .nav {
@@ -732,6 +1023,11 @@ strong {
 .header-actions .btn {
   height: 34px;
   padding: 0 14px;
+}
+
+.lang-btn {
+  min-width: 42px;
+  font-family: var(--font-mono);
 }
 
 .burger {
@@ -826,8 +1122,8 @@ body.is-locked {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(240, 234, 221, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 234, 221, 0.026) 1px, transparent 1px);
+    linear-gradient(rgba(252, 252, 253, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 252, 253, 0.026) 1px, transparent 1px);
   background-size: 92px 92px;
   mask-image: linear-gradient(180deg, #000 0%, transparent 68%);
   -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 68%);
@@ -886,7 +1182,7 @@ body.is-locked {
    ========================================================================== */
 
 .panel {
-  background: rgba(23, 20, 15, 0.82);
+  background: var(--g-panel);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
   overflow: hidden;
@@ -899,7 +1195,7 @@ body.is-locked {
   height: 42px;
   padding-inline: var(--s-md);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: var(--g-bar);
 }
 
 .panel-bar .dots {
@@ -952,7 +1248,7 @@ body.is-locked {
   gap: 6px var(--s-lg);
   padding: var(--s-sm) var(--s-md);
   border-top: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: var(--g-bar);
   font-family: var(--font-mono);
   font-size: var(--t-caption);
   letter-spacing: 0.06em;
@@ -971,44 +1267,47 @@ body.is-locked {
 
 .flow .wire {
   fill: none;
-  stroke: #4a422f;
+  stroke: #39406a;
   stroke-width: 1;
   stroke-linecap: round;
 }
 
+/* Glass panels: a specular gradient over a translucent base, corners cut at
+   45° — the chamfer is drawn into the path data, not a CSS radius. The hex
+   after each url() is the fallback if the gradient defs ever fail. */
 .flow .node-box {
-  fill: #1d1a14;
-  stroke: #3a3428;
+  fill: url(#glass-f) #121525;
+  stroke: #3b436f;
   stroke-width: 1;
 }
 
 .flow .node-box.is-core {
-  fill: #24201a;
-  stroke: #c2a15b;
+  fill: url(#glass-f-core) #181c30;
+  stroke: #ea4b71;
 }
 
 .flow .node-label {
-  fill: #f0eadd;
+  fill: #fcfcfd;
   font-family: var(--font-sans);
   font-size: 8.5px;
   font-weight: 500;
 }
 
 .flow .node-sub {
-  fill: #6f6656;
+  fill: #808699;
   font-family: var(--font-mono);
   font-size: 5.75px;
   letter-spacing: 0.2px;
 }
 
 .flow .core-label {
-  fill: #f0eadd;
+  fill: #fcfcfd;
   font-family: var(--font-display);
   font-size: 12px;
 }
 
 .flow .packet {
-  fill: #d9be83;
+  fill: #ff7195;
 }
 
 /* ==========================================================================
@@ -1074,21 +1373,21 @@ body.is-locked {
   opacity: 0;
 }
 
-.scene .s-card { fill: #17140f; stroke: #2e2a22; stroke-width: 1; }
-.scene .s-card-2 { fill: #1d1a14; stroke: #2e2a22; stroke-width: 1; }
-.scene .s-core { fill: #24201a; stroke: #c2a15b; stroke-width: 1.25; }
-.scene .s-wire { fill: none; stroke: #4a422f; stroke-width: 1.25; stroke-linecap: round; }
-.scene .s-in { fill: #1d1a14; stroke: #2e2a22; stroke-width: 1; }
-.scene .s-out { fill: #c2a15b; }
-.scene .s-accent { fill: #c2a15b; }
-.scene .s-ring { fill: none; stroke: #c2a15b; stroke-width: 1; }
+.scene .s-card { fill: url(#glass-s) #0d0f1a; stroke: #2b3150; stroke-width: 1; }
+.scene .s-card-2 { fill: url(#glass-s) #121525; stroke: #2b3150; stroke-width: 1; }
+.scene .s-core { fill: url(#glass-s-core) #181c30; stroke: #ea4b71; stroke-width: 1.25; }
+.scene .s-wire { fill: none; stroke: #39406a; stroke-width: 1.25; stroke-linecap: round; }
+.scene .s-in { fill: url(#glass-s) #121525; stroke: #2b3150; stroke-width: 1; }
+.scene .s-out { fill: #ea4b71; }
+.scene .s-accent { fill: #ea4b71; }
+.scene .s-ring { fill: none; stroke: #ea4b71; stroke-width: 1; }
 
-.scene .t-lg { fill: #f0eadd; font-family: var(--font-display); font-size: 17px; }
-.scene .t-md { fill: #f0eadd; font-family: var(--font-sans); font-size: 12px; font-weight: 500; }
-.scene .t-sm { fill: #cfc5b2; font-family: var(--font-sans); font-size: 11.5px; }
-.scene .t-out { fill: #14110c; font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; }
-.scene .t-mono { fill: #6f6656; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
-.scene .t-mono-lit { fill: #c2a15b; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
+.scene .t-lg { fill: #fcfcfd; font-family: var(--font-display); font-size: 17px; }
+.scene .t-md { fill: #fcfcfd; font-family: var(--font-sans); font-size: 12px; font-weight: 500; }
+.scene .t-sm { fill: #c8ccdc; font-family: var(--font-sans); font-size: 11.5px; }
+.scene .t-out { fill: #ffffff; font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; }
+.scene .t-mono { fill: #808699; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
+.scene .t-mono-lit { fill: #ea4b71; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; }
 
 .beats {
   display: flex;
@@ -1220,12 +1519,12 @@ body.is-locked {
   display: flex;
   flex-direction: column;
   padding: var(--s-lg);
-  background: rgba(23, 20, 15, 0.78);
+  background: var(--g-card);
   transition: background-color var(--d-slow) var(--e-out);
 }
 
 .card:hover {
-  background: rgba(36, 32, 26, 0.9);
+  background: var(--g-hover);
 }
 
 .card .glyph,
@@ -1357,23 +1656,25 @@ body.is-locked {
   align-items: center;
   gap: var(--s-md);
   padding: var(--s-lg);
-  background: rgba(23, 20, 15, 0.78);
+  background: var(--g-card);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
 }
 
+/* The brand mark stands in for the person — viewfinder brackets locking
+   onto the node, same as the header and the cursor. */
 .identity .avatar {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   flex: none;
-  border-radius: 50%;
   display: grid;
   place-items: center;
-  background: transparent;
-  border: 1px solid var(--accent);
-  font-family: var(--font-display);
-  font-size: 1.125rem;
   color: var(--accent);
+}
+
+.identity .avatar svg {
+  width: 38px;
+  height: 38px;
 }
 
 .identity .who {
@@ -1401,13 +1702,32 @@ body.is-locked {
 }
 
 .step {
+  position: relative;
   padding-top: var(--s-md);
   border-top: 1px solid var(--hairline);
-  transition: border-color var(--d-slow) var(--e-out);
 }
 
-.step.is-lit {
-  border-top-color: var(--accent);
+/* A short accent tick grows in from the reading edge instead of the whole
+   rule flooding raspberry — an editorial section marker, not a divider. */
+.step::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  inset-inline-start: 0;
+  width: 44px;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.7s var(--e-out);
+}
+
+[dir='rtl'] .step::after {
+  transform-origin: 100% 50%;
+}
+
+.step.is-lit::after {
+  transform: scaleX(1);
 }
 
 .step .n {
@@ -1451,7 +1771,7 @@ body.is-locked {
 .tabs {
   display: flex;
   border-bottom: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: var(--g-bar);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1494,7 +1814,7 @@ body.is-locked {
 
 .tab[aria-selected='true'] {
   color: var(--ink);
-  background: rgba(43, 38, 30, 0.7);
+  background: var(--g-tabsel);
 }
 
 .tab[aria-selected='true']::after {
@@ -1526,7 +1846,7 @@ body.is-locked {
 }
 
 .thread {
-  background: rgba(16, 14, 11, 0.8);
+  background: var(--g-thread);
   border: 1px solid var(--hairline);
   overflow: hidden;
   display: flex;
@@ -1540,7 +1860,7 @@ body.is-locked {
   gap: var(--s-sm);
   padding: var(--s-sm) var(--s-md);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: var(--g-bar);
 }
 
 .thread-top .src {
@@ -1657,7 +1977,7 @@ body.is-locked {
   gap: var(--s-sm);
   padding: var(--s-xs) var(--s-md);
   border-top: 1px solid var(--hairline);
-  background: rgba(29, 26, 20, 0.8);
+  background: var(--g-bar);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.06em;
@@ -1735,13 +2055,33 @@ body.is-locked {
    15. CTA
    ========================================================================== */
 
+@property --sweep {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .cta {
   position: relative;
-  background: rgba(23, 20, 15, 0.78);
-  border: 1px solid var(--hairline-strong);
+  border: 1px solid transparent;
+  /* A raspberry arc sweeps the hairline border — browsers without @property
+     simply show the static border underneath. */
+  background:
+    linear-gradient(var(--g-cta), var(--g-cta)) padding-box,
+    conic-gradient(from var(--sweep),
+      var(--hairline-strong) 0deg 285deg,
+      rgba(234, 75, 113, 0.9) 320deg,
+      #ff7195 335deg,
+      rgba(234, 75, 113, 0.9) 350deg,
+      var(--hairline-strong) 360deg) border-box;
+  animation: sweep 7s linear infinite;
   box-shadow: var(--edge);
   padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px);
   text-align: center;
+}
+
+@keyframes sweep {
+  to { --sweep: 360deg; }
 }
 
 /* Brass corner marks — a classic framing device */
@@ -1793,7 +2133,7 @@ body.is-locked {
    ========================================================================== */
 
 .form-panel {
-  background: rgba(23, 20, 15, 0.8);
+  background: var(--g-form);
   border: 1px solid var(--hairline);
   box-shadow: var(--edge);
   padding: clamp(20px, 3vw, 36px);
@@ -1833,7 +2173,7 @@ body.is-locked {
   width: 100%;
   min-height: 42px;
   padding: 10px 13px;
-  background: rgba(16, 14, 11, 0.75);
+  background: var(--g-input);
   border: 1px solid var(--hairline-strong);
   font-family: var(--font-sans);
   font-size: var(--t-body-sm);
@@ -1845,6 +2185,129 @@ body.is-locked {
   min-height: 132px;
   resize: vertical;
   line-height: 1.6;
+}
+
+/* When the custom listbox is live, the native select stays in the DOM for
+   the form value but leaves the visual stage. */
+.field.has-listbox > select {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.listbox {
+  position: relative;
+}
+
+.listbox-btn {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 38px 10px 13px;
+  background: var(--g-input);
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--d-base) var(--e-out);
+}
+
+.listbox-btn::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--ink-tertiary);
+  border-bottom: 1.5px solid var(--ink-tertiary);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform var(--d-base) var(--e-out), border-color var(--d-base) var(--e-out);
+}
+
+.listbox-btn:hover {
+  border-color: var(--hairline-bright);
+}
+
+.listbox-btn[aria-expanded='true'] {
+  border-color: var(--accent);
+}
+
+.listbox-btn[aria-expanded='true']::after {
+  transform: translateY(-30%) rotate(225deg);
+  border-color: var(--accent);
+}
+
+.listbox-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: 300px;
+  overflow-y: auto;
+  background: var(--g-pop);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--edge), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
+  display: none;
+}
+
+.listbox-panel.is-open {
+  display: block;
+}
+
+.listbox-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 13px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  color: var(--ink-subtle);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--d-fast) linear, color var(--d-fast) linear;
+}
+
+.listbox-opt:last-child {
+  border-bottom: 0;
+}
+
+/* The index number gives the panel the site's ruled-ledger read */
+.listbox-opt .n {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--ink-tertiary);
+  flex: none;
+  width: 18px;
+}
+
+.listbox-opt:hover,
+.listbox-opt.is-focus {
+  background: rgba(234, 75, 113, 0.09);
+  color: var(--ink);
+}
+
+.listbox-opt:hover .n,
+.listbox-opt.is-focus .n {
+  color: var(--accent);
+}
+
+.listbox-opt[aria-selected='true'] {
+  color: var(--ink);
+  background: var(--surface-2);
+  border-left: 2px solid var(--accent);
+  padding-left: 11px;
 }
 
 .field select {
@@ -1866,20 +2329,20 @@ body.is-locked {
 .field textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: inset 0 0 0 1px rgba(194, 161, 91, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(234, 75, 113, 0.35);
 }
 
 .field .err {
   display: none;
   font-family: var(--font-mono);
   font-size: var(--t-caption);
-  color: #cf8b6a;
+  color: #ff9f6e;
 }
 
 .field.is-invalid input,
 .field.is-invalid select,
 .field.is-invalid textarea {
-  border-color: #cf8b6a;
+  border-color: #ff9f6e;
 }
 
 .field.is-invalid .err {
@@ -1901,7 +2364,7 @@ body.is-locked {
 .form-status {
   display: none;
   padding: var(--s-sm) var(--s-md);
-  background: rgba(36, 32, 26, 0.8);
+  background: var(--g-status);
   border: 1px solid var(--hairline-strong);
   border-left: 2px solid var(--accent);
   font-size: var(--t-body-sm);
@@ -2102,7 +2565,7 @@ body.is-locked {
 
 .prose a {
   color: var(--accent-hover);
-  border-bottom: 1px solid rgba(194, 161, 91, 0.4);
+  border-bottom: 1px solid rgba(234, 75, 113, 0.4);
 }
 
 .prose a:hover {
@@ -2111,7 +2574,7 @@ body.is-locked {
 
 .prose .callout {
   padding: var(--s-md);
-  background: rgba(36, 32, 26, 0.7);
+  background: var(--g-callout);
   border: 1px solid var(--hairline);
   border-left: 2px solid var(--accent);
 }
@@ -2188,7 +2651,7 @@ body.is-locked {
 .footer-col h4 {
   font-family: var(--font-mono);
   font-size: var(--t-caption);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-subtle);
@@ -2244,6 +2707,265 @@ body.is-locked {
 
 .socials a:hover {
   color: var(--accent);
+}
+
+/* ==========================================================================
+   18b. Arabic & RTL
+
+   The Arabic voice gets the same care as the Latin one:
+     display  — Amiri (a Naskh with real calligraphic feeling, the
+                counterpart of Instrument Serif)
+     body/UI  — IBM Plex Sans Arabic (the Arabic cut of the body family)
+   Letter-spacing is zeroed wholesale: tracking breaks Arabic letter
+   joining. dir=rtl flips flex/grid/text automatically; the physical
+   left/right properties that remain are mirrored here.
+   ========================================================================== */
+
+html[lang='ar'] {
+  --font-display: 'Amiri', 'Noto Naskh Arabic', 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  --font-mono: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+}
+
+html[lang='ar'] body {
+  line-height: 1.85;
+}
+
+/* Tracking breaks Arabic joining — remove it everywhere */
+html[lang='ar'] *,
+html[lang='ar'] *::before,
+html[lang='ar'] *::after {
+  letter-spacing: 0 !important;
+}
+
+html[lang='ar'] h1,
+html[lang='ar'] h2,
+html[lang='ar'] .headline {
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+html[lang='ar'] .hero h1 {
+  line-height: 1.4;
+}
+
+/* Latin fragments that stay (tech labels, emails) keep their voices */
+html[lang='ar'] .panel-bar .name,
+html[lang='ar'] .thread-top .who span,
+html[lang='ar'] .cta .fine,
+html[lang='ar'] .drawer-foot .mono {
+  font-family: 'Space Mono', ui-monospace, monospace;
+}
+
+/* The Arabic wordmark inherits --font-display (Amiri) from .logo-text.
+   Amiri renders optically smaller than Instrument Serif, so it gets a
+   nudge up and the weight the Naskh needs at this size. */
+html[lang='ar'] .logo-text {
+  font-size: 1.4375rem;
+  font-weight: 700;
+}
+
+html[lang='ar'] .logo-text em {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* Long Arabic labels must never leave the frame: fixed-height nowrap
+   components switch to wrapping with a minimum height instead. */
+html[lang='ar'] .btn {
+  white-space: normal;
+  height: auto;
+  min-height: 42px;
+  padding-block: 9px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+html[lang='ar'] .btn--lg {
+  height: auto;
+  min-height: 48px;
+}
+
+html[lang='ar'] .header-actions .btn {
+  height: auto;
+  min-height: 34px;
+  padding-block: 5px;
+}
+
+html[lang='ar'] .status {
+  height: auto;
+  min-height: 26px;
+  padding-block: 3px;
+  white-space: normal;
+}
+
+html[lang='ar'] .thread-top .tag {
+  height: auto;
+  min-height: 21px;
+  white-space: normal;
+}
+
+/* Amiri's tall ascenders and marks must not be clipped by the reveal
+   containers or tight display line-heights. */
+html[lang='ar'] .hero h1 {
+  line-height: 1.55;
+}
+
+html[lang='ar'] .hero h1 .line {
+  overflow: visible;
+}
+
+html[lang='ar'] h2,
+html[lang='ar'] .acc-btn,
+html[lang='ar'] .step h3,
+html[lang='ar'] .tab-panel h3 {
+  line-height: 1.5;
+}
+
+/* Physical-side properties mirrored for RTL */
+/* Mixed digit/word values ("<1 يوم", "24/7") keep logical order */
+[dir='rtl'] .metrics dt,
+[dir='rtl'] .stats .v {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* SVG scenes are drawn on absolute LTR coordinates. Inherited rtl direction
+   re-anchors every <text> so labels escape their boxes — pin the diagrams to
+   ltr; Arabic runs inside a label still shape and order correctly. */
+[dir='rtl'] .flow,
+[dir='rtl'] .scene {
+  direction: ltr;
+}
+
+[dir='rtl'] .card .idx {
+  right: auto;
+  left: 24px;
+}
+
+[dir='rtl'] .checks li {
+  padding-left: 0;
+  padding-right: 22px;
+}
+
+[dir='rtl'] .checks li::before {
+  left: auto;
+  right: 0;
+}
+
+[dir='rtl'] .nav {
+  margin-left: 0;
+  margin-right: 32px;
+}
+
+[dir='rtl'] .header-actions {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .beats {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .panel-bar .state {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .thread-top .tag {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir='rtl'] .listbox-btn {
+  text-align: right;
+  padding: 10px 13px 10px 38px;
+}
+
+[dir='rtl'] .listbox-btn::after {
+  right: auto;
+  left: 14px;
+}
+
+[dir='rtl'] .listbox-opt {
+  text-align: right;
+}
+
+[dir='rtl'] .listbox-opt[aria-selected='true'] {
+  border-left: 0;
+  border-right: 2px solid var(--accent);
+  padding-left: 13px;
+  padding-right: 11px;
+}
+
+[dir='rtl'] .field select {
+  background-position: left 13px center;
+  padding-right: 13px;
+  padding-left: 38px;
+}
+
+[dir='rtl'] .msg.in {
+  border-left: 1px solid var(--hairline);
+  border-right: 2px solid var(--hairline-bright);
+}
+
+[dir='rtl'] .msg.out {
+  border-right: 0;
+  border-left: 2px solid var(--accent-deep);
+}
+
+[dir='rtl'] .prose ul li::before {
+  left: auto;
+  right: -18px;
+}
+
+[dir='rtl'] .prose ul,
+[dir='rtl'] .prose ol {
+  padding-left: 0;
+  padding-right: 24px;
+}
+
+[dir='rtl'] .steps-list li {
+  padding: 16px 38px 16px 0 !important;
+}
+
+[dir='rtl'] .steps-list li::before {
+  left: auto !important;
+  right: 0 !important;
+}
+
+[dir='rtl'] .toc {
+  border-left: 0;
+  border-right: 1px solid var(--hairline);
+}
+
+[dir='rtl'] .toc a {
+  border-left: 0;
+  border-right: 2px solid transparent;
+  margin-left: 0;
+  margin-right: -1px;
+}
+
+[dir='rtl'] .toc a.is-current {
+  border-right-color: var(--accent);
+}
+
+[dir='rtl'] .form-status {
+  border-left: 1px solid var(--hairline-strong);
+  border-right: 2px solid var(--accent);
+}
+
+[dir='rtl'] .prose .callout {
+  border-left: 1px solid var(--hairline);
+  border-right: 2px solid var(--accent);
+}
+
+[dir='rtl'] ::-webkit-scrollbar-track {
+  border-left: 0;
+  border-right: 1px solid var(--hairline);
 }
 
 /* ==========================================================================
@@ -2372,9 +3094,11 @@ body.is-locked {
   }
 }
 
-/* The light is a pointer affordance; touch devices never see it */
+/* Pointer-only chrome: never on touch. The canvas also stays off there to
+   save battery — the static backdrop carries the texture alone. */
 @media (hover: none), (pointer: coarse) {
-  .cursor-light {
+  .cursor,
+  .bg-motion {
     display: none;
   }
 }
@@ -2412,8 +3136,13 @@ body.is-locked {
     opacity: 1;
   }
 
-  .cursor-light {
+  .cursor,
+  .bg-motion {
     display: none;
+  }
+
+  .cta {
+    animation: none;
   }
 }
 
@@ -2422,7 +3151,8 @@ body.is-locked {
   .drawer,
   .footer,
   .hero-grid,
-  .cursor-light,
+  .cursor,
+  .bg-motion,
   body::before,
   body::after {
     display: none !important;

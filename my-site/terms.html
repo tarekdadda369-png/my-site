@@ -9,7 +9,7 @@
 <meta name="author" content="Tarik Dadda">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://service.co.im/terms.html">
-<meta name="theme-color" content="#100e0b">
+<meta name="theme-color" content="#07080f">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://service.co.im/terms.html">
@@ -25,14 +25,27 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=pulse-6">
 
 <script>
   (function () {
     var d = document.documentElement;
     d.classList.add('js');
     d.classList.remove('no-js');
+    /* Language boots before paint: direction + Arabic fonts, so RTL never
+       flashes LTR. The strings themselves are swapped by script.js. */
+    try {
+      if (localStorage.getItem('site-theme') === 'light') d.dataset.theme = 'light';
+      if (localStorage.getItem('site-lang') === 'ar') {
+        d.lang = 'ar';
+        d.dir = 'rtl';
+        var f = document.createElement('link');
+        f.rel = 'stylesheet';
+        f.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap';
+        document.head.appendChild(f);
+      }
+    } catch (e) {}
     setTimeout(function () {
       if (!window.__siteReady) d.classList.add('reveal-all');
     }, 2500);
@@ -40,7 +53,12 @@
 </script>
 </head>
 <body>
-<div class="cursor-light" aria-hidden="true"></div>
+<canvas class="bg-motion" aria-hidden="true"></canvas>
+<div class="cursor" aria-hidden="true">
+  <span class="c-halo"></span>
+  <span class="c-frame"><i></i><i></i><i></i><i></i></span>
+  <span class="c-dot"></span>
+</div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ================================================================ HEADER -->
@@ -48,10 +66,15 @@
   <div class="header-inner">
     <a class="logo" href="index.html" aria-label="Tarik Dadda — home">
       <svg viewBox="0 0 32 32" aria-hidden="true">
-        <g fill="currentColor"><circle cx="9" cy="10" r="2.4"/><circle cx="9" cy="22" r="2.4"/><circle cx="23" cy="16" r="3.2"/></g>
-        <path d="M11.4 11.2 20 14.6M11.4 20.8 20 17.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none" opacity=".6"/>
+        <g stroke="currentColor" stroke-width="2" fill="none">
+          <path d="M3 10 V5 a2 2 0 0 1 2-2 h5"/>
+          <path d="M22 3 h5 a2 2 0 0 1 2 2 v5"/>
+          <path d="M29 22 v5 a2 2 0 0 1-2 2 h-5"/>
+          <path d="M10 29 H5 a2 2 0 0 1-2-2 v-5"/>
+        </g>
+        <rect x="12" y="12" width="8" height="8" fill="currentColor"/>
       </svg>
-      <span>Tarik Dadda</span>
+      <span class="logo-text">Tarik Dadda<em>Automation studio</em></span>
     </a>
 
     <nav class="nav" aria-label="Main">
@@ -62,6 +85,11 @@
     </nav>
 
     <div class="header-actions">
+      <button class="btn btn--tertiary theme-btn" type="button" data-theme-toggle aria-label="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="btn btn--tertiary lang-btn" type="button" data-lang-toggle aria-label="التبديل إلى العربية">عربي</button>
       <a class="btn btn--secondary" href="mailto:contact@service.co.im">Email</a>
       <a class="btn btn--primary" href="contact.html">Book an audit</a>
       <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
@@ -77,6 +105,7 @@
   <a class="drawer-link" href="about.html">About</a>
   <a class="drawer-link" href="contact.html">Contact</a>
   <div class="drawer-foot">
+    <button class="btn btn--secondary btn--block lang-btn" type="button" data-lang-toggle aria-label="التبديل إلى العربية">عربي · AR</button>
     <p class="mono">contact@service.co.im</p>
     <a class="btn btn--primary btn--lg btn--block" href="contact.html">Book an audit</a>
   </div>
@@ -230,10 +259,15 @@
       <div class="footer-brand">
         <a class="logo" href="index.html">
           <svg viewBox="0 0 32 32" aria-hidden="true">
-            <g fill="currentColor"><circle cx="9" cy="10" r="2.4"/><circle cx="9" cy="22" r="2.4"/><circle cx="23" cy="16" r="3.2"/></g>
-            <path d="M11.4 11.2 20 14.6M11.4 20.8 20 17.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none" opacity=".6"/>
-          </svg>
-          <span>Tarik Dadda</span>
+        <g stroke="currentColor" stroke-width="2" fill="none">
+          <path d="M3 10 V5 a2 2 0 0 1 2-2 h5"/>
+          <path d="M22 3 h5 a2 2 0 0 1 2 2 v5"/>
+          <path d="M29 22 v5 a2 2 0 0 1-2 2 h-5"/>
+          <path d="M10 29 H5 a2 2 0 0 1-2-2 v-5"/>
+        </g>
+        <rect x="12" y="12" width="8" height="8" fill="currentColor"/>
+      </svg>
+          <span class="logo-text">Tarik Dadda<em>Automation studio</em></span>
         </a>
         <p>Custom AI automation systems for businesses in Algeria. Practical solutions, real results, no hype.</p>
         <span class="status"><i aria-hidden="true"></i>Available for new projects</span>
@@ -292,6 +326,6 @@
 
 <script src="vendor/anime.umd.min.js" defer></script>
 <script src="vendor/motion.umd.min.js" defer></script>
-<script src="script.js" defer></script>
+<script src="script.js?v=pulse-6" defer></script>
 </body>
 </html>
