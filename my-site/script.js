@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TARIK DADDA — AI Automation
+   Dadda Tarek — AI Automation
    Interaction & motion layer
 
    Libraries (vendored UMD globals, no build step, no CDN):
@@ -258,12 +258,12 @@
     /* about block */
     "Who you work with": "مع من تعمل",
     "A specialist, not a call centre": "متخصص، لا مركز اتصال",
-    "I'm Tarik Dadda. I build AI automation for small and medium businesses across Algeria — distributors, importers, wholesalers, service companies and local shops losing hours to messages, forms and copy-paste.": "أنا طارق دادة. أبني أتمتة بالذكاء الاصطناعي للشركات الصغيرة والمتوسطة في الجزائر — موزّعون ومستوردون وتجار جملة وشركات خدمات ومحلات تخسر ساعات في الرسائل والنماذج والنسخ واللصق.",
+    "I'm Dadda Tarek. I build AI automation for small and medium businesses across Algeria — distributors, importers, wholesalers, service companies and local shops losing hours to messages, forms and copy-paste.": "أنا طارق دادة. أبني أتمتة بالذكاء الاصطناعي للشركات الصغيرة والمتوسطة في الجزائر — موزّعون ومستوردون وتجار جملة وشركات خدمات ومحلات تخسر ساعات في الرسائل والنماذج والنسخ واللصق.",
     "You talk to the person who builds the system. No account managers relaying requirements, no surprises about what was actually delivered.": "تتحدث مباشرة مع من يبني النظام. لا مدراء حسابات ينقلون المتطلبات، ولا مفاجآت فيما سُلِّم فعلاً.",
     "The work is deliberately unglamorous: fewer missed messages, faster quotes, cleaner data, and a team that stops doing the same thing forty times a day.": "العمل بلا بهرجة عن قصد: رسائل ضائعة أقل، عروض أسعار أسرع، بيانات أنظف، وفريق يتوقف عن تكرار الشيء نفسه أربعين مرة في اليوم.",
     "Start a conversation": "ابدأ محادثة",
     "More about the approach": "المزيد عن المنهجية",
-    "Tarik Dadda": "طارق دادة",
+    "Dadda Tarek": "طارق دادة",
     "AI Automation Specialist · Algeria": "متخصص أتمتة بالذكاء الاصطناعي · الجزائر",
     "Works remotely with clients nationwide": "يعمل عن بُعد مع عملاء في كل الولايات",
     "Arabic, French and English — including the mix customers write in": "العربية والفرنسية والإنجليزية — بما فيها الخليط الذي يكتب به العملاء",
@@ -379,7 +379,7 @@
     "9. Third-party links": "9. روابط الأطراف الثالثة",
     "10. Changes to this policy": "10. تعديلات هذه السياسة",
     "11. Contact us": "11. تواصل معنا",
-    "This Privacy Policy describes how TARIK DADDA (\"we\", \"us\", or \"our\") collects, uses and protects your personal information when you visit our website at service.co.im or use our services.": "توضح سياسة الخصوصية هذه كيف يجمع طارق دادة («نحن») معلوماتك الشخصية ويستخدمها ويحميها عند زيارتك موقعنا service.co.im أو استخدامك خدماتنا.",
+    "This Privacy Policy describes how Dadda Tarek (\"we\", \"us\", or \"our\") collects, uses and protects your personal information when you visit our website at service.co.im or use our services.": "توضح سياسة الخصوصية هذه كيف يجمع طارق دادة («نحن») معلوماتك الشخصية ويستخدمها ويحميها عند زيارتك موقعنا service.co.im أو استخدامك خدماتنا.",
     "The short version.": "الخلاصة.",
     "We collect what you send us so we can reply and do the work. We do not sell your data. We only touch your social or business accounts after you explicitly connect them, and only for the automation you asked for.": "نجمع ما ترسله إلينا لنتمكن من الرد وإنجاز العمل. لا نبيع بياناتك. ولا نلمس حساباتك الاجتماعية أو التجارية إلا بعد أن تربطها بنفسك صراحةً، ولأجل الأتمتة التي طلبتها فقط.",
     "We collect information that you provide directly to us, as well as information collected automatically when you use our website or services.": "نجمع المعلومات التي تقدمها لنا مباشرة، إضافة إلى معلومات تُجمع تلقائياً عند استخدامك موقعنا أو خدماتنا.",
@@ -456,8 +456,8 @@
     "10. Governing law": "10. القانون المطبَّق",
     "11. Changes to these terms": "11. تعديلات هذه الشروط",
     "12. Contact": "12. التواصل",
-    "These Terms of Service (\"Terms\") govern your access to and use of the services provided by TARIK DADDA (\"we\", \"us\", or \"our\"), including our website at service.co.im and any custom AI automation systems we build for you. By using our services, you agree to be bound by these Terms.": "تحكم شروط الخدمة هذه («الشروط») وصولك إلى الخدمات التي يقدمها طارق دادة («نحن») واستخدامك لها، بما في ذلك موقعنا service.co.im وأي أنظمة أتمتة مخصّصة نبنيها لك. باستخدامك خدماتنا فأنت توافق على الالتزام بهذه الشروط.",
-    "TARIK DADDA provides custom AI automation services for businesses, including but not limited to:": "يقدم طارق دادة خدمات أتمتة مخصّصة بالذكاء الاصطناعي للشركات، ومنها على سبيل المثال لا الحصر:",
+    "These Terms of Service (\"Terms\") govern your access to and use of the services provided by Dadda Tarek (\"we\", \"us\", or \"our\"), including our website at service.co.im and any custom AI automation systems we build for you. By using our services, you agree to be bound by these Terms.": "تحكم شروط الخدمة هذه («الشروط») وصولك إلى الخدمات التي يقدمها طارق دادة («نحن») واستخدامك لها، بما في ذلك موقعنا service.co.im وأي أنظمة أتمتة مخصّصة نبنيها لك. باستخدامك خدماتنا فأنت توافق على الالتزام بهذه الشروط.",
+    "Dadda Tarek provides custom AI automation services for businesses, including but not limited to:": "يقدم طارق دادة خدمات أتمتة مخصّصة بالذكاء الاصطناعي للشركات، ومنها على سبيل المثال لا الحصر:",
     "Social media automation (Instagram, Facebook Messenger, WhatsApp)": "أتمتة وسائل التواصل (إنستغرام، فيسبوك ماسنجر، واتساب)",
     "Email automation and workflow design": "أتمتة البريد الإلكتروني وتصميم المسارات",
     "AI agent development and deployment": "تطوير وكلاء الذكاء الاصطناعي ونشرهم",
@@ -2095,3 +2095,4 @@
     });
   });
 })();
+

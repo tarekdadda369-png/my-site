@@ -2,7 +2,7 @@
   "name": "tarik-dadda-site",
   "version": "2.0.0",
   "private": true,
-  "description": "Marketing site for TARIK DADDA \u2014 custom AI automation for Algerian businesses (service.co.im)",
+  "description": "Marketing site for Dadda Tarek \u2014 custom AI automation for Algerian businesses (service.co.im)",
   "license": "UNLICENSED",
   "scripts": {
     "vendor": "mkdir -p my-site/vendor && cp node_modules/animejs/dist/bundles/anime.umd.min.js my-site/vendor/anime.umd.min.js && cp node_modules/motion/dist/motion.js my-site/vendor/motion.umd.min.js && cp node_modules/animejs/LICENSE.md my-site/vendor/LICENSE-animejs.md && cp node_modules/motion/LICENSE.md my-site/vendor/LICENSE-motion.md",
@@ -14,3 +14,4 @@
     "motion": "^12.42.2"
   }
 }
+
