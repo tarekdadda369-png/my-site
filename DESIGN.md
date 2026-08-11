@@ -1,6 +1,6 @@
 # DESIGN.md — service.co.im
 
-The design language for Tarik Dadda's site. **Read this before changing any
+The design language for Dadda Tarek's site. **Read this before changing any
 UI.** Most rules here are asserted by the browser test (see Enforcement).
 
 The system is called **Pulse**: the Ledger structure (sharp edges, serif
@@ -285,3 +285,4 @@ It also verifies the animatic scrubs monotonically and reverses, the cursor
 light tracks the pointer on `screen` blend and is hidden on touch and under
 reduced motion, and that the site still works with the vendor bundles blocked
 and with `script.js` blocked.
+

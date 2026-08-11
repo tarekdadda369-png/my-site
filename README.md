@@ -1,4 +1,4 @@
-# service.co.im — Tarik Dadda
+# service.co.im — Dadda Tarek
 
 Marketing site for a custom AI-automation studio serving businesses in Algeria.
 
@@ -145,3 +145,4 @@ Then delete the `data-todo` attribute. Also worth doing:
 - **Output directory:** `my-site`
 - `_headers` sets security headers and caches `vendor/*` for a year.
 - `404.html` is picked up automatically for static sites.
+
